@@ -1,7 +1,10 @@
 package main
 
-import "fmt"
-
-func main() {
-	fmt.Println("Hello, World!")
+type Personnage struct {
+	nom        string
+	classe     string
+	niveau     int
+	pvmax      int
+	pvact      int
+	inventaire []string
 }
