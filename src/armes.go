@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 type Armes struct {
 	// Nom
 	nom string
@@ -10,7 +8,7 @@ type Armes struct {
 	lvlMinDex int
 	lvlMinInt int
 	// Stat Damage
-	deg int
+	deg   int
 	poids int
 }
 
@@ -21,9 +19,10 @@ func (a *Armes) Init(nom string, lvlMinFor, lvlMinDex, lvlMinInt, deg, poids int
 	a.lvlMinInt = lvlMinInt
 	a.deg = deg
 	a.poids = poids
-	
+
 }
 
-//Test
-var Dague Armes
-Dague.Init(Dague, 9, 11, 8, 20, 3)
+func main() {
+	var Dague Armes
+	Dague.Init("Dague", 9, 11, 8, 20, 3)
+}
