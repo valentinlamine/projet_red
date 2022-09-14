@@ -9,7 +9,6 @@ type Armes struct {
 	lvlMinFor int
 	lvlMinDex int
 	lvlMinInt int
-
 	// Stat Damage
 	deg int
 	poids int
@@ -17,11 +16,9 @@ type Armes struct {
 
 func (a *Armes) Init(nom string, lvlMinFor, lvlMinDex, lvlMinInt, deg, poids int) {
 	a.nom = nom
-
 	a.lvlMinFor = lvlMinFor
 	a.lvlMinDex = lvlMinDex
 	a.lvlMinInt = lvlMinInt
-
 	a.deg = deg
 	a.poids = poids
 	
