@@ -68,44 +68,35 @@ func affichage(list []string) {
 
 func (p *Personnage) Init(nom, classe string) {
 	if classe == "Guerrrier" {
-		p.nom = nom
-		p.classe = classe
 		p.niveau = 1
 		p.pvmax = 10
 		p.vitalite = 11
 		p.force = 13
 		p.dexterite = 13
 		p.intelligence = 9
-		p.pvact = p.pvmax
 	} else if classe == "Chevalier" {
-		p.nom = nom
-		p.classe = classe
 		p.niveau = 1
 		p.pvmax = 10
 		p.vitalite = 14
 		p.force = 11
 		p.dexterite = 11
 		p.intelligence = 9
-		p.pvact = p.pvmax
 	} else if classe == "Pyromancien" {
-		p.nom = nom
-		p.classe = classe
 		p.niveau = 1
 		p.pvmax = 10
 		p.vitalite = 10
 		p.force = 12
 		p.dexterite = 9
 		p.intelligence = 10
-		p.pvact = p.pvmax
 	} else if classe == "Mendiant" {
-		p.nom = nom
-		p.classe = classe
 		p.niveau = 1
 		p.pvmax = 10
 		p.vitalite = 11
 		p.force = 11
 		p.dexterite = 11
 		p.intelligence = 11
-		p.pvact = p.pvmax
 	}
+	p.nom = nom
+	p.classe = classe
+	p.pvact = p.pvmax
 }
