@@ -8,10 +8,12 @@ import (
 
 // initialisation des variables
 var p1 database.Personnage
+var carte database.Arbre
 
 func main() {
 	setup_personnage()
 	Affichage_Personnage(p1)
+	carte.Init()
 
 }
 
