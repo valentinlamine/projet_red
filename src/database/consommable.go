@@ -29,7 +29,7 @@ func (c *Consommable) InitIntern_Consommable(nom string, prix, quantite, pvBonus
 }
 
 func (c *Consommable) Init_Consommable(nom string) {
-	if nom == "Fiole d'Estus" { //Potion de vie
+	if nom == "Fiole d'Estus" { //Potion de vie, se recupère aux Feux
 		c.InitIntern_Consommable(nom, 0, 3, 50, 0, 0, 0, 0)
 	} else if nom == "Résine de pin doré" { //Potion de force
 		c.InitIntern_Consommable(nom, 0, 3, 0, 2, 0, 0, 0)
