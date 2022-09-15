@@ -15,7 +15,7 @@ type Personnage struct {
 	Inventaire [][]string
 }
 
-func (p *Personnage) Init(nom, classe string, Vit, For, Dex, Int int) {
+func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int int) {
 	p.Nom = nom
 	p.Classe = classe
 	p.Niveau = 1
@@ -28,14 +28,14 @@ func (p *Personnage) Init(nom, classe string, Vit, For, Dex, Int int) {
 
 }
 
-func (p *Personnage) Init2(nom, classe string) {
+func (p *Personnage) Init(nom, classe string) {
 	if classe == "Guerrrier" {
-		p.Init(nom, "Guerrier", 11, 12, 9, 8)
+		p.InitIntern(nom, "Guerrier", 11, 12, 9, 8)
 	} else if classe == "Chevalier" {
-		p.Init(nom, "Chevalier", 10, 11, 8, 10)
+		p.InitIntern(nom, "Chevalier", 10, 11, 8, 10)
 	} else if classe == "Pyromancien" {
-		p.Init(nom, "Pyromancien", 9, 9, 11, 12)
+		p.InitIntern(nom, "Pyromancien", 9, 9, 11, 12)
 	} else if classe == "Mendiant" {
-		p.Init(nom, "Mendiant", 10, 10, 10, 10)
+		p.InitIntern(nom, "Mendiant", 10, 10, 10, 10)
 	}
 }
