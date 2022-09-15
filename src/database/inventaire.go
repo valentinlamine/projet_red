@@ -9,6 +9,8 @@ var bâton Armes
 var hachequeue Armes
 
 //Liste des variables des boucliers
+var 
+
 
 type Inventaire struct {
 	Liste_armes        []Armes

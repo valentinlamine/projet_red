@@ -68,14 +68,16 @@ func (b *Boucliers) InitIntern_Bouclier(nom string, lvlMinFor, lvlMinDex, lvlMin
 
 func (b *Boucliers) Init_Bouclier(nom string) {
 	if nom == "Bouclier en bois" {
-		b.InitIntern_Bouclier("Bouclier en bois", 9, 11, 8, 20, 3)
-	} else if nom == "Bouclier en fer" {
-		b.InitIntern_Bouclier("Bouclier en fer", 11, 9, 8, 50, 8)
-	} else if nom == "Bouclier en acier" {
-		b.InitIntern_Bouclier("Bouclier en acier", 9, 12, 9, 35, 5)
-	} else if nom == "Bouclier en mithril" {
-		b.InitIntern_Bouclier("Bouclier en mithril", 10, 14, 10, 40, 6)
+		b.InitIntern_Bouclier("Bouclier en bois", 9, 8, 8, 20, 3)
 	} else if nom == "Bouclier en bois de cerf" {
-		b.InitIntern_Bouclier("Bouclier en bois de cerf", 14, 10, 8, 60, 12)
+		b.InitIntern_Bouclier("Bouclier en bois de cerf", 10, 8, 8, 40, 5)
+	} else if nom == "Bouclier en fer" {
+		b.InitIntern_Bouclier("Bouclier en fer", 12, 8, 8, 75, 9)
+	} else if nom == "Bouclier en acier" {
+		b.InitIntern_Bouclier("Bouclier en acier", 10, 12, 9, 65, 5)
+	} else if nom == "Bouclier en mithril" {
+		b.InitIntern_Bouclier("Bouclier en mithril", 12, 16, 10, 120, 6)
+	} else if nom == "Bouclier d'Havel" {
+		b.InitIntern_Bouclier("Bouclier d'Havel", 20, 10, 10, 175, 20)
 	}
 }
