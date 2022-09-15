@@ -1,21 +1,23 @@
 package database
 
-type Consomable struct {
+type Consommable struct {
 	//Nom
-	nom string
+	Nom string
+	//Classe
+	Classe string
 	//Prix
-	prix int
+	Prix int
 	//Quantité
-	quantite int
+	Quantite int
 	//Bonus
-	pvBonus          int
-	multiLvlFor      int
-	multiLvlDex      int
-	multiLvlInt      int
-	multiLvlPoidsMax int
+	PvBonus          int
+	MultiLvlFor      int
+	MultiLvlDex      int
+	MultiLvlInt      int
+	MultiLvlPoidsMax int
 }
 
-func (c *Consomable) InitIntern(nom, classe string, prix, quantite, pvBonus, multiLvlFor, multiLvlDex, multiLvlInt, multiLvlPoidsMax int) {
+func (c *Consommable) InitIntern_Consommable(nom, classe string, prix, quantite, pvBonus, multiLvlFor, multiLvlDex, multiLvlInt, multiLvlPoidsMax int) {
 	c.Nom = nom
 	c.Classe = classe
 	c.Prix = prix
@@ -27,7 +29,8 @@ func (c *Consomable) InitIntern(nom, classe string, prix, quantite, pvBonus, mul
 	c.MultiLvlPoidsMax = multiLvlPoidsMax
 }
 
-func (c *Consomable) Init(nom string) {
+func (c *Consommable) Init_Consommable(nom string) {
 	if nom == "Fiole d'Estus" {
-		
+
+	}
 }
