@@ -28,13 +28,13 @@ func setup_personnage() {
 	}
 	switch classe {
 	case 1:
-		p1.Init(nom, "Guerrier")
+		p1.Init2(nom, "Guerrier")
 	case 2:
-		p1.Init(nom, "Chevalier")
+		p1.Init2(nom, "Chevalier")
 	case 3:
-		p1.Init(nom, "Pyromancien")
+		p1.Init2(nom, "Pyromancien")
 	case 4:
-		p1.Init(nom, "Mendiant")
+		p1.Init2(nom, "Mendiant")
 	}
 }
 
@@ -52,7 +52,7 @@ func Affichage(titre string, list []string) {
 	//affichage du haut de la boite
 	fmt.Print("╒", strings.Repeat("═", longest), "╕", "\n")
 	//affichage du titre
-	fmt.Print("│", titre, strings.Repeat(" ", longest-len(titre)), "│", "\n")
+	fmt.Print("│", titre, strings.Repeat(" ", longest-len(titre)+1), "│", "\n")
 	//affichage de la ligne
 	fmt.Print("├", strings.Repeat("─", longest), "┤", "\n")
 	//affichage des lignes de texte
