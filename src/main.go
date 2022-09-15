@@ -52,7 +52,7 @@ func Affichage(titre string, list []string) {
 	//affichage du haut de la boite
 	fmt.Print("╒", strings.Repeat("═", longest), "╕", "\n")
 	//affichage du titre
-	fmt.Print("│", titre, strings.Repeat(" ", longest-len(titre)), "│", "\n")
+	fmt.Print("│", titre, strings.Repeat(" ", longest-len(titre)+1), "│", "\n")
 	//affichage de la ligne
 	fmt.Print("├", strings.Repeat("─", longest), "┤", "\n")
 	//affichage des lignes de texte
