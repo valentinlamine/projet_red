@@ -12,40 +12,30 @@ type Personnage struct {
 	Intelligence int // Intelligence du personnage (dégâts magiques, etc.)
 	//état du personnage
 	Pvact      int // Points de vie actuels
-	Inventaire []string
+	Inventaire [][]string
 }
 
-func (p *Personnage) Init(nom, classe string) {
-	if classe == "Guerrrier" {
-		p.Niveau = 1
-		p.Pvmax = 10
-		p.Vitalite = 11
-		p.Force = 13
-		p.Dexterite = 13
-		p.Intelligence = 9
-	} else if classe == "Chevalier" {
-		p.Niveau = 1
-		p.Pvmax = 10
-		p.Vitalite = 14
-		p.Force = 11
-		p.Dexterite = 11
-		p.Intelligence = 9
-	} else if classe == "Pyromancien" {
-		p.Niveau = 1
-		p.Pvmax = 10
-		p.Vitalite = 10
-		p.Force = 12
-		p.Dexterite = 9
-		p.Intelligence = 10
-	} else if classe == "Mendiant" {
-		p.Niveau = 1
-		p.Pvmax = 10
-		p.Vitalite = 11
-		p.Force = 11
-		p.Dexterite = 11
-		p.Intelligence = 11
-	}
+func (p *Personnage) Init(nom, classe string, Vit, For, Dex, Int int) {
 	p.Nom = nom
 	p.Classe = classe
+	p.Niveau = 1
+	p.Pvmax = 20 * p.Vitalite
+	p.Vitalite = Vit
+	p.Force = For
+	p.Dexterite = Dex
+	p.Intelligence = Int
 	p.Pvact = p.Pvmax
+
+}
+
+func (p *Personnage) Init2(nom, classe string) {
+	if classe == "Guerrrier" {
+		p.Init(nom, "Guerrier", 11, 12, 9, 8)
+	} else if classe == "Chevalier" {
+		p.Init(nom, "Chevalier", 10, 11, 8, 10)
+	} else if classe == "Pyromancien" {
+		p.Init(nom, "Pyromancien", 9, 9, 11, 12)
+	} else if classe == "Mendiant" {
+		p.Init(nom, "Mendiant", 10, 10, 10, 10)
+	}
 }
