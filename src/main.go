@@ -9,11 +9,14 @@ import (
 // initialisation des variables
 var p1 database.Personnage
 var carte database.Arbre
+var inventaire database.Inventaire
 
 func main() {
 	setup_personnage()
 	Affichage_Personnage(p1)
 	carte.Init()
+	inventaire.Init()
+	Menu()
 
 }
 
@@ -21,7 +24,14 @@ func setup_personnage() {
 	Affichage("Création du personnage", []string{"Bienvenue dans le jeu de rôle !", "Pour commencer, vous devez créer votre personnage", "Choisissez un nom"})
 	var nom string
 	fmt.Scan(&nom)
-	Affichage("Création du personnage", []string{"Quelle est la classe de votre personnage ?", "il y a 4 classes : Guerrier, Chevalier, Pyromancien, Mendiant", "Pour choisir guerrier, tapez 1", "Pour choisir chevalier, tapez 2", "Pour choisir pyromancien, tapez 3", "Pour choisir mendiant, tapez 4"})
+	//si le nom contient autre chose que des lettres, on demande de recommencer
+	for _, c := range nom {
+		if !strings.Contains("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", string(c)) {
+			Affichage("Erreur", []string{"Le nom ne peut contenir que des lettres", "Veuillez recommencer"})
+			fmt.Scan(&nom)
+		}
+	}
+	Affichage("Création du personnage", []string{"Bonjour jeune aventurier !", "Quelle est la classe de ton personnage ?", "il y a 4 classes : Guerrier, Chevalier, Pyromancien, Mendiant", "Pour choisir guerrier, tapez 1", "Pour choisir chevalier, tapez 2", "Pour choisir pyromancien, tapez 3", "Pour choisir mendiant, tapez 4"})
 	var classe int
 	fmt.Scan(&classe)
 	for classe < 1 || classe > 4 {
@@ -67,6 +77,23 @@ func Affichage(titre string, list []string) {
 }
 
 func Affichage_Personnage(p database.Personnage) {
-	fmt.Println("disabled")
-	//Affichage("Personnage", []string{"Nom : " + p.Nom, "Classe : " + p.Classe, "Niveau : " + string(p.Niveau), "Pvmax : " + string(rune(p.Pvmax)), "Vitalite : " + string(p.Vitalite), "Force : " + string(p.Force), "Dexterite : " + string(p.Dexterite), "Intelligence : " + string(p.Intelligence), "Pvact : " + string(p.Pvact)})
+	Affichage("Personnage", []string{"Nom : " + p.Nom, "Classe : " + p.Classe, "Niveau : " + string(p.Niveau), "Vie" + string(p.Pvact), "Pv max : " + string(p.Pvmax), "Vitalité : " + string(p.Vitalite), "Force : " + string(p.Force), "Dexterite : " + string(p.Dexterite), "Intelligence : " + string(p.Intelligence)})
+}
+
+func Menu() {
+	Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Quitter le jeu"})
+	var choix int
+	fmt.Scan(&choix)
+	for choix < 1 || choix > 3 {
+		fmt.Println("Vous devez choisir un choix entre 1 et 3")
+		fmt.Scan(&choix)
+	}
+	switch choix {
+	case 1:
+		Affichage_Personnage(p1)
+	case 2:
+		fmt.Println("inventaire")
+	case 3:
+		fmt.Println("quitter")
+	}
 }
