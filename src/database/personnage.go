@@ -14,7 +14,7 @@ type Personnage struct {
 	Intelligence int // Intelligence du personnage (dégâts magiques, etc.)
 	//état du personnage
 	Pvact      int // Points de vie actuels
-	Inventaire []item
+	Inventaire Inventaire
 }
 
 func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int int) {
