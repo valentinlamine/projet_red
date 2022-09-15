@@ -1,4 +1,4 @@
-package main
+package database
 
 type Armes struct {
 	// Nom
@@ -36,9 +36,4 @@ func (a *Armes) Init2(nom string) {
 	} else if nom == "Hache queue de gargouille" {
 		a.Init("Hache queue de gargouille", 14, 10, 8, 60, 12)
 	}
-}
-
-func main() {
-	var Dague Armes
-	Dague.Init("Dague", 9, 11, 8, 20, 3)
 }
