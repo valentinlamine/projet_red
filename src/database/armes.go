@@ -36,6 +36,7 @@ func (a *Armes) InitIntern_Armes(nom string, lvlMinFor, lvlMinDex, lvlMinInt, de
 	a.deg = deg
 	a.poids = poids
 	a.isUnlocked = false
+	a.isEquiped = false
 
 }
 
@@ -63,6 +64,7 @@ func (b *Boucliers) InitIntern_Bouclier(nom string, lvlMinFor, lvlMinDex, lvlMin
 	b.pvbonus = pvbonus
 	b.poids = poids
 	b.isUnlocked = false
+	b.isEquiped = false
 
 }
 
