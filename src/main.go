@@ -28,13 +28,13 @@ func setup_personnage() {
 	}
 	switch classe {
 	case 1:
-		p1.Init2(nom, "Guerrier")
+		p1.Init(nom, "Guerrier")
 	case 2:
-		p1.Init2(nom, "Chevalier")
+		p1.Init(nom, "Chevalier")
 	case 3:
-		p1.Init2(nom, "Pyromancien")
+		p1.Init(nom, "Pyromancien")
 	case 4:
-		p1.Init2(nom, "Mendiant")
+		p1.Init(nom, "Mendiant")
 	}
 }
 

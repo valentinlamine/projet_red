@@ -15,7 +15,7 @@ type Personnage struct {
 	Inventaire [][]string
 }
 
-func (p *Personnage) Init(nom, classe string, Vit, For, Dex, Int int) {
+func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int int) {
 	p.Nom = nom
 	p.Classe = classe
 	p.Niveau = 1
@@ -28,7 +28,7 @@ func (p *Personnage) Init(nom, classe string, Vit, For, Dex, Int int) {
 
 }
 
-func (p *Personnage) Init2(nom, classe string) {
+func (p *Personnage) Init(nom, classe string) {
 	if classe == "Guerrrier" {
 		p.Init(nom, "Guerrier", 11, 12, 9, 8)
 	} else if classe == "Chevalier" {

@@ -12,7 +12,7 @@ type Armes struct {
 	poids int
 }
 
-func (a *Armes) Init(nom string, lvlMinFor, lvlMinDex, lvlMinInt, deg, poids int) {
+func (a *Armes) InitIntern(nom string, lvlMinFor, lvlMinDex, lvlMinInt, deg, poids int) {
 	a.nom = nom
 	a.lvlMinFor = lvlMinFor
 	a.lvlMinDex = lvlMinDex
@@ -22,7 +22,7 @@ func (a *Armes) Init(nom string, lvlMinFor, lvlMinDex, lvlMinInt, deg, poids int
 
 }
 
-func (a *Armes) Init2(nom string) {
+func (a *Armes) Init(nom string) {
 	if nom == "Dague" {
 		a.Init("Dague", 9, 11, 8, 20, 3)
 	} else if nom == "Claymore" {
