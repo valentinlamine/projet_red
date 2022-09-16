@@ -50,6 +50,6 @@ func (p *Personnage) Init(nom, classe string) {
 	} else if classe == "Pyromancien" {
 		p.InitIntern(nom, "Pyromancien", 9, 9, 11, 12)
 	} else if classe == "Mendiant" {
-		p.InitIntern(nom, "Mendiant", 10, 10, 10, 10)
+		p.InitIntern(nom, "Mendiant", 9, 9, 9, 9)
 	}
 }
