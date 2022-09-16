@@ -15,6 +15,7 @@ type Personnage struct {
 	//état du personnage
 	Pvact int // Points de vie actuels
 	Inv   Inventaire
+	Ames  int // Nombre d'âmes du personnage (Argent/EXP)
 }
 
 func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int int) {
@@ -27,6 +28,7 @@ func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int int) {
 	p.Dexterite = Dex
 	p.Intelligence = Int
 	p.Pvact = p.Pvmax / 2
+	p.Ames = 0
 
 }
 
