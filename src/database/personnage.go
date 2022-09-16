@@ -1,7 +1,5 @@
 package database
 
-import "strings"
-
 type Personnage struct {
 	Nom    string // Nom du personnage
 	Classe string // Classe du personnage (Guerrier, Chevalier, pyromancien, mendiant)
@@ -34,15 +32,6 @@ func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int int) {
 
 func (p *Personnage) Init(nom, classe string) {
 	//modifie le nom pour mettre la première lettre en majuscule et le reste en minuscule
-	for i, c := range nom {
-		if i == 0 {
-			nom = strings.ToUpper(string(c))
-		} else {
-			nom += strings.ToLower(string(c))
-		}
-	}
-
-	print(nom)
 	if classe == "Guerrrier" {
 		p.InitIntern(nom, "Guerrier", 11, 12, 9, 8)
 	} else if classe == "Chevalier" {

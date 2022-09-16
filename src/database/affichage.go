@@ -16,7 +16,6 @@ func Affichage(titre string, list []string) {
 	if len(titre) > longest {
 		longest = len(titre)
 	}
-	fmt.Println(longest)
 	//affichage du haut de la boite
 	fmt.Print("╒", strings.Repeat("═", longest), "╕", "\n")
 	//affichage du titre
@@ -33,7 +32,6 @@ func Affichage(titre string, list []string) {
 }
 
 func (p *Personnage) Affichage_Personnage() {
-	//TOASK
 	//Bizarre que ça marche grâce au 1er Get_Personnage sans avoir besoin de changer les autres appels
 	Affichage("Personnage", []string{"Nom : " + p.Get_Personnage("Nom"), "Niveau : " + p.Get_Personnage("Niveau"), "PV : " + strconv.Itoa(p.Pvact), "PV Max : " + strconv.Itoa(p.Pvmax), "Vitalité: " + strconv.Itoa(p.Vitalite), "Force : " + strconv.Itoa(p.Force), "Dextérité : " + strconv.Itoa(p.Dexterite), "Intelligence : " + strconv.Itoa(p.Intelligence), "Ames : " + strconv.Itoa(p.Ames)})
 }
@@ -44,38 +42,40 @@ func (p *Personnage) Affichage_Inventaire() {
 	//affichage du haut de la boite
 	fmt.Print("╒", strings.Repeat("═", longueur), "╕", "\n")
 	//affichage du titre
-	fmt.Print("│", "Inventaire", strings.Repeat(" ", longueur-len("Inventaire")+1), "│", "\n")
+	fmt.Print("│", "Inventaire", strings.Repeat(" ", longueur-len("Inventaire")), "│", "\n")
 	//affichage de la ligne
 	fmt.Print("╞", strings.Repeat("═", longueur), "╡", "\n")
 	//affichage des armes débloquées
-	fmt.Print("│", "Armes débloquées", strings.Repeat(" ", longueur-len("Armes débloquées")+1), "│", "\n")
+	fmt.Print("│", "Armes débloquées :", strings.Repeat(" ", longueur-len("Armes débloquées")), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	for index := 0; index < len(p.Inv.Liste_armes); index++ {
 		if p.Inv.Liste_armes[index].Get_Armes("isUnlocked") == "true" {
 			nom = p.Inv.Liste_armes[index].Get_Armes("nom")
-			fmt.Print("│", nom, strings.Repeat(" ", longueur-len(nom)), "│", "\n")
+			fmt.Print("│  ● ", nom, strings.Repeat(" ", longueur-len(nom)-4), "│", "\n")
 		}
 	}
 	//affichage des boucliers débloqués
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	fmt.Print("│", "Boucliers débloqués", strings.Repeat(" ", longueur-len("Boucliers débloqués")+1), "│", "\n")
+	fmt.Print("│", "Boucliers débloqués :", strings.Repeat(" ", longueur-len("Boucliers débloqués")), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	for index := 0; index < len(p.Inv.Liste_boucliers); index++ {
 		if p.Inv.Liste_boucliers[index].Get_Boucliers("isUnlocked") == "true" {
 			nom = p.Inv.Liste_boucliers[index].Get_Boucliers("nom")
-			fmt.Print("│", nom, strings.Repeat(" ", longueur-len(nom)), "│", "\n")
+			fmt.Print("│  ● ", nom, strings.Repeat(" ", longueur-len(nom)-4), "│", "\n")
 		}
 	}
 	//affichage des consommables débloqués
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	fmt.Print("│", "Consommables débloqués", strings.Repeat(" ", longueur-len("Consommables débloqués")+1), "│", "\n")
+	fmt.Print("│", "Consommables débloqués :", strings.Repeat(" ", longueur-len("Consommables débloqués")), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	for index := 0; index < len(p.Inv.Liste_consommables); index++ {
-		if p.Inv.Liste_consommables[index].Get_Consommables("isUnlocked") == "true" {
-			nom = p.Inv.Liste_consommables[index].Get_Consommables("nom")
-			fmt.Print("│", nom, strings.Repeat(" ", longueur-len(nom)), "│", "\n")
+		if p.Inv.Liste_consommables[index].Get_Consommable("isUnlocked") == "true" {
+			nom = p.Inv.Liste_consommables[index].Get_Consommable("nom")
+			fmt.Print("│  ● ", nom, strings.Repeat(" ", longueur-len(nom)-4), "│", "\n")
 		}
 	}
+	//affichage du bas de la boite
+	fmt.Print("╘", strings.Repeat("═", longueur), "╛", "\n")
 }
 
 func (a *Armes) Affichage_Arme() {

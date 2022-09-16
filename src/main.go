@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"src/database"
 	"strings"
 )
@@ -15,9 +16,9 @@ func main() {
 	inventaire.Init()
 	carte.Init()
 	setup_personnage()
-	player.Affichage_Personnage()
-	//débloquer les 3 premières armes et les 3 premiers boucliers
-	Menu()
+	for {
+		Menu()
+	}
 }
 
 func setup_personnage() {
@@ -31,7 +32,16 @@ func setup_personnage() {
 			fmt.Scan(&nom)
 		}
 	}
-	database.Affichage("Création du personnage", []string{"Bonjour jeune aventurier !", "Quelle est la classe de ton personnage ?", "il y a 4 classes : Guerrier, Chevalier, Pyromancien, Mendiant", "Pour choisir guerrier, tapez 1", "Pour choisir chevalier, tapez 2", "Pour choisir pyromancien, tapez 3", "Pour choisir mendiant, tapez 4"})
+	//on met la première lettre en majuscule et le reste en minuscule
+	for i, c := range nom {
+		if i == 0 {
+			nom = strings.ToUpper(string(c))
+		} else {
+			nom += strings.ToLower(string(c))
+		}
+	}
+	database.Affichage("Création du personnage", []string{"Bonjour " + nom, "Quelle est la classe de ton personnage ?", "il y a 4 classes : Guerrier, Chevalier, Pyromancien, Mendiant", "Pour choisir guerrier, tapez 1", "Pour choisir chevalier, tapez 2", "Pour choisir pyromancien, tapez 3", "Pour choisir mendiant, tapez 4"})
+	player.Inv = inventaire
 	var classe int
 	fmt.Scan(&classe)
 	for classe < 1 || classe > 4 {
@@ -54,7 +64,6 @@ func setup_personnage() {
 		player.Init(nom, "Mendiant")
 		player.Inv.Liste_armes[4].Set_Armes("isUnlocked", "true") //débloquer Baton
 	}
-	player.Inv = inventaire
 }
 
 func Menu() {
@@ -68,9 +77,17 @@ func Menu() {
 	switch choix {
 	case 1:
 		player.Affichage_Personnage()
+		attendre()
 	case 2:
-		player.Affichage_Inventaire() //TODO
+		player.Affichage_Inventaire()
+		attendre()
 	case 3:
-		fmt.Println("quitter")
+		database.Affichage("Fin du jeu", []string{"Merci d'avoir joué !"})
+		os.Exit(-1)
 	}
+}
+
+func attendre() {
+	fmt.Println("Appuyez sur entrée pour continuer")
+	fmt.Scan()
 }
