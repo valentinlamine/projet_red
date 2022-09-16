@@ -2,14 +2,6 @@ package database
 
 import "strconv"
 
-func (a *Armes) Affichage_Arme() {
-	Affichage("Arme", []string{"Nom : " + a.nom, "Stat Min Force : " + strconv.Itoa(a.lvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.lvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.lvlMinInt), "Dégâts : " + strconv.Itoa(a.deg), "Poids : " + strconv.Itoa(a.poids), "Débloqué : " + strconv.FormatBool(a.isUnlocked), "Équipé : " + strconv.FormatBool(a.isEquiped)})
-}
-
-func (b *Boucliers) Affichage_Bouclier() {
-	Affichage("Bouclier", []string{"Nom : " + b.nom, "Stat Min Force : " + strconv.Itoa(b.lvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(b.lvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(b.lvlMinInt), "PV Bonus : " + strconv.Itoa(b.pvbonus), "Poids : " + strconv.Itoa(b.poids), "Débloqué : " + strconv.FormatBool(b.isUnlocked), "Équipé : " + strconv.FormatBool(b.isEquiped)})
-}
-
 func (a *Armes) Get_Armes(data string) string {
 	if data == "nom" {
 		return a.nom
@@ -52,42 +44,39 @@ func (b *Boucliers) Get_Boucliers(data string) string {
 	return ""
 }
 
-func (a *Armes) Set_Armes(data string, value string) {
-	if data == "nom" {
-		a.nom = value
-	} else if data == "lvlMinFor" {
-		a.lvlMinFor, _ = strconv.Atoi(value)
-	} else if data == "lvlMinDex" {
-		a.lvlMinDex, _ = strconv.Atoi(value)
-	} else if data == "lvlMinInt" {
-		a.lvlMinInt, _ = strconv.Atoi(value)
-	} else if data == "deg" {
-		a.deg, _ = strconv.Atoi(value)
-	} else if data == "poids" {
-		a.poids, _ = strconv.Atoi(value)
-	} else if data == "isUnlocked" {
-		a.isUnlocked, _ = strconv.ParseBool(value)
-	} else if data == "isEquiped" {
-		a.isEquiped, _ = strconv.ParseBool(value)
+/*
+	Nom    string // Nom du personnage
+	Classe string // Classe du personnage (Guerrier, Chevalier, pyromancien, mendiant)
+	Niveau int    // Niveau du personnage
+	//stats améliorables
+	Pvmax        int // Pvmax du personnage (points de vie)
+	Vitalite     int // Vitalité du personnage (modificateur de Pvmax)
+	Force        int // Force du personnage (dégâts infligés, ports d'armes, etc.)
+	Dexterite    int // Dextérité du personnage (dégâts infligés, esquive, etc.)
+	Intelligence int // Intelligence du personnage (dégâts magiques, etc.)
+	//état du personnage
+	Pvact int // Points de vie actuels
+	Inv   Inventaire
+*/
+func (p *Personnage) Get_Personnage(data string) string {
+	if data == "Nom" {
+		return p.Nom
+	} else if data == "Classe" {
+		return p.Classe
+	} else if data == "Niveau" {
+		return strconv.Itoa(p.Niveau)
+	} else if data == "Pvmax" {
+		return strconv.Itoa(p.Pvmax)
+	} else if data == "Vitalite" {
+		return strconv.Itoa(p.Vitalite)
+	} else if data == "Force" {
+		return strconv.Itoa(p.Force)
+	} else if data == "Dexterite" {
+		return strconv.Itoa(p.Dexterite)
+	} else if data == "Intelligence" {
+		return strconv.Itoa(p.Intelligence)
+	} else if data == "Pvact" {
+		return strconv.Itoa(p.Pvact)
 	}
-}
-
-func (b *Boucliers) Set_Boucliers(data string, value string) {
-	if data == "nom" {
-		b.nom = value
-	} else if data == "lvlMinFor" {
-		b.lvlMinFor, _ = strconv.Atoi(value)
-	} else if data == "lvlMinDex" {
-		b.lvlMinDex, _ = strconv.Atoi(value)
-	} else if data == "lvlMinInt" {
-		b.lvlMinInt, _ = strconv.Atoi(value)
-	} else if data == "pvbonus" {
-		b.pvbonus, _ = strconv.Atoi(value)
-	} else if data == "poids" {
-		b.poids, _ = strconv.Atoi(value)
-	} else if data == "isUnlocked" {
-		b.isUnlocked, _ = strconv.ParseBool(value)
-	} else if data == "isEquiped" {
-		b.isEquiped, _ = strconv.ParseBool(value)
-	}
+	return ""
 }

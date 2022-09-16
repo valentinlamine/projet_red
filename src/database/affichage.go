@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -48,7 +49,7 @@ func (p *Personnage) Affichage_Inventaire() {
 	//affichage des armes débloquées
 	fmt.Print("│", "Armes débloquées", strings.Repeat(" ", longueur-len("Armes débloquées")+1), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	for index, _ := range p.Inv.Liste_armes {
+	for index := 0; index < len(p.Inv.Liste_armes); index++ {
 		if p.Inv.Liste_armes[index].Get_Armes("isUnlocked") == "true" {
 			nom = p.Inv.Liste_armes[index].Get_Armes("nom")
 			fmt.Print("│", nom, strings.Repeat(" ", longueur-len(nom)), "│", "\n")
@@ -58,12 +59,20 @@ func (p *Personnage) Affichage_Inventaire() {
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Boucliers débloqués", strings.Repeat(" ", longueur-len("Boucliers débloqués")+1), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	for index, _ := range p.Inv.Liste_boucliers {
+	for index := 0; index < len(p.Inv.Liste_boucliers); index++ {
 		if p.Inv.Liste_boucliers[index].Get_Boucliers("isUnlocked") == "true" {
 			nom = p.Inv.Liste_boucliers[index].Get_Boucliers("nom")
 			fmt.Print("│", nom, strings.Repeat(" ", longueur-len(nom)), "│", "\n")
 		}
 	}
+}
+
+func (a *Armes) Affichage_Arme() {
+	Affichage("Arme", []string{"Nom : " + a.nom, "Stat Min Force : " + strconv.Itoa(a.lvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.lvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.lvlMinInt), "Dégâts : " + strconv.Itoa(a.deg), "Poids : " + strconv.Itoa(a.poids), "Débloqué : " + strconv.FormatBool(a.isUnlocked), "Équipé : " + strconv.FormatBool(a.isEquiped)})
+}
+
+func (b *Boucliers) Affichage_Bouclier() {
+	Affichage("Bouclier", []string{"Nom : " + b.nom, "Stat Min Force : " + strconv.Itoa(b.lvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(b.lvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(b.lvlMinInt), "PV Bonus : " + strconv.Itoa(b.pvbonus), "Poids : " + strconv.Itoa(b.poids), "Débloqué : " + strconv.FormatBool(b.isUnlocked), "Équipé : " + strconv.FormatBool(b.isEquiped)})
 }
 
 //player.Inv.Liste_armes[0].Affichage_Arme()
