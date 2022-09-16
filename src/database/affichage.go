@@ -31,12 +31,12 @@ func Affichage(titre string, list []string) {
 	fmt.Print("╘", strings.Repeat("═", longest), "╛", "\n")
 }
 
-func Affichage_Personnage(p *Personnage) {
+func (p *Personnage) Affichage_Personnage() {
 	fmt.Println("todo")
 	//Affichage("Personnage", []string{"Nom : " + p.Nom, "Classe : " + p.Classe, "Niveau : " + string(p.Niveau), "Vie" + string(p.Pvact), "Pv max : " + string(p.Pvmax), "Vitalité : " + string(p.Vitalite), "Force : " + string(p.Force), "Dexterite : " + string(p.Dexterite), "Intelligence : " + string(p.Intelligence)})
 }
 
-func Affichage_Inventaire(p *Personnage) {
+func (p *Personnage) Affichage_Inventaire() {
 	//affichage du haut de la boite
 	fmt.Print("╒", strings.Repeat("═", 20), "╕", "\n")
 	//affichage du titre
