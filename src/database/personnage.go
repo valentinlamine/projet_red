@@ -21,8 +21,8 @@ func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int int) {
 	p.Nom = nom
 	p.Classe = classe
 	p.Niveau = 1
-	p.Pvmax = 20 * p.Vitalite
 	p.Vitalite = Vit
+	p.Pvmax = 20 * p.Vitalite
 	p.Force = For
 	p.Dexterite = Dex
 	p.Intelligence = Int
