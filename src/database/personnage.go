@@ -51,3 +51,7 @@ func (p *Personnage) Init(nom, classe string) {
 		p.InitIntern(nom, "Mendiant", 10, 10, 10, 10)
 	}
 }
+
+func (p *Personnage) GetStatList() []string {
+	return []string{p.Nom, p.Classe, string(p.Niveau), string(p.Vitalite), string(p.Force), string(p.Dexterite), string(p.Intelligence)}
+}

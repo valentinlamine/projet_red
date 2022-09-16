@@ -32,8 +32,8 @@ func Affichage(titre string, list []string) {
 }
 
 func (p *Personnage) Affichage_Personnage() {
-	fmt.Println("todo")
-	//Affichage("Personnage", []string{"Nom : " + p.Nom, "Classe : " + p.Classe, "Niveau : " + string(p.Niveau), "Vie" + string(p.Pvact), "Pv max : " + string(p.Pvmax), "Vitalité : " + string(p.Vitalite), "Force : " + string(p.Force), "Dexterite : " + string(p.Dexterite), "Intelligence : " + string(p.Intelligence)})
+	stat := p.GetStatList()
+	Affichage("Personnage", stat)
 }
 
 func (p *Personnage) Affichage_Inventaire() {
