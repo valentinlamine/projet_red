@@ -16,6 +16,13 @@ func main() {
 	carte.Init()
 	setup_personnage()
 	player.Affichage_Personnage()
+	//débloquer les 3 premières armes et les 3 premiers boucliers
+	player.Inv.Liste_armes[0].Set_Armes("isUnlocked", "true")
+	player.Inv.Liste_armes[1].Set_Armes("isUnlocked", "true")
+	player.Inv.Liste_armes[2].Set_Armes("isUnlocked", "true")
+	player.Inv.Liste_boucliers[0].Set_Boucliers("isUnlocked", "true")
+	player.Inv.Liste_boucliers[1].Set_Boucliers("isUnlocked", "true")
+	player.Inv.Liste_boucliers[2].Set_Boucliers("isUnlocked", "true")
 	Menu()
 }
 

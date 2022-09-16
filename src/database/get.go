@@ -31,7 +31,7 @@ func (a *Armes) Get_Armes(data string) string {
 	return ""
 }
 
-func (b *Boucliers) Get_Bouclier(data string) string {
+func (b *Boucliers) Get_Boucliers(data string) string {
 	if data == "nom" {
 		return b.nom
 	} else if data == "lvlMinFor" {
@@ -72,7 +72,7 @@ func (a *Armes) Set_Armes(data string, value string) {
 	}
 }
 
-func (b *Boucliers) Set_Bouclier(data string, value string) {
+func (b *Boucliers) Set_Boucliers(data string, value string) {
 	if data == "nom" {
 		b.nom = value
 	} else if data == "lvlMinFor" {
