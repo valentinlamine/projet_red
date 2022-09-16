@@ -41,3 +41,20 @@ func (c *Consommable) Init_Consommable(nom string) {
 		c.InitIntern_Consommable(nom, 0, 3, 0, 0, 0, 0, 1)
 	}
 }
+
+func (p *Personnage) prendrePot(c Consommable) {
+	if c.Nom == "Fiole d'Estus" {
+		p.Pvact += c.PvBonus
+		if p.Pvact > p.Pvmax {
+			p.Pvact = p.Pvmax
+		}
+	} else if c.Nom == "Résine de pin doré" {
+		p.Force += c.MultiLvlFor
+	} else if c.Nom == "Résine de pin brulé" {
+		p.Dexterite += c.MultiLvlDex
+	} else if c.Nom == "Résine de pin pourri" {
+		p.Intelligence += c.MultiLvlInt
+	} else if c.Nom == "Potion de poids max" {
+		p.PoidsMax += c.MultiLvlPoidsMax
+	}
+}
