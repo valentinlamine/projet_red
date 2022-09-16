@@ -32,7 +32,7 @@ func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int int) {
 
 func (p *Personnage) Init(nom, classe string) {
 	//modifie le nom pour mettre la première lettre en majuscule et le reste en minuscule
-	if classe == "Guerrrier" {
+	if classe == "Guerrier" {
 		p.InitIntern(nom, "Guerrier", 11, 12, 9, 8)
 	} else if classe == "Chevalier" {
 		p.InitIntern(nom, "Chevalier", 10, 11, 8, 10)
