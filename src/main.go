@@ -16,7 +16,6 @@ func main() {
 	carte.Init()
 	setup_personnage()
 	player.Affichage_Personnage()
-	//débloquer les 3 premières armes et les 3 premiers boucliers
 	Menu()
 }
 
