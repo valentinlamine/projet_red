@@ -7,16 +7,17 @@ import (
 )
 
 // initialisation des variables
-var p1 database.Personnage
-var carte database.Arbre
-var inventaire database.Inventaire
+var inventaire *database.Inventaire
+var carte *database.Arbre
+var player *database.Personnage
 
 func main() {
 	setup_personnage()
-	database.Affichage_Personnage(p1)
+	database.Affichage_Personnage(player)
 	carte.Init()
 	inventaire.Init()
 	Menu()
+	player.Inv = *inventaire
 
 }
 
@@ -40,13 +41,13 @@ func setup_personnage() {
 	}
 	switch classe {
 	case 1:
-		p1.Init(nom, "Guerrier")
+		player.Init(nom, "Guerrier")
 	case 2:
-		p1.Init(nom, "Chevalier")
+		player.Init(nom, "Chevalier")
 	case 3:
-		p1.Init(nom, "Pyromancien")
+		player.Init(nom, "Pyromancien")
 	case 4:
-		p1.Init(nom, "Mendiant")
+		player.Init(nom, "Mendiant")
 	}
 }
 
@@ -60,9 +61,9 @@ func Menu() {
 	}
 	switch choix {
 	case 1:
-		database.Affichage_Personnage(p1)
+		database.Affichage_Personnage(player)
 	case 2:
-		fmt.Println("inventaire")
+		database.Affichage_Inventaire(player) //TODO
 	case 3:
 		fmt.Println("quitter")
 	}

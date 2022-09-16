@@ -32,5 +32,16 @@ func Affichage(titre string, list []string) {
 }
 
 func Affichage_Personnage(p *Personnage) {
-	Affichage("Personnage", []string{"Nom : " + p.Nom, "Classe : " + p.Classe, "Niveau : " + string(p.Niveau), "Vie" + string(p.Pvact), "Pv max : " + string(p.Pvmax), "Vitalité : " + string(p.Vitalite), "Force : " + string(p.Force), "Dexterite : " + string(p.Dexterite), "Intelligence : " + string(p.Intelligence)})
+	fmt.Println("todo")
+	//Affichage("Personnage", []string{"Nom : " + p.Nom, "Classe : " + p.Classe, "Niveau : " + string(p.Niveau), "Vie" + string(p.Pvact), "Pv max : " + string(p.Pvmax), "Vitalité : " + string(p.Vitalite), "Force : " + string(p.Force), "Dexterite : " + string(p.Dexterite), "Intelligence : " + string(p.Intelligence)})
+}
+
+func Affichage_Inventaire(p *Personnage) {
+	//affichage du haut de la boite
+	fmt.Print("╒", strings.Repeat("═", 20), "╕", "\n")
+	//affichage du titre
+	fmt.Print("│", "Inventaire", strings.Repeat(" ", 20-len("Inventaire")+1), "│", "\n")
+	//affichage de la ligne
+	fmt.Print("╞", strings.Repeat("═", 20), "╡", "\n")
+	//
 }
