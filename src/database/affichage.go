@@ -33,8 +33,7 @@ func Affichage(titre string, list []string) {
 }
 
 func (p *Personnage) Affichage_Personnage() {
-	stat := p.GetStatList()
-	Affichage("Personnage", stat)
+	//todo
 }
 
 func (p *Personnage) Affichage_Inventaire() {

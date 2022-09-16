@@ -15,7 +15,7 @@ type Personnage struct {
 	//état du personnage
 	Pvact int // Points de vie actuels
 	Inv   Inventaire
-	Ames  int // Nombre d'âmes du personnage (Argent/EXP)
+	Ames  int
 }
 
 func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int int) {
@@ -52,8 +52,4 @@ func (p *Personnage) Init(nom, classe string) {
 	} else if classe == "Mendiant" {
 		p.InitIntern(nom, "Mendiant", 10, 10, 10, 10)
 	}
-}
-
-func (p *Personnage) GetStatList() []string {
-	return []string{p.Nom, p.Classe, string(p.Niveau), string(p.Vitalite), string(p.Force), string(p.Dexterite), string(p.Intelligence)}
 }
