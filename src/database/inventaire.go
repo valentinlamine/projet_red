@@ -55,3 +55,12 @@ func (i *Inventaire) Init() {
 	Potion_poids_max.Init_Consommable("Potion de poids max")
 	i.Liste_consommables = append(i.Liste_consommables, Fiole_Estus, Résine_pin_doré, Résine_pin_brulé, Résine_pin_pourri, Potion_poids_max)
 }
+
+// exemple d'utilisation des fonctions de la classe Inventaire
+/*	player.Inv.Liste_armes[0].Affichage_Arme()
+	if player.Inv.Liste_armes[0].Get_Armes("nom") == "Dague" {
+		//set le nom de l'arme
+		player.Inv.Liste_armes[0].Set_Armes("nom", "Dague de feu")
+	}
+	player.Inv.Liste_armes[0].Affichage_Arme()
+*/
