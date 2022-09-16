@@ -18,9 +18,12 @@ func main() {
 	inventaire.Init()
 	Menu()
 	player.Inv = inventaire
-	fmt.Println(player.Inv)
-	fmt.Println(player.Inv.Liste_armes)
-
+	player.Inv.Liste_armes[0].Affichage_Arme()
+	if player.Inv.Liste_armes[0].Get_Armes("nom") == "Dague" {
+		//set le nom de l'arme
+		player.Inv.Liste_armes[0].Set_Armes("nom", "Dague de feu")
+	}
+	player.Inv.Liste_armes[0].Affichage_Arme()
 }
 
 func setup_personnage() {
