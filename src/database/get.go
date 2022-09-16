@@ -44,20 +44,6 @@ func (b *Boucliers) Get_Boucliers(data string) string {
 	return ""
 }
 
-/*
-	Nom    string // Nom du personnage
-	Classe string // Classe du personnage (Guerrier, Chevalier, pyromancien, mendiant)
-	Niveau int    // Niveau du personnage
-	//stats améliorables
-	Pvmax        int // Pvmax du personnage (points de vie)
-	Vitalite     int // Vitalité du personnage (modificateur de Pvmax)
-	Force        int // Force du personnage (dégâts infligés, ports d'armes, etc.)
-	Dexterite    int // Dextérité du personnage (dégâts infligés, esquive, etc.)
-	Intelligence int // Intelligence du personnage (dégâts magiques, etc.)
-	//état du personnage
-	Pvact int // Points de vie actuels
-	Inv   Inventaire
-*/
 func (p *Personnage) Get_Personnage(data string) string {
 	if data == "Nom" {
 		return p.Nom
@@ -77,6 +63,29 @@ func (p *Personnage) Get_Personnage(data string) string {
 		return strconv.Itoa(p.Intelligence)
 	} else if data == "Pvact" {
 		return strconv.Itoa(p.Pvact)
+	}
+	return ""
+}
+
+func (c *Consommable) Get_Consommable(data string) string {
+	if data == "Nom" {
+		return c.Nom
+	} else if data == "Classe" {
+		return c.Classe
+	} else if data == "Prix" {
+		return strconv.Itoa(c.Prix)
+	} else if data == "Quantite" {
+		return strconv.Itoa(c.Quantite)
+	} else if data == "PvBonus" {
+		return strconv.Itoa(c.PvBonus)
+	} else if data == "MultiLvlFor" {
+		return strconv.Itoa(c.MultiLvlFor)
+	} else if data == "MultiLvlDex" {
+		return strconv.Itoa(c.MultiLvlDex)
+	} else if data == "MultiLvlInt" {
+		return strconv.Itoa(c.MultiLvlInt)
+	} else if data == "MultiLvlPoidsMax" {
+		return strconv.Itoa(c.MultiLvlPoidsMax)
 	}
 	return ""
 }

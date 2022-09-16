@@ -25,8 +25,8 @@ var Potion_poids_max Consommable
 
 type Inventaire struct {
 	Liste_armes        []Armes
-	Liste_consommables []Consommable
 	Liste_boucliers    []Boucliers
+	Liste_consommables []Consommable
 	Liste_sort         []string //TODO Sort
 }
 

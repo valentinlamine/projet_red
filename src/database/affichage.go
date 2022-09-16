@@ -66,6 +66,16 @@ func (p *Personnage) Affichage_Inventaire() {
 			fmt.Print("│", nom, strings.Repeat(" ", longueur-len(nom)), "│", "\n")
 		}
 	}
+	//affichage des consommables débloqués
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│", "Consommables débloqués", strings.Repeat(" ", longueur-len("Consommables débloqués")+1), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	for index := 0; index < len(p.Inv.Liste_consommables); index++ {
+		if p.Inv.Liste_consommables[index].Get_Consommables("isUnlocked") == "true" {
+			nom = p.Inv.Liste_consommables[index].Get_Consommables("nom")
+			fmt.Print("│", nom, strings.Repeat(" ", longueur-len(nom)), "│", "\n")
+		}
+	}
 }
 
 func (a *Armes) Affichage_Arme() {

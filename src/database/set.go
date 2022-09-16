@@ -63,3 +63,25 @@ func (p *Personnage) Set_Personnage(data string, value string) {
 		p.Pvact, _ = strconv.Atoi(value)
 	}
 }
+
+func (c *Consommable) Set_Consommable(data string, value string) {
+	if data == "nom" {
+		c.Nom = value
+	} else if data == "classe" {
+		c.Classe = value
+	} else if data == "prix" {
+		c.Prix, _ = strconv.Atoi(value)
+	} else if data == "quantite" {
+		c.Quantite, _ = strconv.Atoi(value)
+	} else if data == "pvbonus" {
+		c.PvBonus, _ = strconv.Atoi(value)
+	} else if data == "multilvlfor" {
+		c.MultiLvlFor, _ = strconv.Atoi(value)
+	} else if data == "multilvldex" {
+		c.MultiLvlDex, _ = strconv.Atoi(value)
+	} else if data == "multilvlint" {
+		c.MultiLvlInt, _ = strconv.Atoi(value)
+	} else if data == "multilvlpoidsmax" {
+		c.MultiLvlPoidsMax, _ = strconv.Atoi(value)
+	}
+}
