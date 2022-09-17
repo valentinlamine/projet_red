@@ -22,6 +22,7 @@ var Résine_pin_doré Consommable
 var Résine_pin_brulé Consommable
 var Résine_pin_pourri Consommable
 var Potion_poids_max Consommable
+var Fiole_Pin_Pourri Consommable
 
 type Inventaire struct {
 	Liste_armes        []Armes
@@ -53,7 +54,8 @@ func (i *Inventaire) Init() {
 	Résine_pin_brulé.Init_Consommable("Résine de pin brulé")
 	Résine_pin_pourri.Init_Consommable("Résine de pin pourri")
 	Potion_poids_max.Init_Consommable("Potion de poids max")
-	i.Liste_consommables = append(i.Liste_consommables, Fiole_Estus, Résine_pin_doré, Résine_pin_brulé, Résine_pin_pourri, Potion_poids_max)
+	Fiole_Pin_Pourri.Init_Consommable("Fiole d'essence de pin pourri")
+	i.Liste_consommables = append(i.Liste_consommables, Fiole_Estus, Résine_pin_doré, Résine_pin_brulé, Résine_pin_pourri, Potion_poids_max, Fiole_Pin_Pourri)
 }
 
 // exemple d'utilisation des fonctions de la classe Inventaire

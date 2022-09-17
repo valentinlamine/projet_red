@@ -70,7 +70,7 @@ func Menu() {
 	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Quitter le jeu"})
 	var choix int
 	fmt.Scan(&choix)
-	for choix < 1 || choix > 3 {
+	for choix < 1 || choix > 5 {
 		fmt.Println("Vous devez choisir un choix entre 1 et 3")
 		fmt.Scan(&choix)
 	}
@@ -84,6 +84,12 @@ func Menu() {
 	case 3:
 		database.Affichage("Fin du jeu", []string{"Merci d'avoir joué !"})
 		os.Exit(-1)
+	case 4:
+		player.PrendrePot(player.Inv.Liste_consommables[0])
+		player.Affichage_Personnage()
+	case 5:
+		player.PrendrePot(player.Inv.Liste_consommables[5])
+		player.Affichage_Personnage()
 	}
 }
 

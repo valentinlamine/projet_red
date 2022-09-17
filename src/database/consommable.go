@@ -39,6 +39,8 @@ func (c *Consommable) Init_Consommable(nom string) {
 		c.InitIntern_Consommable(nom, 0, 3, 0, 0, 0, 1, 0)
 	} else if nom == "Potion de poids max" {
 		c.InitIntern_Consommable(nom, 0, 3, 0, 0, 0, 0, 1)
+	} else if nom == "Fiole d'essence de pin pourri" { //Potion de poison
+		c.InitIntern_Consommable(nom, 0, 3, 50, 0, 0, 0, 0)
 	}
 }
 
@@ -56,5 +58,7 @@ func (p *Personnage) PrendrePot(c Consommable) {
 		p.Intelligence += c.MultiLvlInt
 	} else if c.Nom == "Potion de poids max" {
 		p.PoidsMax += c.MultiLvlPoidsMax
+	} else if c.Nom == "Fiole d'essence de pin pourri" {
+		p.Pvact -= c.PvBonus
 	}
 }
