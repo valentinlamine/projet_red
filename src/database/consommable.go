@@ -42,7 +42,7 @@ func (c *Consommable) Init_Consommable(nom string) {
 	}
 }
 
-func (p *Personnage) prendrePot(c Consommable) {
+func (p *Personnage) PrendrePot(c Consommable) {
 	if c.Nom == "Fiole d'Estus" {
 		p.Pvact += c.PvBonus
 		if p.Pvact > p.Pvmax {
