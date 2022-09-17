@@ -33,7 +33,7 @@ func Affichage(titre string, list []string) {
 
 func (p *Personnage) Affichage_Personnage() {
 	//Bizarre que ça marche grâce au 1er Get_Personnage sans avoir besoin de changer les autres appels
-	Affichage("Personnage", []string{"Nom : " + p.Get_Personnage("Nom"), "Niveau : " + p.Get_Personnage("Niveau"), "PV : " + strconv.Itoa(p.Pvact), "PV Max : " + strconv.Itoa(p.Pvmax), "Vitalité: " + strconv.Itoa(p.Vitalite), "Force : " + strconv.Itoa(p.Force), "Dextérité : " + strconv.Itoa(p.Dexterite), "Intelligence : " + strconv.Itoa(p.Intelligence), "Ames : " + strconv.Itoa(p.Ames)})
+	Affichage("Personnage", []string{"Nom : " + p.Nom, "Niveau : " + strconv.Itoa(p.Niveau), "PV : " + strconv.Itoa(p.Pvact), "PV Max : " + strconv.Itoa(p.Pvmax), "Vitalité: " + strconv.Itoa(p.Vitalite), "Force : " + strconv.Itoa(p.Force), "Dextérité : " + strconv.Itoa(p.Dexterite), "Intelligence : " + strconv.Itoa(p.Intelligence), "Ames : " + strconv.Itoa(p.Ames)})
 }
 
 func (p *Personnage) Affichage_Inventaire() {
