@@ -60,5 +60,8 @@ func (p *Personnage) PrendrePot(c Consommable) {
 		p.PoidsMax += c.MultiLvlPoidsMax
 	} else if c.Nom == "Fiole d'essence de pin pourri" {
 		p.Pvact -= c.PvBonus
+		if p.Pvact <= 0 {
+			p.Pvact = 0
+		}
 	}
 }

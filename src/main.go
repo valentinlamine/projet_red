@@ -16,8 +16,14 @@ func main() {
 	inventaire.Init()
 	carte.Init()
 	setup_personnage()
-	for {
+	for player.Pvact > 0 {
 		Menu()
+	}
+	//à modifier
+	if player.Pvact > 0 {
+		database.Affichage("Fin du jeu", []string{"Vous avez gagné !"})
+	} else {
+		database.Affichage("Fin du jeu", []string{"Vous êtes mort"})
 	}
 }
 
