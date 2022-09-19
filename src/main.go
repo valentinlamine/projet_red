@@ -96,8 +96,8 @@ func Menu() {
 		player.Affichage_Personnage()
 	case 6:
 		database.Affichage("Marchand Mort-vivant", []string{"1. | 100 | Fiole d'essence de pin pourri", "2. | 100 | Bâton", "3. | 400 | Résine de pin doré"})
-		var marchand int
-		switch marchand {
+		var choixMarchand int
+		switch choixMarchand {
 		case 1:
 			player.Ames -= player.Inv.Liste_consommables[5].Prix
 			player.Inv.Liste_consommables[5].Quantite += 1
