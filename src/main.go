@@ -101,6 +101,13 @@ func Menu() {
 		case 1:
 			player.Ames -= player.Inv.Liste_consommables[5].Prix
 			player.Inv.Liste_consommables[5].Quantite += 1
+		case 2:
+			if player.Inv.Liste_armes[4].IsUnlocked == true {
+				database.Affichage("Marchand Mort-vivant", []string{"Vous possedez déjà cet objet"})
+			} else {
+				player.Inv.Liste_armes[4].IsUnlocked = true
+				player.Ames -= player.Inv.Liste_armes[4].Prix
+			}
 
 		}
 	}

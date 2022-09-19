@@ -16,9 +16,9 @@ func (a *Armes) Set_Armes(data string, value string) {
 	} else if data == "poids" {
 		a.poids, _ = strconv.Atoi(value)
 	} else if data == "isUnlocked" {
-		a.isUnlocked, _ = strconv.ParseBool(value)
+		a.IsUnlocked, _ = strconv.ParseBool(value)
 	} else if data == "isEquiped" {
-		a.isEquiped, _ = strconv.ParseBool(value)
+		a.IsEquiped, _ = strconv.ParseBool(value)
 	}
 }
 
@@ -36,9 +36,9 @@ func (b *Boucliers) Set_Boucliers(data string, value string) {
 	} else if data == "poids" {
 		b.poids, _ = strconv.Atoi(value)
 	} else if data == "isUnlocked" {
-		b.isUnlocked, _ = strconv.ParseBool(value)
+		b.IsUnlocked, _ = strconv.ParseBool(value)
 	} else if data == "isEquiped" {
-		b.isEquiped, _ = strconv.ParseBool(value)
+		b.IsEquiped, _ = strconv.ParseBool(value)
 	}
 }
 

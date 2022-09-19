@@ -16,9 +16,9 @@ func (a *Armes) Get_Armes(data string) string {
 	} else if data == "poids" {
 		return strconv.Itoa(a.poids)
 	} else if data == "isUnlocked" {
-		return strconv.FormatBool(a.isUnlocked)
+		return strconv.FormatBool(a.IsUnlocked)
 	} else if data == "isEquiped" {
-		return strconv.FormatBool(a.isEquiped)
+		return strconv.FormatBool(a.IsEquiped)
 	}
 	return ""
 }
@@ -37,9 +37,9 @@ func (b *Boucliers) Get_Boucliers(data string) string {
 	} else if data == "poids" {
 		return strconv.Itoa(b.poids)
 	} else if data == "isUnlocked" {
-		return strconv.FormatBool(b.isUnlocked)
+		return strconv.FormatBool(b.IsUnlocked)
 	} else if data == "isEquiped" {
-		return strconv.FormatBool(b.isEquiped)
+		return strconv.FormatBool(b.IsEquiped)
 	}
 	return ""
 }

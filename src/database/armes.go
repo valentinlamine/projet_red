@@ -1,8 +1,9 @@
 package database
 
 type Armes struct {
-	// Nom
-	nom string
+	// Nom et Prix
+	nom  string
+	Prix int
 	// Stat Min
 	lvlMinFor int
 	lvlMinDex int
@@ -10,13 +11,14 @@ type Armes struct {
 	// Stat Damage
 	deg        int
 	poids      int
-	isUnlocked bool
-	isEquiped  bool
+	IsUnlocked bool
+	IsEquiped  bool
 }
 
 type Boucliers struct {
-	// Nom
-	nom string
+	// Nom et Prix
+	nom  string
+	Prix int
 	// Stat Min
 	lvlMinFor int
 	lvlMinDex int
@@ -24,62 +26,64 @@ type Boucliers struct {
 	// Stat Damage
 	pvbonus    int
 	poids      int
-	isUnlocked bool
-	isEquiped  bool
+	IsUnlocked bool
+	IsEquiped  bool
 }
 
-func (a *Armes) InitIntern_Armes(nom string, lvlMinFor, lvlMinDex, lvlMinInt, deg, poids int) {
+func (a *Armes) InitIntern_Armes(nom string, Prix, lvlMinFor, lvlMinDex, lvlMinInt, deg, poids int) {
 	a.nom = nom
+	a.Prix = Prix
 	a.lvlMinFor = lvlMinFor
 	a.lvlMinDex = lvlMinDex
 	a.lvlMinInt = lvlMinInt
 	a.deg = deg
 	a.poids = poids
-	a.isUnlocked = false
-	a.isEquiped = false
+	a.IsUnlocked = false
+	a.IsEquiped = false
 
 }
 
 func (a *Armes) Init_Armes(nom string) {
 	if nom == "Dague" {
-		a.InitIntern_Armes("Dague", 9, 11, 8, 20, 3)
+		a.InitIntern_Armes("Dague", 100, 9, 11, 8, 20, 3)
 	} else if nom == "Claymore" {
-		a.InitIntern_Armes("Claymore", 11, 9, 8, 50, 8)
+		a.InitIntern_Armes("Claymore", 2000, 11, 9, 8, 50, 8)
 	} else if nom == "Rapière" {
-		a.InitIntern_Armes("Rapière", 9, 12, 9, 35, 5)
+		a.InitIntern_Armes("Rapière", 500, 9, 12, 9, 35, 5)
 	} else if nom == "Uchigatana" {
-		a.InitIntern_Armes("Uchigatana", 10, 14, 10, 40, 6)
+		a.InitIntern_Armes("Uchigatana", 1000, 10, 14, 10, 40, 6)
 	} else if nom == "Bâton" {
-		a.InitIntern_Armes("Bâton", 7, 7, 7, 15, 3)
+		a.InitIntern_Armes("Bâton", 100, 7, 7, 7, 15, 3)
 	} else if nom == "Hache queue de gargouille" {
-		a.InitIntern_Armes("Hache queue de gargouille", 14, 10, 8, 60, 12)
+		a.InitIntern_Armes("Hache queue de gargouille", 5000, 14, 10, 8, 60, 12)
 	}
 }
 
-func (b *Boucliers) InitIntern_Bouclier(nom string, lvlMinFor, lvlMinDex, lvlMinInt, pvbonus, poids int) {
+func (b *Boucliers) InitIntern_Bouclier(nom string, Prix, lvlMinFor, lvlMinDex, lvlMinInt, pvbonus, poids int) {
 	b.nom = nom
+	b.Prix = Prix
 	b.lvlMinFor = lvlMinFor
 	b.lvlMinDex = lvlMinDex
 	b.lvlMinInt = lvlMinInt
 	b.pvbonus = pvbonus
 	b.poids = poids
-	b.isUnlocked = false
-	b.isEquiped = false
+	b.IsUnlocked = false
+	b.IsEquiped = false
 
 }
 
 func (b *Boucliers) Init_Bouclier(nom string) {
 	if nom == "Bouclier en bois" {
-		b.InitIntern_Bouclier("Bouclier en bois", 9, 8, 8, 20, 3)
+		b.InitIntern_Bouclier("Bouclier en bois", 50, 9, 8, 8, 20, 3)
 	} else if nom == "Bouclier en bois de cerf" {
-		b.InitIntern_Bouclier("Bouclier en bois de cerf", 10, 8, 8, 40, 5)
+		b.InitIntern_Bouclier("Bouclier en bois de cerf", 100, 10, 8, 8, 40, 5)
 	} else if nom == "Bouclier en fer" {
-		b.InitIntern_Bouclier("Bouclier en fer", 12, 8, 8, 75, 9)
+		b.InitIntern_Bouclier("Bouclier en fer", 700, 12, 8, 8, 75, 9)
 	} else if nom == "Bouclier en acier" {
-		b.InitIntern_Bouclier("Bouclier en acier", 10, 12, 9, 65, 5)
+		b.InitIntern_Bouclier("Bouclier en acier", 500, 10, 12, 9, 65, 5)
 	} else if nom == "Bouclier en mithril" {
-		b.InitIntern_Bouclier("Bouclier en mithril", 12, 16, 10, 120, 6)
+		b.InitIntern_Bouclier("Bouclier en mithril", 1200, 12, 16, 10, 120, 6)
 	} else if nom == "Bouclier d'Havel" {
-		b.InitIntern_Bouclier("Bouclier d'Havel", 20, 10, 10, 175, 20)
+		b.InitIntern_Bouclier("Bouclier d'Havel", 5000, 20, 10, 10, 175, 20)
 	}
 }
