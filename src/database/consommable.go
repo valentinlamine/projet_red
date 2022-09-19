@@ -40,7 +40,7 @@ func (c *Consommable) Init_Consommable(nom string) {
 	} else if nom == "Potion de poids max" {
 		c.InitIntern_Consommable(nom, 0, 3, 0, 0, 0, 0, 1)
 	} else if nom == "Fiole d'essence de pin pourri" { //Potion de poison
-		c.InitIntern_Consommable(nom, 0, 3, 50, 0, 0, 0, 0)
+		c.InitIntern_Consommable(nom, 0, 100, 50, 0, 0, 0, 0)
 	}
 }
 

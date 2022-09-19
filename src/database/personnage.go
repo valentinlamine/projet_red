@@ -46,3 +46,11 @@ func (p *Personnage) Init(nom, classe string) {
 		p.InitIntern(nom, "Mendiant", 9, 9, 9, 9)
 	}
 }
+
+func (p *Personnage) IsDead() bool {
+	if p.Pvact <= 0 {
+		return true
+	} else {
+		return false
+	}
+}

@@ -16,14 +16,12 @@ func main() {
 	inventaire.Init()
 	carte.Init()
 	setup_personnage()
-	for player.Pvact > 0 {
+	for !player.IsDead() {
 		Menu()
 	}
 	//à modifier
-	if player.Pvact > 0 {
-		database.Affichage("Fin du jeu", []string{"Vous avez gagné !"})
-	} else {
-		database.Affichage("Fin du jeu", []string{"Vous êtes mort"})
+	if player.IsDead() {
+		database.Affichage("Fin du jeu", []string{"Vous êtes mort !"})
 	}
 }
 
@@ -73,10 +71,10 @@ func setup_personnage() {
 }
 
 func Menu() {
-	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Quitter le jeu"})
+	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Quitter le jeu", "6. Interragir avec le marchand mort-vivant"})
 	var choix int
 	fmt.Scan(&choix)
-	for choix < 1 || choix > 5 {
+	for choix < 1 || choix > 6 {
 		fmt.Println("Vous devez choisir un choix entre 1 et 3")
 		fmt.Scan(&choix)
 	}
@@ -96,6 +94,15 @@ func Menu() {
 	case 5:
 		player.PrendrePot(player.Inv.Liste_consommables[5])
 		player.Affichage_Personnage()
+	case 6:
+		database.Affichage("Marchand Mort-vivant", []string{"1. | 100 | Fiole d'essence de pin pourri", "2. | 100 | Bâton", "3. | 400 | Résine de pin doré"})
+		var marchand int
+		switch marchand {
+		case 1:
+			player.Ames -= player.Inv.Liste_consommables[5].Prix
+			player.Inv.Liste_consommables[5].Quantite += 1
+
+		}
 	}
 }
 
