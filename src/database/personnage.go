@@ -1,5 +1,7 @@
 package database
 
+import "fmt"
+
 type Personnage struct {
 	Nom    string // Nom du personnage
 	Classe string // Classe du personnage (Guerrier, Chevalier, pyromancien, mendiant)
@@ -49,6 +51,9 @@ func (p *Personnage) Init(nom, classe string) {
 
 func (p *Personnage) IsDead() bool {
 	if p.Pvact <= 0 {
+		p.Ames = 0
+		//print in red "Vous êtes mort !"
+		fmt.Println("\033[31mVous êtes mort !\033[0m")
 		return true
 	} else {
 		return false

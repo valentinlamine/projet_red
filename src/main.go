@@ -11,10 +11,12 @@ import (
 var inventaire database.Inventaire
 var carte database.Arbre
 var player database.Personnage
+var m1 database.Marchand
 
 func main() {
 	inventaire.Init()
 	carte.Init()
+	m1.InitMarchand(1)
 	setup_personnage()
 	for !player.IsDead() {
 		Menu()
@@ -71,11 +73,11 @@ func setup_personnage() {
 }
 
 func Menu() {
-	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Quitter le jeu", "6. Interragir avec le marchand mort-vivant"})
+	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Quitter le jeu", "4. Boire une potion de soin", "5. Se déplacer", "6. Aller voir le marchand mort vivant"})
 	var choix int
 	fmt.Scan(&choix)
 	for choix < 1 || choix > 6 {
-		fmt.Println("Vous devez choisir un choix entre 1 et 3")
+		fmt.Println("Vous devez choisir un choix entre 1 et 6")
 		fmt.Scan(&choix)
 	}
 	switch choix {
@@ -95,25 +97,16 @@ func Menu() {
 		player.PrendrePot(player.Inv.Liste_consommables[5])
 		player.Affichage_Personnage()
 	case 6:
-		database.Affichage("Marchand Mort-vivant", []string{"1. | 100 | Fiole d'essence de pin pourri", "2. | 100 | Bâton", "3. | 400 | Résine de pin doré"})
-		var choixMarchand int
-		switch choixMarchand {
-		case 1:
-			player.Ames -= player.Inv.Liste_consommables[5].Prix
-			player.Inv.Liste_consommables[5].Quantite += 1
-		case 2:
-			if player.Inv.Liste_armes[4].IsUnlocked == true {
-				database.Affichage("Marchand Mort-vivant", []string{"Vous possedez déjà cet objet"})
-			} else {
-				player.Inv.Liste_armes[4].IsUnlocked = true
-				player.Ames -= player.Inv.Liste_armes[4].Prix
-			}
-
-		}
+		m1.Menu_Marchand(&player)
 	}
 }
 
 func attendre() {
-	fmt.Println("Appuyez sur entrée pour continuer")
-	fmt.Scan()
+	fmt.Println("Appuyez sur 0 pour continuer")
+	var choix int
+	fmt.Scan(&choix)
+	for choix != 0 {
+		fmt.Println("Appuyez sur 0 pour continuer")
+		fmt.Scan(&choix)
+	}
 }

@@ -46,22 +46,49 @@ func (c *Consommable) Init_Consommable(nom string) {
 
 func (p *Personnage) PrendrePot(c Consommable) {
 	if c.Nom == "Fiole d'Estus" {
-		p.Pvact += c.PvBonus
-		if p.Pvact > p.Pvmax {
-			p.Pvact = p.Pvmax
+		if p.IsInInv(0) {
+			p.Pvact += c.PvBonus
+			p.Inv.Liste_consommables[0].Quantite -= 1
+			if p.Pvact > p.Pvmax {
+				p.Pvact = p.Pvmax
+			}
 		}
 	} else if c.Nom == "Résine de pin doré" {
-		p.Force += c.MultiLvlFor
-	} else if c.Nom == "Résine de pin brulé" {
-		p.Dexterite += c.MultiLvlDex
-	} else if c.Nom == "Résine de pin pourri" {
-		p.Intelligence += c.MultiLvlInt
-	} else if c.Nom == "Potion de poids max" {
-		p.PoidsMax += c.MultiLvlPoidsMax
-	} else if c.Nom == "Fiole d'essence de pin pourri" {
-		p.Pvact -= c.PvBonus
-		if p.Pvact <= 0 {
-			p.Pvact = 0
+		if p.IsInInv(1) {
+			p.Inv.Liste_consommables[1].Quantite -= 1
+			p.Force += c.MultiLvlFor
 		}
+	} else if c.Nom == "Résine de pin brulé" {
+		if p.IsInInv(2) {
+			p.Inv.Liste_consommables[2].Quantite -= 1
+			p.Dexterite += c.MultiLvlDex
+		}
+	} else if c.Nom == "Résine de pin pourri" {
+		if p.IsInInv(3) {
+			p.Inv.Liste_consommables[3].Quantite -= 1
+			p.Intelligence += c.MultiLvlInt
+		}
+	} else if c.Nom == "Potion de poids max" {
+		if p.IsInInv(4) {
+			p.Inv.Liste_consommables[4].Quantite -= 1
+			p.PoidsMax += c.MultiLvlPoidsMax
+		}
+
+	} else if c.Nom == "Fiole d'essence de pin pourri" {
+		if p.IsInInv(5) {
+			p.Inv.Liste_consommables[5].Quantite -= 1
+			p.Pvact -= c.PvBonus
+			if p.Pvact <= 0 {
+				p.Pvact = 0
+			}
+		}
+	}
+}
+
+func (p *Personnage) IsInInv(n int) bool {
+	if p.Inv.Liste_consommables[n].Quantite > 0 {
+		return true
+	} else {
+		return false
 	}
 }

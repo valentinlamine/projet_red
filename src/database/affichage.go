@@ -16,6 +16,8 @@ func Affichage(titre string, list []string) {
 	if len(titre) > longest {
 		longest = len(titre)
 	}
+	//laisser 3 ligne de vide au dessus
+	fmt.Print("\n\n\n")
 	//affichage du haut de la boite
 	fmt.Print("╒", strings.Repeat("═", longest), "╕", "\n")
 	//affichage du titre
