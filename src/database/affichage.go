@@ -90,27 +90,9 @@ func (b *Boucliers) Affichage() {
 	Affichage("Bouclier", []string{"Nom : " + b.nom, "Stat Min Force : " + strconv.Itoa(b.lvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(b.lvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(b.lvlMinInt), "PV Bonus : " + strconv.Itoa(b.pvbonus), "Poids : " + strconv.Itoa(b.poids), "Débloqué : " + strconv.FormatBool(b.IsUnlocked), "Équipé : " + strconv.FormatBool(b.IsEquiped)})
 }
 
-/*
-	type Consommable struct {
-		//Nom
-		Nom string
-		//Prix
-		Prix int
-		//Quantité
-		Quantite int
-		//Bonus
-		PvBonus          int
-		MultiLvlFor      int
-		MultiLvlDex      int
-		MultiLvlInt      int
-		MultiLvlPoidsMax int
-	}
-*/
 func (c *Consommable) Affichage() {
 	Affichage("Consommable", []string{"Nom : " + c.Nom, "Prix : " + strconv.Itoa(c.Prix), "Quantité : " + strconv.Itoa(c.Quantite), "PV Bonus : " + strconv.Itoa(c.PvBonus), "Bonus Force : " + strconv.Itoa(c.MultiLvlFor), "Bonus Dextérité : " + strconv.Itoa(c.MultiLvlDex), "Bonus Intelligence : " + strconv.Itoa(c.MultiLvlInt), "Bonus Poids Max : " + strconv.Itoa(c.MultiLvlPoidsMax)})
 }
-
-//player.Inv.Liste_armes[0].Affichage_Arme()
 
 func Attendre() {
 	fmt.Println("Appuyez sur 0 pour continuer")

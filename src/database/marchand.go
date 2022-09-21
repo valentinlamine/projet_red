@@ -87,14 +87,20 @@ func (m *Marchand) Trade(player *Personnage) {
 		if m.Inv.Liste_armes[i].Get_Armes("isUnlocked") == "true" {
 			choix--
 			if choix == 0 {
-				if IsTradeable(player, "Armes", i) {
-					if WantTrade(player, m.Inv.Liste_armes[i]) {
+				if WantTrade(player, m.Inv.Liste_armes[i]) {
+					print("test want trade")
+					if IsTradeable(player, "Armes", i) {
+						print("test is tradeable")
 						player.Inv.Liste_armes[i].Set_Armes("isUnlocked", "true")
 						player.Ames -= m.Inv.Liste_armes[i].Prix
 						Affichage("Succès", []string{"Vous avez acheté un objet"})
 						Attendre()
 						return
+					} else {
+						m.Trade(player)
 					}
+				} else {
+					m.Trade(player)
 				}
 			}
 		}
@@ -103,14 +109,20 @@ func (m *Marchand) Trade(player *Personnage) {
 		if m.Inv.Liste_boucliers[i].Get_Boucliers("isUnlocked") == "true" {
 			choix--
 			if choix == 0 {
-				if IsTradeable(player, "Boucliers", i) {
-					if WantTrade(player, m.Inv.Liste_boucliers[i]) {
+				if WantTrade(player, m.Inv.Liste_boucliers[i]) {
+					print("test want trade")
+					if IsTradeable(player, "Boucliers", i) {
+						print("test is tradeable")
 						player.Inv.Liste_boucliers[i].Set_Boucliers("isUnlocked", "true")
 						player.Ames -= m.Inv.Liste_boucliers[i].Prix
 						Affichage("Succès", []string{"Vous avez acheté un objet"})
 						Attendre()
 						return
+					} else {
+						m.Trade(player)
 					}
+				} else {
+					m.Trade(player)
 				}
 			}
 		}
@@ -119,14 +131,20 @@ func (m *Marchand) Trade(player *Personnage) {
 		if m.Inv.Liste_consommables[i].Get_Consommable("isUnlocked") == "true" {
 			choix--
 			if choix == 0 {
-				if IsTradeable(player, "Consommables", i) {
-					if WantTrade(player, m.Inv.Liste_consommables[i]) {
+				if WantTrade(player, m.Inv.Liste_consommables[i]) {
+					print("test want trade")
+					if IsTradeable(player, "Consommables", i) {
+						print("test is tradeable")
 						player.Inv.Liste_consommables[i].Set_Consommable("isUnlocked", "true")
 						player.Ames -= m.Inv.Liste_consommables[i].Prix
 						Affichage("Succès", []string{"Vous avez acheté un objet"})
 						Attendre()
 						return
+					} else {
+						m.Trade(player)
 					}
+				} else {
+					m.Trade(player)
 				}
 			}
 		}
@@ -168,22 +186,25 @@ func WantTrade(player *Personnage, item interface{}) bool {
 func IsTradeable(player *Personnage, item_type string, index int) bool {
 	tradeable := false
 	if item_type == "Armes" {
-		if IsBuyable(player.Ames, player.Inv.Liste_armes[index].Prix) {
+		if IsBuyable(player.Ames, player.Inv.Liste_armes[index].Prix) && !player.Inv.Liste_armes[index].IsUnlocked {
 			tradeable = true
-		} else if !player.Inv.Liste_armes[index].IsUnlocked {
-			tradeable = true
+		} else if player.Inv.Liste_armes[index].IsUnlocked {
+			Affichage("Marchand", []string{"Vous possédez déjà cet objet"})
+			Attendre()
 		}
 	} else if item_type == "Boucliers" {
-		if IsBuyable(player.Ames, player.Inv.Liste_boucliers[index].Prix) {
+		if IsBuyable(player.Ames, player.Inv.Liste_boucliers[index].Prix) && !player.Inv.Liste_boucliers[index].IsUnlocked {
 			tradeable = true
-		} else if !player.Inv.Liste_boucliers[index].IsUnlocked {
-			tradeable = true
+		} else if player.Inv.Liste_boucliers[index].IsUnlocked {
+			Affichage("Marchand", []string{"Vous possédez déjà cet objet"})
+			Attendre()
 		}
 	} else if item_type == "Consommables" {
-		if IsBuyable(player.Ames, player.Inv.Liste_consommables[index].Prix) {
+		if IsBuyable(player.Ames, player.Inv.Liste_consommables[index].Prix) && player.Inv.Liste_consommables[index].Quantite <= 100 {
 			tradeable = true
-		} else if player.Inv.Liste_consommables[index].Quantite <= 100 {
-			tradeable = true
+		} else if player.Inv.Liste_consommables[index].Quantite > 100 {
+			Affichage("Marchand", []string{"Vous possédez déjà la quantité maximale de cet objet"})
+			Attendre()
 		}
 	}
 	return tradeable
