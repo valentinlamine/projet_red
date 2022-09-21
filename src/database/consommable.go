@@ -3,8 +3,6 @@ package database
 type Consommable struct {
 	//Nom
 	Nom string
-	//Classe
-	Classe string
 	//Prix
 	Prix int
 	//Quantité

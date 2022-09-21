@@ -55,7 +55,7 @@ func (p *Personnage) Affichage_Inventaire() {
 	for index := 0; index < len(p.Inv.Liste_armes); index++ {
 		if p.Inv.Liste_armes[index].Get_Armes("isUnlocked") == "true" {
 			nom = p.Inv.Liste_armes[index].Get_Armes("nom")
-			fmt.Print("│  ● ", nom, strings.Repeat(" ", longueur-len(nom)-4), "│", "\n")
+			fmt.Print("│  ● ", nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-4), "│", "\n")
 		}
 	}
 	//affichage des boucliers débloqués
@@ -82,12 +82,42 @@ func (p *Personnage) Affichage_Inventaire() {
 	fmt.Print("╘", strings.Repeat("═", longueur), "╛", "\n")
 }
 
-func (a *Armes) Affichage_Arme() {
+func (a *Armes) Affichage() {
 	Affichage("Arme", []string{"Nom : " + a.nom, "Stat Min Force : " + strconv.Itoa(a.lvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.lvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.lvlMinInt), "Dégâts : " + strconv.Itoa(a.deg), "Poids : " + strconv.Itoa(a.poids), "Débloqué : " + strconv.FormatBool(a.IsUnlocked), "Équipé : " + strconv.FormatBool(a.IsEquiped)})
 }
 
-func (b *Boucliers) Affichage_Bouclier() {
+func (b *Boucliers) Affichage() {
 	Affichage("Bouclier", []string{"Nom : " + b.nom, "Stat Min Force : " + strconv.Itoa(b.lvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(b.lvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(b.lvlMinInt), "PV Bonus : " + strconv.Itoa(b.pvbonus), "Poids : " + strconv.Itoa(b.poids), "Débloqué : " + strconv.FormatBool(b.IsUnlocked), "Équipé : " + strconv.FormatBool(b.IsEquiped)})
 }
 
+/*
+	type Consommable struct {
+		//Nom
+		Nom string
+		//Prix
+		Prix int
+		//Quantité
+		Quantite int
+		//Bonus
+		PvBonus          int
+		MultiLvlFor      int
+		MultiLvlDex      int
+		MultiLvlInt      int
+		MultiLvlPoidsMax int
+	}
+*/
+func (c *Consommable) Affichage() {
+	Affichage("Consommable", []string{"Nom : " + c.Nom, "Prix : " + strconv.Itoa(c.Prix), "Quantité : " + strconv.Itoa(c.Quantite), "PV Bonus : " + strconv.Itoa(c.PvBonus), "Bonus Force : " + strconv.Itoa(c.MultiLvlFor), "Bonus Dextérité : " + strconv.Itoa(c.MultiLvlDex), "Bonus Intelligence : " + strconv.Itoa(c.MultiLvlInt), "Bonus Poids Max : " + strconv.Itoa(c.MultiLvlPoidsMax)})
+}
+
 //player.Inv.Liste_armes[0].Affichage_Arme()
+
+func Attendre() {
+	fmt.Println("Appuyez sur 0 pour continuer")
+	var choix int
+	fmt.Scan(&choix)
+	for choix != 0 {
+		fmt.Println("Appuyez sur 0 pour continuer")
+		fmt.Scan(&choix)
+	}
+}

@@ -17,7 +17,6 @@ func (m *Marchand) Init(nom string, inv Inventaire) {
 	m.Inv = inv
 }
 
-// initialise les marchands
 func (m *Marchand) InitMarchand(number int) {
 	//Marchand 1
 	var inv Inventaire
@@ -69,7 +68,7 @@ func (m *Marchand) Affichage_Trade() {
 			liste = append(liste, strconv.Itoa(len(liste))+". "+m.Inv.Liste_consommables[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_consommables[i].Prix)+" âmes")
 		}
 	}
-	fmt.Print(liste)
+	liste = append(liste, strconv.Itoa(len(liste))+". Quitter le menu d'achat")
 	Affichage("Marchand", liste)
 }
 
@@ -77,22 +76,25 @@ func (m *Marchand) Trade(player *Personnage) {
 	m.Affichage_Trade()
 	var choix int
 	fmt.Scan(&choix)
-	for choix < 1 || choix > m.Nb_trade {
-		Affichage("Erreur", []string{"Vous devez choisir un choix entre 1 et" + string(m.Nb_trade)})
+	for choix < 1 || choix > m.Nb_trade+1 {
+		Affichage("Erreur", []string{"Vous devez choisir un choix entre 1 et " + strconv.Itoa(m.Nb_trade+1)})
 		fmt.Scan(&choix)
+	}
+	if choix == m.Nb_trade+1 {
+		m.Menu_Marchand(player)
 	}
 	for i := 0; i < len(m.Inv.Liste_armes); i++ {
 		if m.Inv.Liste_armes[i].Get_Armes("isUnlocked") == "true" {
 			choix--
 			if choix == 0 {
-				if !IsBuyable(player.Ames, m.Inv.Liste_armes[i].Prix) {
-					m.Trade(player)
-				} else if player.Inv.Liste_armes[i].Get_Armes("isUnlocked") == "true" {
-					Affichage("Erreur", []string{"Vous possédez déjà cet objet"})
-					m.Trade(player)
-				} else {
-					player.Inv.Liste_armes[i].Set_Armes("isUnlocked", "true")
-					return
+				if IsTradeable(player, "Armes", i) {
+					if WantTrade(player, m.Inv.Liste_armes[i]) {
+						player.Inv.Liste_armes[i].Set_Armes("isUnlocked", "true")
+						player.Ames -= m.Inv.Liste_armes[i].Prix
+						Affichage("Succès", []string{"Vous avez acheté un objet"})
+						Attendre()
+						return
+					}
 				}
 			}
 		}
@@ -101,14 +103,14 @@ func (m *Marchand) Trade(player *Personnage) {
 		if m.Inv.Liste_boucliers[i].Get_Boucliers("isUnlocked") == "true" {
 			choix--
 			if choix == 0 {
-				if !IsBuyable(player.Ames, m.Inv.Liste_boucliers[i].Prix) {
-					m.Trade(player)
-				} else if player.Inv.Liste_boucliers[i].Get_Boucliers("isUnlocked") == "true" {
-					Affichage("Erreur", []string{"Vous possédez déjà cet objet"})
-					m.Trade(player)
-				} else {
-					player.Inv.Liste_boucliers[i].Set_Boucliers("isUnlocked", "true")
-					return
+				if IsTradeable(player, "Boucliers", i) {
+					if WantTrade(player, m.Inv.Liste_boucliers[i]) {
+						player.Inv.Liste_boucliers[i].Set_Boucliers("isUnlocked", "true")
+						player.Ames -= m.Inv.Liste_boucliers[i].Prix
+						Affichage("Succès", []string{"Vous avez acheté un objet"})
+						Attendre()
+						return
+					}
 				}
 			}
 		}
@@ -117,29 +119,85 @@ func (m *Marchand) Trade(player *Personnage) {
 		if m.Inv.Liste_consommables[i].Get_Consommable("isUnlocked") == "true" {
 			choix--
 			if choix == 0 {
-				if !IsBuyable(player.Ames, m.Inv.Liste_consommables[i].Prix) {
-					m.Trade(player)
-				} else if player.Inv.Liste_consommables[i].Get_Consommable("isUnlocked") == "true" {
-					Affichage("Erreur", []string{"Vous possédez déjà cet objet"})
-					m.Trade(player)
-				} else {
-					player.Inv.Liste_consommables[i].Set_Consommable("isUnlocked", "true")
-					return
+				if IsTradeable(player, "Consommables", i) {
+					if WantTrade(player, m.Inv.Liste_consommables[i]) {
+						player.Inv.Liste_consommables[i].Set_Consommable("isUnlocked", "true")
+						player.Ames -= m.Inv.Liste_consommables[i].Prix
+						Affichage("Succès", []string{"Vous avez acheté un objet"})
+						Attendre()
+						return
+					}
 				}
 			}
 		}
 	}
 }
 
+func WantTrade(player *Personnage, item interface{}) bool {
+	//vérifie si item est une structure Armes, Boucliers ou Consommable
+	switch item.(type) {
+	case Armes:
+		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.(Armes).nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"})
+	case Boucliers:
+		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.(Boucliers).nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"})
+	case Consommable:
+		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.(Consommable).Nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"})
+	}
+	var choix int
+	fmt.Scan(&choix)
+	for choix < 1 || choix > 3 {
+		Affichage("Erreur", []string{"Vous devez choisir un choix entre 1 et 3"})
+		fmt.Scan(&choix)
+	}
+	switch choix {
+	case 1:
+		return true
+	case 2:
+		switch item.(type) {
+		case Armes:
+			item.(*Armes).Affichage()
+		case Boucliers:
+			item.(*Boucliers).Affichage()
+		case Consommable:
+			item.(*Consommable).Affichage()
+		}
+	}
+	return false
+}
+
+func IsTradeable(player *Personnage, item_type string, index int) bool {
+	tradeable := false
+	if item_type == "Armes" {
+		if IsBuyable(player.Ames, player.Inv.Liste_armes[index].Prix) {
+			tradeable = true
+		} else if !player.Inv.Liste_armes[index].IsUnlocked {
+			tradeable = true
+		}
+	} else if item_type == "Boucliers" {
+		if IsBuyable(player.Ames, player.Inv.Liste_boucliers[index].Prix) {
+			tradeable = true
+		} else if !player.Inv.Liste_boucliers[index].IsUnlocked {
+			tradeable = true
+		}
+	} else if item_type == "Consommables" {
+		if IsBuyable(player.Ames, player.Inv.Liste_consommables[index].Prix) {
+			tradeable = true
+		} else if player.Inv.Liste_consommables[index].Quantite <= 100 {
+			tradeable = true
+		}
+	}
+	return tradeable
+}
+
 func IsBuyable(Ames, Prix int) bool {
 	if Ames <= Prix {
 		Affichage("Erreur", []string{"Vous n'avez pas assez d'âmes pour acheter cet objet"})
+		Attendre()
 		return false
 	}
 	return true
 }
 
-// Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Quitter le jeu", "4. Boire une potion de soin", "5. Se déplacer", "6. Aller voir le marchand mort vivant"})
 func (m *Marchand) Menu_Marchand(p *Personnage) {
 	Affichage("Menu du marchand", []string{"Que voulez-vous faire ?", "1. Acheter un objet", "2. Quitter le menu du marchand"})
 	var choix int
@@ -148,8 +206,7 @@ func (m *Marchand) Menu_Marchand(p *Personnage) {
 		Affichage("Erreur", []string{"Vous devez choisir un choix entre 1 et 2"})
 		fmt.Scan(&choix)
 	}
-	switch choix {
-	case 1:
+	if choix == 1 {
 		m.Trade(p)
 	}
 }

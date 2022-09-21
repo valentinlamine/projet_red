@@ -73,20 +73,20 @@ func setup_personnage() {
 }
 
 func Menu() {
-	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Quitter le jeu", "4. Boire une potion de soin", "5. Se déplacer", "6. Aller voir le marchand mort vivant"})
+	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Quitter le jeu", "4. Boire une potion de soin", "5. Boire une potion de poison", "6. Aller voir le marchand mort vivant"})
 	var choix int
 	fmt.Scan(&choix)
-	for choix < 1 || choix > 6 {
+	for choix < 1 || choix > 7 {
 		fmt.Println("Vous devez choisir un choix entre 1 et 6")
 		fmt.Scan(&choix)
 	}
 	switch choix {
 	case 1:
 		player.Affichage_Personnage()
-		attendre()
+		database.Attendre()
 	case 2:
 		player.Affichage_Inventaire()
-		attendre()
+		database.Attendre()
 	case 3:
 		database.Affichage("Fin du jeu", []string{"Merci d'avoir joué !"})
 		os.Exit(-1)
@@ -98,15 +98,8 @@ func Menu() {
 		player.Affichage_Personnage()
 	case 6:
 		m1.Menu_Marchand(&player)
-	}
-}
-
-func attendre() {
-	fmt.Println("Appuyez sur 0 pour continuer")
-	var choix int
-	fmt.Scan(&choix)
-	for choix != 0 {
-		fmt.Println("Appuyez sur 0 pour continuer")
-		fmt.Scan(&choix)
+	case 7:
+		//donner au joueur 100000 ames
+		player.Ames = 100000
 	}
 }

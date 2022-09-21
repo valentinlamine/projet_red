@@ -67,8 +67,6 @@ func (p *Personnage) Set_Personnage(data string, value string) {
 func (c *Consommable) Set_Consommable(data string, value string) {
 	if data == "nom" {
 		c.Nom = value
-	} else if data == "classe" {
-		c.Classe = value
 	} else if data == "prix" {
 		c.Prix, _ = strconv.Atoi(value)
 	} else if data == "quantite" {

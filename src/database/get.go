@@ -70,8 +70,6 @@ func (p *Personnage) Get_Personnage(data string) string {
 func (c *Consommable) Get_Consommable(data string) string {
 	if data == "Nom" {
 		return c.Nom
-	} else if data == "Classe" {
-		return c.Classe
 	} else if data == "Prix" {
 		return strconv.Itoa(c.Prix)
 	} else if data == "Quantite" {
