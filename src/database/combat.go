@@ -12,7 +12,7 @@ func (p *Personnage) Combat(mob *Personnage) {
 	}
 	switch choixCombat {
 	case 1:
-		p.Inv
+		//p.Inv
 
 	}
 }

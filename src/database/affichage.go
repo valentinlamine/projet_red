@@ -4,30 +4,32 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+
+	"github.com/rivo/uniseg"
 )
 
 func Affichage(titre string, list []string) {
 	longest := 0
 	for _, s := range list {
-		if len(s) > longest {
-			longest = len(s)
+		if uniseg.GraphemeClusterCount(s) > longest {
+			longest = uniseg.GraphemeClusterCount(s)
 		}
 	}
 	if len(titre) > longest {
-		longest = len(titre)
+		longest = uniseg.GraphemeClusterCount(titre)
 	}
 	//laisser 3 ligne de vide au dessus
 	fmt.Print("\n\n\n")
 	//affichage du haut de la boite
 	fmt.Print("╒", strings.Repeat("═", longest), "╕", "\n")
 	//affichage du titre
-	fmt.Print("│", titre, strings.Repeat(" ", longest-len(titre)+1), "│", "\n")
+	fmt.Print("│", titre, strings.Repeat(" ", longest-uniseg.GraphemeClusterCount(titre)), "│", "\n")
 	//affichage de la ligne
 	fmt.Print("├", strings.Repeat("─", longest), "┤", "\n")
 	//affichage des lignes de texte
 	for _, s := range list {
 		//fmt.Println(longest, len(s), longest-len(s))
-		fmt.Print("│", s, strings.Repeat(" ", longest-len(s)), "│", "\n")
+		fmt.Print("│", s, strings.Repeat(" ", longest-uniseg.GraphemeClusterCount(s)), "│", "\n")
 	}
 	//affichage du bas de la boite
 	fmt.Print("╘", strings.Repeat("═", longest), "╛", "\n")
