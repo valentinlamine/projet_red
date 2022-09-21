@@ -17,6 +17,7 @@ type Personnage struct {
 	Inv        Inventaire
 	PoidsEquip int // Poids total des objets équipés
 	PoidsMax   int // Poids maximum que peut porter le personnage
+	Degats     int
 	Ames       int // Nombre d'âmes du personnage(Argent/EXP)
 }
 
