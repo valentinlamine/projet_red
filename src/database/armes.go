@@ -56,6 +56,8 @@ func (a *Armes) Init_Armes(nom string) {
 		a.InitIntern_Armes("Bâton", 100, 7, 7, 7, 15, 3)
 	} else if nom == "Hache queue de gargouille" {
 		a.InitIntern_Armes("Hache queue de gargouille", 5000, 14, 10, 8, 60, 12)
+	} else if nom == "vide" {
+		a.InitIntern_Armes("vide", 0, 0, 0, 0, 0, 0)
 	}
 }
 
@@ -85,5 +87,7 @@ func (b *Boucliers) Init_Bouclier(nom string) {
 		b.InitIntern_Bouclier("Bouclier en mithril", 1200, 12, 16, 10, 120, 6)
 	} else if nom == "Bouclier d'Havel" {
 		b.InitIntern_Bouclier("Bouclier d'Havel", 5000, 20, 10, 10, 175, 20)
+	} else if nom == "vide" {
+		b.InitIntern_Bouclier("vide", 0, 0, 0, 0, 0, 0)
 	}
 }

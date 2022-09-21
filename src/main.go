@@ -57,18 +57,12 @@ func setup_personnage() {
 	switch classe {
 	case 1:
 		player.Init(nom, "Guerrier")
-		player.Inv.Liste_armes[3].Set_Armes("isUnlocked", "true")         //débloquer Uchigatana
-		player.Inv.Liste_boucliers[0].Set_Boucliers("isUnlocked", "true") //débloquer Bouclier de bois
 	case 2:
 		player.Init(nom, "Chevalier")
-		player.Inv.Liste_armes[1].Set_Armes("isUnlocked", "true")         //débloquer Claymore
-		player.Inv.Liste_boucliers[2].Set_Boucliers("isUnlocked", "true") //débloquer Bouclier de fer
 	case 3:
 		player.Init(nom, "Pyromancien")
-		player.Inv.Liste_armes[0].Set_Armes("isUnlocked", "true") //débloquer Dague
 	case 4:
 		player.Init(nom, "Mendiant")
-		player.Inv.Liste_armes[4].Set_Armes("isUnlocked", "true") //débloquer Baton
 	}
 }
 
