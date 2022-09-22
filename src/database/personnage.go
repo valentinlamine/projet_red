@@ -63,17 +63,17 @@ func (p *Personnage) Init(nom, classe string) {
 
 	} else if classe == "Mendiant" {
 		p.InitIntern(nom, "Mendiant", 9, 9, 9, 9)
-		p.Inv.Liste_armes[4].Set_Armes("isUnlocked", "true") //débloquer Baton
-		p.Inv.Liste_armures_tete[6].isUnlocked = true        //débloquer Vide
-		p.Inv.Liste_armures_torse[6].isUnlocked = true       //débloquer Vide
-		p.Inv.Liste_armures_bras[6].isUnlocked = true        //débloquer Vide
-		p.Inv.Liste_armures_jambes[6].isUnlocked = true      //débloquer Vide
+		p.Inv.Liste_armes[4].IsUnlocked = true          //débloquer Baton
+		p.Inv.Liste_armures_tete[6].isUnlocked = true   //débloquer Vide
+		p.Inv.Liste_armures_torse[6].isUnlocked = true  //débloquer Vide
+		p.Inv.Liste_armures_bras[6].isUnlocked = true   //débloquer Vide
+		p.Inv.Liste_armures_jambes[6].isUnlocked = true //débloquer Vide
 
-		p.EquipementArmes[0] = p.Inv.Liste_armes[4] //équiper Baton
-		p.EquipementArmures["Tete"] = p.Inv.Liste_armures_tete[6]
-		p.EquipementArmures["Torse"] = p.Inv.Liste_armures_torse[6]
-		p.EquipementArmures["Bras"] = p.Inv.Liste_armures_bras[6]
-		p.EquipementArmures["Jambes"] = p.Inv.Liste_armures_jambes[6]
+		p.EquipementArmes[0] = p.Inv.Liste_armes[4]                   //équiper Baton
+		p.EquipementArmures["Tete"] = p.Inv.Liste_armures_tete[6]     //équiper Vide
+		p.EquipementArmures["Torse"] = p.Inv.Liste_armures_torse[6]   //équiper Vide
+		p.EquipementArmures["Bras"] = p.Inv.Liste_armures_bras[6]     //équiper Vide
+		p.EquipementArmures["Jambes"] = p.Inv.Liste_armures_jambes[6] //équiper Vide
 	}
 }
 

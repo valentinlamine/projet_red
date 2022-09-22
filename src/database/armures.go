@@ -21,8 +21,11 @@ func (a *Armures) InitIntern_Armures(nom string, lvlMinFor, lvlMinDex, lvlMinInt
 	a.lvlMinInt = lvlMinInt
 	a.pvbonus = pvbonus
 	a.poids = poids
-	a.isUnlocked = false
-
+	if nom == "vide" {
+		a.isUnlocked = true
+	} else {
+		a.isUnlocked = false
+	}
 }
 
 //TODO Changer les stats des armures
