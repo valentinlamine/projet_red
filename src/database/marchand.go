@@ -153,13 +153,13 @@ func (m *Marchand) Trade(player *Personnage) {
 
 func WantTrade(player *Personnage, item interface{}) bool {
 	//vérifie si item est une structure Armes, Boucliers ou Consommable
-	switch item.(type) {
+	switch item := item.(type) {
 	case Armes:
-		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.(Armes).nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"})
+		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"})
 	case Boucliers:
-		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.(Boucliers).nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"})
+		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"})
 	case Consommable:
-		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.(Consommable).Nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"})
+		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.Nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"})
 	}
 	var choix int
 	fmt.Scan(&choix)
@@ -171,13 +171,19 @@ func WantTrade(player *Personnage, item interface{}) bool {
 	case 1:
 		return true
 	case 2:
-		switch item.(type) {
+		switch item := item.(type) {
 		case Armes:
-			item.(*Armes).Affichage()
+			print("test")
+			item.Affichage()
+			Attendre()
 		case Boucliers:
-			item.(*Boucliers).Affichage()
+			item.Affichage()
+			Attendre()
 		case Consommable:
-			item.(*Consommable).Affichage()
+			item.Affichage()
+			Attendre()
+		default:
+			print("Erreur")
 		}
 	}
 	return false
