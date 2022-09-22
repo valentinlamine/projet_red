@@ -13,14 +13,15 @@ type Personnage struct {
 	Dexterite    int // Dextérité du personnage (dégâts infligés, esquive, etc.)
 	Intelligence int // Intelligence du personnage (dégâts magiques, etc.)
 	//état du personnage
-	Pvact             int // Points de vie actuels
-	Inv               Inventaire
-	PoidsEquip        int // Poids total des objets équipés
-	PoidsMax          int // Poids maximum que peut porter le personnage
-	Degats            int
-	EquipementArmes   map[string]Armes
-	EquipementArmures map[string]Armures
-	Ames              int // Nombre d'âmes du personnage(Argent/EXP)
+	Pvact               int // Points de vie actuels
+	Inv                 Inventaire
+	PoidsEquip          int // Poids total des objets équipés
+	PoidsMax            int // Poids maximum que peut porter le personnage
+	Degats              int
+	EquipementArmes     [1]Armes
+	EquipementBoucliers [1]Boucliers
+	EquipementArmures   map[string]Armures
+	Ames                int // Nombre d'âmes du personnage(Argent/EXP)
 }
 
 func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int int) {
@@ -35,7 +36,7 @@ func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int int) {
 	p.Pvact = p.Pvmax / 2
 	p.PoidsEquip = 0
 	p.PoidsMax = 5 * p.Force
-	//p.Degats = degat armes * stat
+	p.Degats = p.EquipementArmes[0].deg
 	p.Ames = 0
 }
 
@@ -45,19 +46,34 @@ func (p *Personnage) Init(nom, classe string) {
 		p.InitIntern(nom, "Guerrier", 11, 12, 9, 8)
 		p.Inv.Liste_armes[3].Set_Armes("isUnlocked", "true")         //débloquer Uchigatana
 		p.Inv.Liste_boucliers[0].Set_Boucliers("isUnlocked", "true") //débloquer Bouclier de bois
+		p.EquipementArmes[0] = p.Inv.Liste_armes[3]                  //équiper Uchigatana
+		p.EquipementBoucliers[0] = p.Inv.Liste_boucliers[0]          //équiper Bouclier de bois
 
 	} else if classe == "Chevalier" {
 		p.InitIntern(nom, "Chevalier", 10, 11, 8, 10)
 		p.Inv.Liste_armes[1].Set_Armes("isUnlocked", "true")         //débloquer Claymore
 		p.Inv.Liste_boucliers[2].Set_Boucliers("isUnlocked", "true") //débloquer Bouclier de fer
+		p.EquipementArmes[0] = p.Inv.Liste_armes[1]                  //équiper Claymore
+		p.EquipementBoucliers[0] = p.Inv.Liste_boucliers[2]          //équiper Bouclier de fer
 
 	} else if classe == "Pyromancien" {
 		p.InitIntern(nom, "Pyromancien", 9, 9, 11, 12)
 		p.Inv.Liste_armes[0].Set_Armes("isUnlocked", "true") //débloquer Dague
+		p.EquipementArmes[0] = p.Inv.Liste_armes[0]          //équiper Dague
 
 	} else if classe == "Mendiant" {
 		p.InitIntern(nom, "Mendiant", 9, 9, 9, 9)
 		p.Inv.Liste_armes[4].Set_Armes("isUnlocked", "true") //débloquer Baton
+		p.Inv.Liste_armures_tete[6].isUnlocked = true        //débloquer Vide
+		p.Inv.Liste_armures_torse[6].isUnlocked = true       //débloquer Vide
+		p.Inv.Liste_armures_bras[6].isUnlocked = true        //débloquer Vide
+		p.Inv.Liste_armures_jambes[6].isUnlocked = true      //débloquer Vide
+
+		p.EquipementArmes[0] = p.Inv.Liste_armes[4] //équiper Baton
+		p.EquipementArmures["Tete"] = p.Inv.Liste_armures_tete[6]
+		p.EquipementArmures["Torse"] = p.Inv.Liste_armures_torse[6]
+		p.EquipementArmures["Bras"] = p.Inv.Liste_armures_bras[6]
+		p.EquipementArmures["Jambes"] = p.Inv.Liste_armures_jambes[6]
 	}
 }
 

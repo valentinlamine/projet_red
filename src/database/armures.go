@@ -22,13 +22,13 @@ func (a *Armures) InitIntern_Armures(nom string, lvlMinFor, lvlMinDex, lvlMinInt
 	a.pvbonus = pvbonus
 	a.poids = poids
 	a.isUnlocked = false
-	a.isEquiped = false
 
 }
 
 //TODO Changer les stats des armures
 
-func (a *Armures) Init_Armures_Casque(nom string) {
+// Init des casques
+func (a *Armures) Init_Armures(nom string) {
 	if nom == "Casque de Carcasse" {
 		a.InitIntern_Armures("Casque de Carcasse", 9, 11, 8, 20, 3)
 	} else if nom == "Casque d'Havel" {
@@ -43,16 +43,14 @@ func (a *Armures) Init_Armures_Casque(nom string) {
 		a.InitIntern_Armures("Tête de Dragon", 14, 10, 8, 60, 12)
 	} else if nom == "vide" {
 		a.InitIntern_Armures("vide", 0, 0, 0, 0, 0)
-	}
-}
 
-func (a *Armures) Init_Armures_Plastron(nom string) {
-	if nom == "Plastron de Carcasse" {
+		// Init des plastrons
+	} else if nom == "Plastron de Carcasse" {
 		a.InitIntern_Armures("Plastron de Carcasse", 9, 11, 8, 20, 3)
 	} else if nom == "Plastron d'Havel" {
 		a.InitIntern_Armures("Plastron d'Havel", 11, 9, 8, 50, 8)
-	} else if nom == "Bandeau de cuir  noir" {
-		a.InitIntern_Armures("Bandeau de cuir  noir", 9, 12, 9, 35, 5)
+	} else if nom == "Veste de cuir  noir" {
+		a.InitIntern_Armures("Veste de cuir  noir", 9, 12, 9, 35, 5)
 	} else if nom == "Plastron de Chevalier" {
 		a.InitIntern_Armures("Plastron de Chevalier", 10, 14, 10, 40, 6)
 	} else if nom == "Manteau de feu" {
@@ -61,11 +59,9 @@ func (a *Armures) Init_Armures_Plastron(nom string) {
 		a.InitIntern_Armures("Ecailles de Dragon", 14, 10, 8, 60, 12)
 	} else if nom == "vide" {
 		a.InitIntern_Armures("vide", 0, 0, 0, 0, 0)
-	}
-}
 
-func (a *Armures) Init_Armures_Gantelet(nom string) {
-	if nom == "Gantelet de Carcasse" {
+		// Init des gantelets
+	} else if nom == "Gantelet de Carcasse" {
 		a.InitIntern_Armures("Plastron de Carcasse", 9, 11, 8, 20, 3)
 	} else if nom == "Gantelet d'Havel" {
 		a.InitIntern_Armures("Gantelet d'Havel", 11, 9, 8, 50, 8)
@@ -79,11 +75,9 @@ func (a *Armures) Init_Armures_Gantelet(nom string) {
 		a.InitIntern_Armures("Griffes de Dragon", 14, 10, 8, 60, 12)
 	} else if nom == "vide" {
 		a.InitIntern_Armures("vide", 0, 0, 0, 0, 0)
-	}
-}
 
-func (a *Armures) Init_Armures_Jambières(nom string) {
-	if nom == "Jambières de Carcasse" {
+		// Init des jambieres
+	} else if nom == "Jambières de Carcasse" {
 		a.InitIntern_Armures("Jambières de Carcasse", 9, 11, 8, 20, 3)
 	} else if nom == "Jambières d'Havel" {
 		a.InitIntern_Armures("Jambières d'Havel", 11, 9, 8, 50, 8)
@@ -95,6 +89,8 @@ func (a *Armures) Init_Armures_Jambières(nom string) {
 		a.InitIntern_Armures("Bottes de feu", 7, 7, 7, 15, 3)
 	} else if nom == "Pattes de Dragon" {
 		a.InitIntern_Armures("Pattes de Dragon", 14, 10, 8, 60, 12)
+
+		// Init Vide
 	} else if nom == "vide" {
 		a.InitIntern_Armures("vide", 0, 0, 0, 0, 0)
 	}

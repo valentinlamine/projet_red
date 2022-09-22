@@ -39,7 +39,6 @@ func (a *Armes) InitIntern_Armes(nom string, Prix, lvlMinFor, lvlMinDex, lvlMinI
 	a.deg = deg
 	a.poids = poids
 	a.IsUnlocked = false
-	a.IsEquiped = false
 
 }
 
