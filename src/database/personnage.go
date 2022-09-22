@@ -13,12 +13,14 @@ type Personnage struct {
 	Dexterite    int // Dextérité du personnage (dégâts infligés, esquive, etc.)
 	Intelligence int // Intelligence du personnage (dégâts magiques, etc.)
 	//état du personnage
-	Pvact      int // Points de vie actuels
-	Inv        Inventaire
-	PoidsEquip int // Poids total des objets équipés
-	PoidsMax   int // Poids maximum que peut porter le personnage
-	Degats     int
-	Ames       int // Nombre d'âmes du personnage(Argent/EXP)
+	Pvact             int // Points de vie actuels
+	Inv               Inventaire
+	PoidsEquip        int // Poids total des objets équipés
+	PoidsMax          int // Poids maximum que peut porter le personnage
+	Degats            int
+	EquipementArmes   map[string]Armes
+	EquipementArmures map[string]Armures
+	Ames              int // Nombre d'âmes du personnage(Argent/EXP)
 }
 
 func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int int) {
@@ -33,20 +35,29 @@ func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int int) {
 	p.Pvact = p.Pvmax / 2
 	p.PoidsEquip = 0
 	p.PoidsMax = 5 * p.Force
+	//p.Degats = degat armes * stat
 	p.Ames = 0
-
 }
 
 func (p *Personnage) Init(nom, classe string) {
 	//modifie le nom pour mettre la première lettre en majuscule et le reste en minuscule
 	if classe == "Guerrier" {
 		p.InitIntern(nom, "Guerrier", 11, 12, 9, 8)
+		p.Inv.Liste_armes[3].Set_Armes("isUnlocked", "true")         //débloquer Uchigatana
+		p.Inv.Liste_boucliers[0].Set_Boucliers("isUnlocked", "true") //débloquer Bouclier de bois
+
 	} else if classe == "Chevalier" {
 		p.InitIntern(nom, "Chevalier", 10, 11, 8, 10)
+		p.Inv.Liste_armes[1].Set_Armes("isUnlocked", "true")         //débloquer Claymore
+		p.Inv.Liste_boucliers[2].Set_Boucliers("isUnlocked", "true") //débloquer Bouclier de fer
+
 	} else if classe == "Pyromancien" {
 		p.InitIntern(nom, "Pyromancien", 9, 9, 11, 12)
+		p.Inv.Liste_armes[0].Set_Armes("isUnlocked", "true") //débloquer Dague
+
 	} else if classe == "Mendiant" {
 		p.InitIntern(nom, "Mendiant", 9, 9, 9, 9)
+		p.Inv.Liste_armes[4].Set_Armes("isUnlocked", "true") //débloquer Baton
 	}
 }
 

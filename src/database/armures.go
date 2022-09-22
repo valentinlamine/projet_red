@@ -41,6 +41,8 @@ func (a *Armures) Init_Armures_Casque(nom string) {
 		a.InitIntern_Armures("Capuche de feu", 7, 7, 7, 15, 3)
 	} else if nom == "Tête de Dragon" {
 		a.InitIntern_Armures("Tête de Dragon", 14, 10, 8, 60, 12)
+	} else if nom == "vide" {
+		a.InitIntern_Armures("vide", 0, 0, 0, 0, 0)
 	}
 }
 
@@ -57,6 +59,8 @@ func (a *Armures) Init_Armures_Plastron(nom string) {
 		a.InitIntern_Armures("Manteau de feu", 7, 7, 7, 15, 3)
 	} else if nom == "Ecailles de Dragon" {
 		a.InitIntern_Armures("Ecailles de Dragon", 14, 10, 8, 60, 12)
+	} else if nom == "vide" {
+		a.InitIntern_Armures("vide", 0, 0, 0, 0, 0)
 	}
 }
 
@@ -73,6 +77,8 @@ func (a *Armures) Init_Armures_Gantelet(nom string) {
 		a.InitIntern_Armures("Manchette de feu", 7, 7, 7, 15, 3)
 	} else if nom == "Griffes de Dragon" {
 		a.InitIntern_Armures("Griffes de Dragon", 14, 10, 8, 60, 12)
+	} else if nom == "vide" {
+		a.InitIntern_Armures("vide", 0, 0, 0, 0, 0)
 	}
 }
 
@@ -89,5 +95,7 @@ func (a *Armures) Init_Armures_Jambières(nom string) {
 		a.InitIntern_Armures("Bottes de feu", 7, 7, 7, 15, 3)
 	} else if nom == "Pattes de Dragon" {
 		a.InitIntern_Armures("Pattes de Dragon", 14, 10, 8, 60, 12)
+	} else if nom == "vide" {
+		a.InitIntern_Armures("vide", 0, 0, 0, 0, 0)
 	}
 }
