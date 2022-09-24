@@ -26,6 +26,8 @@ func (a *Armures) InitIntern_Armures(nom string, lvlMinFor, lvlMinDex, lvlMinInt
 
 // Init des casques
 func (a *Armures) Init_Armures(nom string) {
+
+	//Init des casques
 	if nom == "Casque de Carcasse" {
 		a.InitIntern_Armures("Casque de Carcasse", 9, 11, 8, 20, 3)
 	} else if nom == "Casque d'Havel" {
@@ -39,7 +41,7 @@ func (a *Armures) Init_Armures(nom string) {
 	} else if nom == "Tête de Dragon" {
 		a.InitIntern_Armures("Tête de Dragon", 14, 10, 8, 60, 12)
 
-		// Init des plastrons
+		// Init des armures
 	} else if nom == "Plastron de Carcasse" {
 		a.InitIntern_Armures("Plastron de Carcasse", 9, 11, 8, 20, 3)
 	} else if nom == "Plastron d'Havel" {
@@ -53,7 +55,7 @@ func (a *Armures) Init_Armures(nom string) {
 	} else if nom == "Ecailles de Dragon" {
 		a.InitIntern_Armures("Ecailles de Dragon", 14, 10, 8, 60, 12)
 
-		// Init des gantelets
+		// Init des gauntlets
 	} else if nom == "Gantelet de Carcasse" {
 		a.InitIntern_Armures("Plastron de Carcasse", 9, 11, 8, 20, 3)
 	} else if nom == "Gantelet d'Havel" {
