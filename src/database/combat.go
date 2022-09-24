@@ -2,17 +2,38 @@ package database
 
 import "fmt"
 
-func (p *Personnage) Combat(mob *Personnage) {
-	Affichage("COMBAT", []string{"Que voulez-vous faire ?", "1. Attaquer", "2. Esquiver", "3. Bloquer", "4. Ouvrir inventaire", "5. Fuir"})
-	var choixCombat int
-	fmt.Scan(&choixCombat)
-	for choixCombat < 1 || choixCombat > 6 {
-		fmt.Println("Vous devez choisir un choix entre 1 et 6")
-		fmt.Scan(&choixCombat)
+func Combat(player, mob *Personnage) {
+	Affichage("Combat", []string{"Vous avez affronté un " + mob.Nom})
+	for player.Pvact > 0 && mob.Pvact > 0 {
+		var turnCount int
+		charTurn(player, mob, turnCount)
+		EnemyTurn(player, mob, turnCount)
 	}
-	switch choixCombat {
-	case 1:
-		//p.Inv
+}
 
+func (p *Personnage) Attaquer(target *Personnage) {
+	target.Pvact -= p.Degats
+}
+
+func charTurn(player, mob *Personnage, turnC int) {
+	var Choix int
+	Affichage("Combat", []string{"Que voulez vous faire ?", "1. Attaquer", "2. Inventaire", "3. Fuir"})
+	fmt.Scan(&Choix)
+	switch Choix {
+	case 1:
+		player.Attaquer(mob)
+		turnC++
+	case 2:
+		player.Affichage_Inventaire()
+		turnC++
 	}
+}
+
+func EnemyTurn(player, mob *Personnage, turnC int) {
+	if turnC%3 == 0 {
+		player.Pvact -= mob.Degats * 2
+	} else {
+		player.Pvact -= mob.Degats
+	}
+	turnC++
 }

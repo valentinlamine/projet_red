@@ -39,6 +39,7 @@ func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int int) {
 	p.PoidsMax = 5 * p.Force
 	p.Degats = p.EquipementArmes[0].deg
 	p.Ames = 0
+	p.Position = "hub"
 }
 
 func (p *Personnage) Init(nom, classe string) {
