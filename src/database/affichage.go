@@ -15,11 +15,11 @@ func Affichage(titre string, list []string) {
 			longest = uniseg.GraphemeClusterCount(s)
 		}
 	}
-	if len(titre) > longest {
+	if uniseg.GraphemeClusterCount(titre) > longest {
 		longest = uniseg.GraphemeClusterCount(titre)
 	}
 	//laisser 3 ligne de vide au dessus
-	fmt.Print("\n\n\n")
+	fmt.Print("\n\n\n\n\n\n\n")
 	//affichage du haut de la boite
 	fmt.Print("╒", strings.Repeat("═", longest), "╕", "\n")
 	//affichage du titre
@@ -43,6 +43,8 @@ func (p *Personnage) Affichage_Personnage() {
 func (p *Personnage) Affichage_Inventaire() {
 	nom := "None"
 	longueur := 50
+	var list_objets []string
+	nb_objets := 0
 	//affichage du haut de la boite
 	fmt.Print("╒", strings.Repeat("═", longueur), "╕", "\n")
 	//affichage du titre
@@ -55,7 +57,9 @@ func (p *Personnage) Affichage_Inventaire() {
 	for index := 0; index < len(p.Inv.Liste_armes); index++ {
 		if p.Inv.Liste_armes[index].Get_Armes("isUnlocked") == "true" {
 			nom = p.Inv.Liste_armes[index].Get_Armes("nom")
-			fmt.Print("│  ● ", nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-4), "│", "\n")
+			nb_objets++
+			list_objets = append(list_objets, nom)
+			fmt.Print("│  ", nb_objets, ". ", nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-5), "│", "\n")
 		}
 	}
 	//affichage des boucliers débloqués
@@ -65,7 +69,9 @@ func (p *Personnage) Affichage_Inventaire() {
 	for index := 0; index < len(p.Inv.Liste_boucliers); index++ {
 		if p.Inv.Liste_boucliers[index].Get_Boucliers("isUnlocked") == "true" {
 			nom = p.Inv.Liste_boucliers[index].Get_Boucliers("nom")
-			fmt.Print("│  ● ", nom, strings.Repeat(" ", longueur-len(nom)-4), "│", "\n")
+			nb_objets++
+			list_objets = append(list_objets, nom)
+			fmt.Print("│  ", nb_objets, ". ", nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-5), "│", "\n")
 		}
 	}
 	//affichage des consommables débloqués
@@ -75,11 +81,42 @@ func (p *Personnage) Affichage_Inventaire() {
 	for index := 0; index < len(p.Inv.Liste_consommables); index++ {
 		if p.Inv.Liste_consommables[index].Get_Consommable("isUnlocked") == "true" {
 			nom = p.Inv.Liste_consommables[index].Get_Consommable("nom")
-			fmt.Print("│  ● ", nom, strings.Repeat(" ", longueur-len(nom)-4), "│", "\n")
+			nb_objets++
+			list_objets = append(list_objets, nom)
+			fmt.Print("│  ", nb_objets, ". ", nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-5), "│", "\n")
 		}
 	}
 	//affichage du bas de la boite
 	fmt.Print("╘", strings.Repeat("═", longueur), "╛", "\n")
+
+	//choix de l'objet à afficher
+	fmt.Print("Choisissez un objet à afficher (0 pour quitter) : ")
+	var choix int
+	fmt.Scan(&choix)
+	for choix < 0 || choix > len(list_objets) {
+		fmt.Print("Choix incorrect, veuillez réessayer : ")
+		fmt.Scan(&choix)
+	}
+	if choix != 0 {
+		//affichage de l'objet choisi en utilisant la fonction Affichage
+		item := p.Inv.Get_Item(list_objets[choix-1])
+		switch item := item.(type) {
+		case Armes:
+			item.Affichage()
+			Attendre()
+			p.Affichage_Inventaire()
+		case Boucliers:
+			item.Affichage()
+			Attendre()
+			p.Affichage_Inventaire()
+		case Consommable:
+			item.Affichage()
+			Attendre()
+			p.Affichage_Inventaire()
+		default:
+			print("Erreur")
+		}
+	}
 }
 
 func (a *Armes) Affichage() {

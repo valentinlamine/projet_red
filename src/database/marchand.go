@@ -173,7 +173,6 @@ func WantTrade(player *Personnage, item interface{}) bool {
 	case 2:
 		switch item := item.(type) {
 		case Armes:
-			print("test")
 			item.Affichage()
 			Attendre()
 		case Boucliers:

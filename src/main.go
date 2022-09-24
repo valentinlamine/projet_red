@@ -67,7 +67,7 @@ func setup_personnage() {
 }
 
 func Menu() {
-	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Quitter le jeu", "4. Boire une potion de soin", "5. Boire une potion de poison", "6. Aller voir le marchand mort vivant"})
+	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Quitter le jeu", "4. Boire une potion de soin", "5. Boire une potion de poison", "6. Aller voir le marchand mort vivant", "7. Menu cheat"})
 	var choix int
 	fmt.Scan(&choix)
 	for choix < 1 || choix > 7 {
@@ -80,7 +80,6 @@ func Menu() {
 		database.Attendre()
 	case 2:
 		player.Affichage_Inventaire()
-		database.Attendre()
 	case 3:
 		database.Affichage("Fin du jeu", []string{"Merci d'avoir joué !"})
 		os.Exit(-1)
@@ -93,7 +92,24 @@ func Menu() {
 	case 6:
 		m1.Menu_Marchand(&player)
 	case 7:
-		//donner au joueur 100000 ames
-		player.Ames = 100000
+		menu_cheat()
+	}
+}
+
+func menu_cheat() {
+	database.Affichage("Menu cheat", []string{"Quel cheat souhaitez vous utilisez ?", "0. Quittez le menu", "1. Ajouter 1000 ames"})
+	var choix int
+	fmt.Scan(&choix)
+	for choix < 0 || choix > 1 {
+		fmt.Println("Vous devez choisir un choix entre 0 et 1")
+		fmt.Scan(&choix)
+	}
+	switch choix {
+	case 0:
+		return
+	case 1:
+		player.Ames += 1000
+		database.Affichage("Menu cheat", []string{"Vous avez maintenant " + fmt.Sprint(player.Ames) + " ames"})
+		database.Attendre()
 	}
 }
