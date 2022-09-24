@@ -13,7 +13,14 @@ var carte database.Arbre
 var player database.Personnage
 var m1 database.Marchand
 
+var mob database.Personnage
+var inventaireMob database.Inventaire
+
 func main() {
+	inventaireMob.Init()
+	mob.Inv = inventaireMob
+	mob.Init("Mob", "Guerrier")
+
 	inventaire.Init()
 	carte.Init()
 	m1.InitMarchand(1)
@@ -66,12 +73,13 @@ func setup_personnage() {
 
 func Menu() {
 	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Se déplacer", "4. Boire une potion de soin", "5. Boire une potion de poison", "6. Aller voir le marchand mort vivant", "7. Menu triche", "8. Quitter le jeu"})
-	var choix = Choix(1, 8)
+	var choix = Choix(1, 9)
 	switch choix {
 	case 1:
 		player.Affichage_Personnage()
 		database.Attendre()
 	case 2:
+		fmt.Println("Vous avez maintenant ", player.Degats, " DPS")
 		player.Affichage_Inventaire()
 	case 3:
 		Menu_deplacement()
@@ -88,6 +96,8 @@ func Menu() {
 	case 8:
 		database.Affichage("Fin du jeu", []string{"Merci d'avoir joué !"})
 		os.Exit(-1)
+	case 9:
+		database.Combat(&player, &mob)
 	}
 }
 
