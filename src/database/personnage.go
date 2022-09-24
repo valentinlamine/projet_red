@@ -48,19 +48,22 @@ func (p *Personnage) Init(nom, classe string) {
 		p.Inv.Liste_armes[3].Set_Armes("isUnlocked", "true")         //débloquer Uchigatana
 		p.Inv.Liste_boucliers[0].Set_Boucliers("isUnlocked", "true") //débloquer Bouclier de bois
 		p.EquipementArmes = p.Inv.Liste_armes[3]                     //équiper Uchigatana
-		p.EquipementBoucliers = p.Inv.Liste_boucliers[0]             //équiper Bouclier de bois
+		p.Degats = p.EquipementArmes.deg
+		p.EquipementBoucliers = p.Inv.Liste_boucliers[0] //équiper Bouclier de bois
 
 	} else if classe == "Chevalier" {
 		p.InitIntern(nom, "Chevalier", 10, 11, 8, 10)
 		p.Inv.Liste_armes[1].Set_Armes("isUnlocked", "true")         //débloquer Claymore
 		p.Inv.Liste_boucliers[2].Set_Boucliers("isUnlocked", "true") //débloquer Bouclier de fer
 		p.EquipementArmes = p.Inv.Liste_armes[1]                     //équiper Claymore
-		p.EquipementBoucliers = p.Inv.Liste_boucliers[2]             //équiper Bouclier de fer
+		p.Degats = p.EquipementArmes.deg
+		p.EquipementBoucliers = p.Inv.Liste_boucliers[2] //équiper Bouclier de fer
 
 	} else if classe == "Pyromancien" {
 		p.InitIntern(nom, "Pyromancien", 9, 9, 11, 12)
 		p.Inv.Liste_armes[0].Set_Armes("isUnlocked", "true") //débloquer Dague
 		p.EquipementArmes = p.Inv.Liste_armes[0]             //équiper Dague
+		p.Degats = p.EquipementArmes.deg
 
 	} else if classe == "Mendiant" {
 		p.InitIntern(nom, "Mendiant", 9, 9, 9, 9)
@@ -70,7 +73,8 @@ func (p *Personnage) Init(nom, classe string) {
 		p.Inv.Liste_armures_bras[0].isUnlocked = true   //débloquer première armure de bras
 		p.Inv.Liste_armures_jambes[0].isUnlocked = true //débloquer première armure de jambes
 
-		p.EquipementArmes = p.Inv.Liste_armes[4]                      //équiper Baton
+		p.EquipementArmes = p.Inv.Liste_armes[4] //équiper Baton
+		p.Degats = p.EquipementArmes.deg
 		p.EquipementArmures["Tete"] = p.Inv.Liste_armures_tete[0]     //équiper première armure de tête
 		p.EquipementArmures["Torse"] = p.Inv.Liste_armures_torse[0]   //équiper première armure de torse
 		p.EquipementArmures["Bras"] = p.Inv.Liste_armures_bras[0]     //équiper première armure de bras
