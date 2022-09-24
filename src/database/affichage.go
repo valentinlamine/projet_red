@@ -18,8 +18,8 @@ func Affichage(titre string, list []string) {
 	if uniseg.GraphemeClusterCount(titre) > longest {
 		longest = uniseg.GraphemeClusterCount(titre)
 	}
-	//laisser 3 ligne de vide au dessus
-	fmt.Print("\n\n\n\n\n\n\n")
+	//laisser 8 ligne de vide au dessus
+	fmt.Print("\n\n\n\n\n\n\n\n")
 	//affichage du haut de la boite
 	fmt.Print("╒", strings.Repeat("═", longest), "╕", "\n")
 	//affichage du titre
@@ -45,6 +45,8 @@ func (p *Personnage) Affichage_Inventaire() {
 	longueur := 50
 	var list_objets []string
 	nb_objets := 0
+	//laisser 8 ligne de vide au dessus
+	fmt.Print("\n\n\n\n\n\n\n\n")
 	//affichage du haut de la boite
 	fmt.Print("╒", strings.Repeat("═", longueur), "╕", "\n")
 	//affichage du titre

@@ -64,16 +64,12 @@ func setup_personnage() {
 	case 4:
 		player.Init(nom, "Mendiant")
 	}
+	player.Position = carte
 }
 
 func Menu() {
 	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Se déplacer", "4. Boire une potion de soin", "5. Boire une potion de poison", "6. Aller voir le marchand mort vivant", "7. Menu triche", "8. Quitter le jeu"})
-	var choix int
-	fmt.Scan(&choix)
-	for choix < 1 || choix > 7 {
-		fmt.Println("Vous devez choisir un choix entre 1 et 6")
-		fmt.Scan(&choix)
-	}
+	var choix = Choix(1, 8)
 	switch choix {
 	case 1:
 		player.Affichage_Personnage()
@@ -117,23 +113,40 @@ func menu_cheat() {
 }
 
 func Menu_deplacement() {
-	database.Affichage("Menu déplacement", []string{"Où voulez-vous aller ?", "1. Aller à gauche", "2. Aller à droite", "3. Aller tout droit", "4. Revenir en arrière", "5. Retourner au menu principal"})
-	var choix int
-	fmt.Scan(&choix)
-	for choix < 1 || choix > 5 {
-		fmt.Println("Vous devez choisir un choix entre 1 et 5")
-		fmt.Scan(&choix)
-	}
+	boucle := false
+	database.Affichage("Menu déplacement", []string{"Vous êtes à " + player.Position.Val["name"], "Où voulez-vous aller ?", "1. Devant", "2. Gauche", "3. Droite", "4. Retour au hub", "5. Retour au menu principal"})
+	var choix = Choix(1, 5)
 	switch choix {
 	case 1:
-		player.Deplacement("gauche")
+		boucle = player.Deplacement(carte, "centre")
 	case 2:
-		player.Deplacement("droite")
+		boucle = player.Deplacement(carte, "gauche")
 	case 3:
-		player.Deplacement("devant")
+		boucle = player.Deplacement(carte, "droite")
 	case 4:
-		player.Deplacement("derrière")
+		database.Affichage("Avertissement", []string{"Vous allez retourner au hub", "Si vous retournez au hub voici ce qu'il va se produire :", "● Vous allez perdre 10 ames", "● La carte sera regénéré", "", "Voulez-vous continuer ?", "1. Oui", "2. Non"})
+		choix = Choix(1, 2)
+		switch choix {
+		case 1:
+			player.Ames -= 10
+			boucle = player.Deplacement(carte, "retour")
+		case 2:
+			boucle = true
+		}
 	case 5:
 		return
 	}
+	if boucle {
+		Menu_deplacement()
+	}
+}
+
+func Choix(nb1, nb2 int) int {
+	var a int
+	fmt.Scan(&a)
+	for a < nb1 || a > nb2 {
+		fmt.Println("Vous devez choisir un nombre entre", nb1, "et", nb2)
+		fmt.Scan(&a)
+	}
+	return a
 }
