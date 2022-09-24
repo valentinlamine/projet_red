@@ -124,7 +124,6 @@ func (i *Inventaire) Init() {
 	Casque_chevalier.Init_Armures("Heaume de Chevalier")
 	Casque_feu.Init_Armures("Capuche de feu")
 	Casque_dragon.Init_Armures("Tête de Dragon")
-	Casque_vide.Init_Armures("vide")
 	i.Liste_armures_tete = append(i.Liste_armures_tete,
 		Casque_carcasse,
 		Casque_Havel,
@@ -132,7 +131,7 @@ func (i *Inventaire) Init() {
 		Casque_chevalier,
 		Casque_feu,
 		Casque_dragon,
-		Casque_vide)
+	)
 
 	//Initialisation des armures de torse
 	Armure_carcasse.Init_Armures("Plastron de Carcasse")
@@ -141,7 +140,6 @@ func (i *Inventaire) Init() {
 	Armure_chevalier.Init_Armures("Plastron de Chevalier")
 	Armure_feu.Init_Armures("Manteau de feu")
 	Armure_dragon.Init_Armures("Ecailles de Dragon")
-	Armure_vide.Init_Armures("vide")
 	i.Liste_armures_torse = append(i.Liste_armures_torse,
 		Armure_carcasse,
 		Armure_Havel,
@@ -149,7 +147,7 @@ func (i *Inventaire) Init() {
 		Armure_chevalier,
 		Armure_feu,
 		Armure_dragon,
-		Armure_vide)
+	)
 
 	//Initialisation des armures de bras
 	Gantelets_carcasse.Init_Armures("Gantelet de Carcasse")
@@ -158,7 +156,6 @@ func (i *Inventaire) Init() {
 	Gantelets_chevalier.Init_Armures("Plastron de Chevalier")
 	Gantelets_feu.Init_Armures("Manchette de feu")
 	Gantelets_dragon.Init_Armures("Griffes de Dragon")
-	Gantelets_vide.Init_Armures("vide")
 	i.Liste_armures_bras = append(i.Liste_armures_bras,
 		Gantelets_carcasse,
 		Gantelets_Havel,
@@ -166,7 +163,7 @@ func (i *Inventaire) Init() {
 		Gantelets_chevalier,
 		Gantelets_feu,
 		Gantelets_dragon,
-		Gantelets_vide)
+	)
 
 	//Initialisation des armures de jambes
 	Jambières_carcasse.Init_Armures("Jambières de Carcasse")
@@ -175,7 +172,6 @@ func (i *Inventaire) Init() {
 	Jambières_chevalier.Init_Armures("Jambières de Chevalier")
 	Jambières_feu.Init_Armures("Bottes de feu")
 	Jambières_dragon.Init_Armures("Pattes de Dragon")
-	Jambières_vide.Init_Armures("vide")
 	i.Liste_armures_jambes = append(i.Liste_armures_jambes,
 		Jambières_carcasse,
 		Jambières_Havel,
@@ -183,6 +179,10 @@ func (i *Inventaire) Init() {
 		Jambières_chevalier,
 		Jambières_feu,
 		Jambières_dragon,
-		Jambières_vide)
+	)
+
+}
+
+func (p *Personnage) Equiper(item interface{}) {
 
 }

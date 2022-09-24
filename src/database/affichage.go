@@ -50,15 +50,15 @@ func (p *Personnage) Affichage_Inventaire() {
 	//affichage du haut de la boite
 	fmt.Print("╒", strings.Repeat("═", longueur), "╕", "\n")
 	//affichage du titre
-	fmt.Print("│", "Inventaire", strings.Repeat(" ", longueur-len("Inventaire")), "│", "\n")
+	fmt.Print("│", "Inventaire", strings.Repeat(" ", longueur-10), "│", "\n")
 	//affichage de la ligne
 	fmt.Print("╞", strings.Repeat("═", longueur), "╡", "\n")
 	//affichage des armes débloquées
-	fmt.Print("│", "Armes débloquées :", strings.Repeat(" ", longueur-len("Armes débloquées")), "│", "\n")
+	fmt.Print("│", "Armes débloquées :", strings.Repeat(" ", longueur-18), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	for index := 0; index < len(p.Inv.Liste_armes); index++ {
-		if p.Inv.Liste_armes[index].Get_Armes("isUnlocked") == "true" {
-			nom = p.Inv.Liste_armes[index].Get_Armes("nom")
+		if p.Inv.Liste_armes[index].IsUnlocked {
+			nom = p.Inv.Liste_armes[index].nom
 			nb_objets++
 			list_objets = append(list_objets, nom)
 			fmt.Print("│  ", nb_objets, ". ", nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-5), "│", "\n")
@@ -66,11 +66,11 @@ func (p *Personnage) Affichage_Inventaire() {
 	}
 	//affichage des boucliers débloqués
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	fmt.Print("│", "Boucliers débloqués :", strings.Repeat(" ", longueur-len("Boucliers débloqués")), "│", "\n")
+	fmt.Print("│", "Boucliers débloqués :", strings.Repeat(" ", longueur-21), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	for index := 0; index < len(p.Inv.Liste_boucliers); index++ {
-		if p.Inv.Liste_boucliers[index].Get_Boucliers("isUnlocked") == "true" {
-			nom = p.Inv.Liste_boucliers[index].Get_Boucliers("nom")
+		if p.Inv.Liste_boucliers[index].IsUnlocked {
+			nom = p.Inv.Liste_boucliers[index].nom
 			nb_objets++
 			list_objets = append(list_objets, nom)
 			fmt.Print("│  ", nb_objets, ". ", nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-5), "│", "\n")
@@ -78,14 +78,62 @@ func (p *Personnage) Affichage_Inventaire() {
 	}
 	//affichage des consommables débloqués
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	fmt.Print("│", "Consommables débloqués :", strings.Repeat(" ", longueur-len("Consommables débloqués")), "│", "\n")
+	fmt.Print("│", "Consommables débloqués :", strings.Repeat(" ", longueur-24), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	for index := 0; index < len(p.Inv.Liste_consommables); index++ {
-		if p.Inv.Liste_consommables[index].Get_Consommable("isUnlocked") == "true" {
-			nom = p.Inv.Liste_consommables[index].Get_Consommable("nom")
+		if p.Inv.Liste_consommables[index].Quantite > 0 {
+			nom = p.Inv.Liste_consommables[index].Nom
+			nb_objets++
+			list_objets = append(list_objets, nom)
+			fmt.Print("│  ", nb_objets, ". ", nom, " ("+strconv.Itoa(p.Inv.Liste_consommables[index].Quantite)+")", strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-(8+len(strconv.Itoa(p.Inv.Liste_consommables[index].Quantite)))), "│", "\n")
+		}
+	}
+	//affichage des armures de tête débloquées
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│", "Casques débloquées :", strings.Repeat(" ", longueur-20), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	for index := 0; index < len(p.Inv.Liste_armures_tete); index++ {
+		if p.Inv.Liste_armures_tete[index].isUnlocked {
+			nom = p.Inv.Liste_armures_tete[index].nom
 			nb_objets++
 			list_objets = append(list_objets, nom)
 			fmt.Print("│  ", nb_objets, ". ", nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-5), "│", "\n")
+		}
+	}
+	//affichage des armures de torse débloquées
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│", "Plastrons débloquées :", strings.Repeat(" ", longueur-22), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	for index := 0; index < len(p.Inv.Liste_armures_torse); index++ {
+		if p.Inv.Liste_armures_torse[index].isUnlocked {
+			nom = p.Inv.Liste_armures_torse[index].nom
+			nb_objets++
+			list_objets = append(list_objets, nom)
+			fmt.Print("│  ", nb_objets, ". ", nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-5), "│", "\n")
+		}
+	}
+	//affichage des armures de jambes débloquées
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│", "Jambières débloquées :", strings.Repeat(" ", longueur-22), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	for index := 0; index < len(p.Inv.Liste_armures_jambes); index++ {
+		if p.Inv.Liste_armures_jambes[index].isUnlocked {
+			nom = p.Inv.Liste_armures_jambes[index].nom
+			nb_objets++
+			list_objets = append(list_objets, nom)
+			fmt.Print("│  ", nb_objets, ". ", nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-6), "│", "\n")
+		}
+	}
+	//affichage des armures de bras débloquées
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│", "Brassards débloquées :", strings.Repeat(" ", longueur-22), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	for index := 0; index < len(p.Inv.Liste_armures_bras); index++ {
+		if p.Inv.Liste_armures_bras[index].isUnlocked {
+			nom = p.Inv.Liste_armures_bras[index].nom
+			nb_objets++
+			list_objets = append(list_objets, nom)
+			fmt.Print("│  ", nb_objets, ". ", nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-6), "│", "\n")
 		}
 	}
 	//affichage du bas de la boite
@@ -101,22 +149,35 @@ func (p *Personnage) Affichage_Inventaire() {
 	}
 	if choix != 0 {
 		//affichage de l'objet choisi en utilisant la fonction Affichage
+		Affichage("Inventaire", []string{"Vous avez choisi l'objet : " + list_objets[choix-1], "Que voulez vous faire avec cet objet ? ", "1. L'équiper", "2. Afficher ces statistiques", "3. Retourner au menu précédent"})
 		item := p.Inv.Get_Item(list_objets[choix-1])
-		switch item := item.(type) {
-		case Armes:
-			item.Affichage()
-			Attendre()
+		var choix2 int
+		fmt.Scan(&choix2)
+		for choix2 < 1 || choix2 > 3 {
+			fmt.Print("Choix incorrect, veuillez réessayer : ")
+			fmt.Scan(&choix2)
+		}
+		if choix2 == 1 {
+			p.Equiper(item)
+		} else if choix2 == 2 {
+			switch item := item.(type) {
+			case Armes:
+				item.Affichage()
+				Attendre()
+				p.Affichage_Inventaire()
+			case Boucliers:
+				item.Affichage()
+				Attendre()
+				p.Affichage_Inventaire()
+			case Consommable:
+				item.Affichage()
+				Attendre()
+				p.Affichage_Inventaire()
+			default:
+				print("Erreur")
+			}
+		} else if choix2 == 3 {
 			p.Affichage_Inventaire()
-		case Boucliers:
-			item.Affichage()
-			Attendre()
-			p.Affichage_Inventaire()
-		case Consommable:
-			item.Affichage()
-			Attendre()
-			p.Affichage_Inventaire()
-		default:
-			print("Erreur")
 		}
 	}
 }

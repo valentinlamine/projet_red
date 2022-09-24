@@ -18,12 +18,9 @@ func main() {
 	carte.Init()
 	m1.InitMarchand(1)
 	setup_personnage()
-	for !player.IsDead() {
+	for {
+		player.IsDead()
 		Menu()
-	}
-	//à modifier
-	if player.IsDead() {
-		database.Affichage("Fin du jeu", []string{"Vous êtes mort !"})
 	}
 }
 

@@ -11,7 +11,6 @@ type Armures struct {
 	pvbonus    int
 	poids      int
 	isUnlocked bool
-	isEquiped  bool
 }
 
 func (a *Armures) InitIntern_Armures(nom string, lvlMinFor, lvlMinDex, lvlMinInt, pvbonus, poids int) {
@@ -21,11 +20,6 @@ func (a *Armures) InitIntern_Armures(nom string, lvlMinFor, lvlMinDex, lvlMinInt
 	a.lvlMinInt = lvlMinInt
 	a.pvbonus = pvbonus
 	a.poids = poids
-	if nom == "vide" {
-		a.isUnlocked = true
-	} else {
-		a.isUnlocked = false
-	}
 }
 
 //TODO Changer les stats des armures
@@ -44,8 +38,6 @@ func (a *Armures) Init_Armures(nom string) {
 		a.InitIntern_Armures("Capuche de feu", 7, 7, 7, 15, 3)
 	} else if nom == "Tête de Dragon" {
 		a.InitIntern_Armures("Tête de Dragon", 14, 10, 8, 60, 12)
-	} else if nom == "vide" {
-		a.InitIntern_Armures("vide", 0, 0, 0, 0, 0)
 
 		// Init des plastrons
 	} else if nom == "Plastron de Carcasse" {
@@ -60,8 +52,6 @@ func (a *Armures) Init_Armures(nom string) {
 		a.InitIntern_Armures("Manteau de feu", 7, 7, 7, 15, 3)
 	} else if nom == "Ecailles de Dragon" {
 		a.InitIntern_Armures("Ecailles de Dragon", 14, 10, 8, 60, 12)
-	} else if nom == "vide" {
-		a.InitIntern_Armures("vide", 0, 0, 0, 0, 0)
 
 		// Init des gantelets
 	} else if nom == "Gantelet de Carcasse" {
@@ -76,8 +66,6 @@ func (a *Armures) Init_Armures(nom string) {
 		a.InitIntern_Armures("Manchette de feu", 7, 7, 7, 15, 3)
 	} else if nom == "Griffes de Dragon" {
 		a.InitIntern_Armures("Griffes de Dragon", 14, 10, 8, 60, 12)
-	} else if nom == "vide" {
-		a.InitIntern_Armures("vide", 0, 0, 0, 0, 0)
 
 		// Init des jambieres
 	} else if nom == "Jambières de Carcasse" {
@@ -92,9 +80,5 @@ func (a *Armures) Init_Armures(nom string) {
 		a.InitIntern_Armures("Bottes de feu", 7, 7, 7, 15, 3)
 	} else if nom == "Pattes de Dragon" {
 		a.InitIntern_Armures("Pattes de Dragon", 14, 10, 8, 60, 12)
-
-		// Init Vide
-	} else if nom == "vide" {
-		a.InitIntern_Armures("vide", 0, 0, 0, 0, 0)
 	}
 }

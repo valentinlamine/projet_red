@@ -39,6 +39,7 @@ func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int int) {
 	p.PoidsMax = 5 * p.Force
 	p.Degats = p.EquipementArmes[0].deg
 	p.Ames = 0
+	p.EquipementArmures = make(map[string]Armures)
 }
 
 func (p *Personnage) Init(nom, classe string) {
@@ -64,23 +65,25 @@ func (p *Personnage) Init(nom, classe string) {
 	} else if classe == "Mendiant" {
 		p.InitIntern(nom, "Mendiant", 9, 9, 9, 9)
 		p.Inv.Liste_armes[4].IsUnlocked = true          //débloquer Baton
-		p.Inv.Liste_armures_tete[6].isUnlocked = true   //débloquer Vide
-		p.Inv.Liste_armures_torse[6].isUnlocked = true  //débloquer Vide
-		p.Inv.Liste_armures_bras[6].isUnlocked = true   //débloquer Vide
-		p.Inv.Liste_armures_jambes[6].isUnlocked = true //débloquer Vide
+		p.Inv.Liste_armures_tete[0].isUnlocked = true   //débloquer première armure de tête
+		p.Inv.Liste_armures_torse[0].isUnlocked = true  //débloquer première armure de torse
+		p.Inv.Liste_armures_bras[0].isUnlocked = true   //débloquer première armure de bras
+		p.Inv.Liste_armures_jambes[0].isUnlocked = true //débloquer première armure de jambes
 
 		p.EquipementArmes[0] = p.Inv.Liste_armes[4]                   //équiper Baton
-		p.EquipementArmures["Tete"] = p.Inv.Liste_armures_tete[6]     //équiper Vide
-		p.EquipementArmures["Torse"] = p.Inv.Liste_armures_torse[6]   //équiper Vide
-		p.EquipementArmures["Bras"] = p.Inv.Liste_armures_bras[6]     //équiper Vide
-		p.EquipementArmures["Jambes"] = p.Inv.Liste_armures_jambes[6] //équiper Vide
+		p.EquipementArmures["Tete"] = p.Inv.Liste_armures_tete[0]     //équiper première armure de tête
+		p.EquipementArmures["Torse"] = p.Inv.Liste_armures_torse[0]   //équiper première armure de torse
+		p.EquipementArmures["Bras"] = p.Inv.Liste_armures_bras[0]     //équiper première armure de bras
+		p.EquipementArmures["Jambes"] = p.Inv.Liste_armures_jambes[0] //équiper première armure de jambes
 	}
 }
 
 func (p *Personnage) IsDead() bool {
 	if p.Pvact <= 0 {
 		p.Ames = 0
-		//print in red "Vous êtes mort !"
+		var hub Arbre
+		hub.Init()
+		p.Position = hub
 		fmt.Println("\033[31mVous êtes mort !\033[0m")
 		return true
 	} else {
