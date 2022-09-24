@@ -26,3 +26,9 @@ func (hub *Arbre) Init() {
 	hub.Centre.Gauche.Centre.Centre.Insert(map[string]string{"name": "Muraille", "mob_nb": "0", "mob_type": "none", "boss_type": "Gargouille", "feu": "false", "forge": "false", "secret_destination": "none", "secret_unlock": "false"})
 	hub.Centre.Gauche.Centre.Centre.Centre.Insert(map[string]string{"name": "Tour nord", "mob_nb": "0", "mob_type": "none", "boss_type": "none", "feu": "false", "forge": "false", "secret_destination": "none", "secret_unlock": "false"})
 }
+
+func (p *Personnage) Deplacement(direction string) {
+	if direction == "gauche" {
+		p.Position = p.Position.Gauche
+	}
+}

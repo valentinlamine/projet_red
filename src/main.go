@@ -67,7 +67,7 @@ func setup_personnage() {
 }
 
 func Menu() {
-	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Quitter le jeu", "4. Boire une potion de soin", "5. Boire une potion de poison", "6. Aller voir le marchand mort vivant", "7. Menu cheat"})
+	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Se déplacer", "4. Boire une potion de soin", "5. Boire une potion de poison", "6. Aller voir le marchand mort vivant", "7. Menu triche", "8. Quitter le jeu"})
 	var choix int
 	fmt.Scan(&choix)
 	for choix < 1 || choix > 7 {
@@ -81,8 +81,7 @@ func Menu() {
 	case 2:
 		player.Affichage_Inventaire()
 	case 3:
-		database.Affichage("Fin du jeu", []string{"Merci d'avoir joué !"})
-		os.Exit(-1)
+		Menu_deplacement()
 	case 4:
 		player.PrendrePot(player.Inv.Liste_consommables[0])
 		player.Affichage_Personnage()
@@ -93,6 +92,9 @@ func Menu() {
 		m1.Menu_Marchand(&player)
 	case 7:
 		menu_cheat()
+	case 8:
+		database.Affichage("Fin du jeu", []string{"Merci d'avoir joué !"})
+		os.Exit(-1)
 	}
 }
 
@@ -111,5 +113,27 @@ func menu_cheat() {
 		player.Ames += 1000
 		database.Affichage("Menu cheat", []string{"Vous avez maintenant " + fmt.Sprint(player.Ames) + " ames"})
 		database.Attendre()
+	}
+}
+
+func Menu_deplacement() {
+	database.Affichage("Menu déplacement", []string{"Où voulez-vous aller ?", "1. Aller à gauche", "2. Aller à droite", "3. Aller tout droit", "4. Revenir en arrière", "5. Retourner au menu principal"})
+	var choix int
+	fmt.Scan(&choix)
+	for choix < 1 || choix > 5 {
+		fmt.Println("Vous devez choisir un choix entre 1 et 5")
+		fmt.Scan(&choix)
+	}
+	switch choix {
+	case 1:
+		player.Deplacement("gauche")
+	case 2:
+		player.Deplacement("droite")
+	case 3:
+		player.Deplacement("devant")
+	case 4:
+		player.Deplacement("derrière")
+	case 5:
+		return
 	}
 }

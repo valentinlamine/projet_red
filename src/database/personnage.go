@@ -13,7 +13,8 @@ type Personnage struct {
 	Dexterite    int // Dextérité du personnage (dégâts infligés, esquive, etc.)
 	Intelligence int // Intelligence du personnage (dégâts magiques, etc.)
 	//état du personnage
-	Pvact               int // Points de vie actuels
+	Position            string // Position du personnage sur la carte
+	Pvact               int    // Points de vie actuels
 	Inv                 Inventaire
 	PoidsEquip          int // Poids total des objets équipés
 	PoidsMax            int // Poids maximum que peut porter le personnage
