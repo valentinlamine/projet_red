@@ -27,8 +27,48 @@ func (hub *Arbre) Init() {
 	hub.Centre.Gauche.Centre.Centre.Centre.Insert(map[string]string{"name": "Tour nord", "mob_nb": "0", "mob_type": "none", "boss_type": "none", "feu": "false", "forge": "false", "secret_destination": "none", "secret_unlock": "false"})
 }
 
-func (p *Personnage) Deplacement(direction string) {
-	if direction == "gauche" {
-		p.Position = p.Position.Gauche
+func (p *Personnage) Deplacement(base Arbre, direction string) bool {
+	restart := false
+	if direction == "centre" {
+		if p.Position.Centre.Val != nil {
+			p.Position = *p.Position.Centre
+			Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé à " + p.Position.Val["name"]})
+			Attendre()
+		} else {
+			Affichage("Déplacement", []string{"On dirait que nous nous sommes perdu...", "Il n'y a rien ici.", "Il faut trouver un autre chemin."})
+			Attendre()
+			restart = true
+		}
+	} else if direction == "gauche" {
+		if p.Position.Gauche.Val != nil {
+			p.Position = *p.Position.Gauche
+			Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé à " + p.Position.Val["name"]})
+			Attendre()
+		} else {
+			Affichage("Déplacement", []string{"On dirait que nous nous sommes perdu...", "Il n'y a rien ici.", "Il faut trouver un autre chemin."})
+			Attendre()
+			restart = true
+		}
+	} else if direction == "droite" {
+		if p.Position.Droite.Val != nil {
+			p.Position = *p.Position.Droite
+			Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé à " + p.Position.Val["name"]})
+			Attendre()
+		} else {
+			Affichage("Déplacement", []string{"On dirait que nous nous sommes perdu...", "Il n'y a rien ici.", "Il faut trouver un autre chemin."})
+			Attendre()
+			restart = true
+		}
+	} else if direction == "retour" {
+		if p.Position.Val["name"] == "hub" {
+			Affichage("Déplacement", []string{"Nous sommes déjà au hub."})
+			Attendre()
+			restart = true
+		} else {
+			p.Position = base
+			Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé au hub."})
+			Attendre()
+		}
 	}
+	return restart
 }

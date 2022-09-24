@@ -13,8 +13,8 @@ type Personnage struct {
 	Dexterite    int // Dextérité du personnage (dégâts infligés, esquive, etc.)
 	Intelligence int // Intelligence du personnage (dégâts magiques, etc.)
 	//état du personnage
-	Position            string // Position du personnage sur la carte
-	Pvact               int    // Points de vie actuels
+	Position            Arbre // Position du personnage sur la carte
+	Pvact               int   // Points de vie actuels
 	Inv                 Inventaire
 	PoidsEquip          int // Poids total des objets équipés
 	PoidsMax            int // Poids maximum que peut porter le personnage
@@ -42,7 +42,6 @@ func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int int) {
 }
 
 func (p *Personnage) Init(nom, classe string) {
-	//modifie le nom pour mettre la première lettre en majuscule et le reste en minuscule
 	if classe == "Guerrier" {
 		p.InitIntern(nom, "Guerrier", 11, 12, 9, 8)
 		p.Inv.Liste_armes[3].Set_Armes("isUnlocked", "true")         //débloquer Uchigatana
