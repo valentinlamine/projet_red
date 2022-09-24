@@ -184,5 +184,43 @@ func (i *Inventaire) Init() {
 }
 
 func (p *Personnage) Equiper(item interface{}) {
+	switch item := item.(type) {
+	case Armes:
+		if p.PoidsMax < p.PoidsEquip+item.poids {
+			Affichage("Erreur", []string{"Vous ne pouvez pas porter autant de poids"})
+		} else if p.Force < item.lvlMinFor && p.Dexterite < item.lvlMinDex && p.Intelligence < item.lvlMinInt {
+			Affichage("Erreur", []string{"Vous n'avez pas le niveau requis pour équiper cette arme"})
+		} else {
+			p.EquipementArmes = item
+			p.PoidsEquip += item.poids
+		}
+	case Boucliers:
+		if p.PoidsMax < p.PoidsEquip+item.poids {
+			Affichage("Erreur", []string{"Vous ne pouvez pas porter autant de poids"})
+		} else if p.Force < item.lvlMinFor && p.Dexterite < item.lvlMinDex && p.Intelligence < item.lvlMinInt {
+			Affichage("Erreur", []string{"Vous n'avez pas le niveau requis pour équiper ce bouclier"})
+		} else {
+			p.EquipementBoucliers = item
+			p.PoidsEquip += item.poids
+		}
+	case Armures:
+		if p.PoidsMax < p.PoidsEquip+item.poids {
+			Affichage("Erreur", []string{"Vous ne pouvez pas porter autant de poids"})
+		} else if p.Force < item.lvlMinFor && p.Dexterite < item.lvlMinDex && p.Intelligence < item.lvlMinInt {
+			Affichage("Erreur", []string{"Vous n'avez pas le niveau requis pour équiper cette armure"})
+		} else {
+			switch item.class {
+			case "casque":
+				p.EquipementArmures["tete"] = item
+			case "plastron":
+				p.EquipementArmures["torse"] = item
+			case "gantelet":
+				p.EquipementArmures["bras"] = item
+			case "jambieres":
+				p.EquipementArmures["jambes"] = item
+			}
+			p.PoidsEquip += item.poids
+		}
+	}
 
 }

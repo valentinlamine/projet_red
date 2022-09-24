@@ -66,11 +66,10 @@ func setup_personnage() {
 
 func Menu() {
 	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Se déplacer", "4. Boire une potion de soin", "5. Boire une potion de poison", "6. Aller voir le marchand mort vivant", "7. Menu triche", "8. Quitter le jeu"})
-	var choix = Choix(1, 8)
+	var choix = database.Choix(1, 8)
 	switch choix {
 	case 1:
 		player.Affichage_Personnage()
-		database.Attendre()
 	case 2:
 		player.Affichage_Inventaire()
 	case 3:
@@ -112,7 +111,7 @@ func menu_cheat() {
 func Menu_deplacement() {
 	boucle := false
 	database.Affichage("Menu déplacement", []string{"Vous êtes à " + player.Position.Val["name"], "Où voulez-vous aller ?", "1. Devant", "2. Gauche", "3. Droite", "4. Retour au hub", "5. Retour au menu principal"})
-	var choix = Choix(1, 5)
+	var choix = database.Choix(1, 5)
 	switch choix {
 	case 1:
 		boucle = player.Deplacement(carte, "centre")
@@ -122,7 +121,7 @@ func Menu_deplacement() {
 		boucle = player.Deplacement(carte, "droite")
 	case 4:
 		database.Affichage("Avertissement", []string{"Vous allez retourner au hub", "Si vous retournez au hub voici ce qu'il va se produire :", "● Vous allez perdre 10 ames", "● La carte sera regénéré", "", "Voulez-vous continuer ?", "1. Oui", "2. Non"})
-		choix = Choix(1, 2)
+		choix = database.Choix(1, 2)
 		switch choix {
 		case 1:
 			player.Ames -= 10
@@ -136,14 +135,4 @@ func Menu_deplacement() {
 	if boucle {
 		Menu_deplacement()
 	}
-}
-
-func Choix(nb1, nb2 int) int {
-	var a int
-	fmt.Scan(&a)
-	for a < nb1 || a > nb2 {
-		fmt.Println("Vous devez choisir un nombre entre", nb1, "et", nb2)
-		fmt.Scan(&a)
-	}
-	return a
 }

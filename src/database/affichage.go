@@ -36,8 +36,17 @@ func Affichage(titre string, list []string) {
 }
 
 func (p *Personnage) Affichage_Personnage() {
-	//Bizarre que ça marche grâce au 1er Get_Personnage sans avoir besoin de changer les autres appels
 	Affichage("Personnage", []string{"Nom : " + p.Nom, "Niveau : " + strconv.Itoa(p.Niveau), "PV : " + strconv.Itoa(p.Pvact), "PV Max : " + strconv.Itoa(p.Pvmax), "Vitalité: " + strconv.Itoa(p.Vitalite), "Force : " + strconv.Itoa(p.Force), "Dextérité : " + strconv.Itoa(p.Dexterite), "Intelligence : " + strconv.Itoa(p.Intelligence), "Ames : " + strconv.Itoa(p.Ames)})
+	fmt.Println("Appuyez sur 1 pour voir votre inventaire équipé")
+	fmt.Println("Appuyez sur 0 pour revenir au menu principal")
+	var choix = Choix(0, 1)
+	switch choix {
+	case 1:
+		p.Affichage_inventaire_equipe()
+		Attendre()
+	case 0:
+		return
+	}
 }
 
 func (p *Personnage) Affichage_Inventaire() {
@@ -173,6 +182,10 @@ func (p *Personnage) Affichage_Inventaire() {
 				item.Affichage()
 				Attendre()
 				p.Affichage_Inventaire()
+			case Armures:
+				item.Affichage()
+				Attendre()
+				p.Affichage_Inventaire()
 			default:
 				print("Erreur")
 			}
@@ -180,6 +193,45 @@ func (p *Personnage) Affichage_Inventaire() {
 			p.Affichage_Inventaire()
 		}
 	}
+}
+
+func (p *Personnage) Affichage_inventaire_equipe() {
+	longueur := 50
+	//affichage du haut de la boite
+	fmt.Print("╒", strings.Repeat("═", longueur), "╕", "\n")
+	fmt.Print("│", "Inventaire équipé :", strings.Repeat(" ", longueur-19), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	//affichage de l'arme équipée
+	fmt.Print("│", "Arme équipée :", strings.Repeat(" ", longueur-14), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│ ● ", p.EquipementArmes.nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmes.nom)-3), "│", "\n")
+	//affichage du bouclier équipé
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│", "Bouclier équipé :", strings.Repeat(" ", longueur-17), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│ ● ", p.EquipementBoucliers.nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementBoucliers.nom)-3), "│", "\n")
+	//affichage de l'armure de tête équipée
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│", "Casque équipée :", strings.Repeat(" ", longueur-16), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│ ● ", p.EquipementArmures["Tete"].nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["Tete"].nom)-3), "│", "\n")
+	//affichage de l'armure de torse équipée
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│", "Plastron équipée :", strings.Repeat(" ", longueur-18), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│ ● ", p.EquipementArmures["Torse"].nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["Torse"].nom)-3), "│", "\n")
+	//affichage de l'armure de jambes équipée
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│", "Jambières équipée :", strings.Repeat(" ", longueur-19), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│ ● ", p.EquipementArmures["Jambes"].nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["Jambes"].nom)-3), "│", "\n")
+	//affichage de l'armure de bras équipée
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│", "Brassards équipée :", strings.Repeat(" ", longueur-19), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│ ● ", p.EquipementArmures["Bras"].nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["Bras"].nom)-3), "│", "\n")
+	//affichage du bas de la boite
+	fmt.Print("└", strings.Repeat("─", longueur), "┘", "\n")
 }
 
 func (a *Armes) Affichage() {
@@ -194,6 +246,10 @@ func (c *Consommable) Affichage() {
 	Affichage("Consommable", []string{"Nom : " + c.Nom, "Prix : " + strconv.Itoa(c.Prix), "Quantité : " + strconv.Itoa(c.Quantite), "PV Bonus : " + strconv.Itoa(c.PvBonus), "Bonus Force : " + strconv.Itoa(c.MultiLvlFor), "Bonus Dextérité : " + strconv.Itoa(c.MultiLvlDex), "Bonus Intelligence : " + strconv.Itoa(c.MultiLvlInt), "Bonus Poids Max : " + strconv.Itoa(c.MultiLvlPoidsMax)})
 }
 
+func (a *Armures) Affichage() {
+	Affichage("Armure", []string{"Nom : " + a.nom, "Stat Min Force : " + strconv.Itoa(a.lvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.lvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.lvlMinInt), "PV Bonus : " + strconv.Itoa(a.pvbonus), "Poids : " + strconv.Itoa(a.poids), "Débloqué : " + strconv.FormatBool(a.isUnlocked)})
+}
+
 func Attendre() {
 	fmt.Println("Appuyez sur 0 pour continuer")
 	var choix int
@@ -202,4 +258,14 @@ func Attendre() {
 		fmt.Println("Appuyez sur 0 pour continuer")
 		fmt.Scan(&choix)
 	}
+}
+
+func Choix(nb1, nb2 int) int {
+	var a int
+	fmt.Scan(&a)
+	for a < nb1 || a > nb2 {
+		fmt.Println("Vous devez choisir un nombre entre", nb1, "et", nb2)
+		fmt.Scan(&a)
+	}
+	return a
 }
