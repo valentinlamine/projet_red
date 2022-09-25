@@ -90,6 +90,7 @@ func (p *Personnage) IsDead() bool {
 		hub.Init()
 		p.Position = hub
 		fmt.Println("\033[31mVous êtes mort !\033[0m")
+		p.Pvact = p.Pvmax / 2
 		Attendre()
 		return true
 	} else {
