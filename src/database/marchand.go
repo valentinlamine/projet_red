@@ -88,9 +88,7 @@ func (m *Marchand) Trade(player *Personnage) {
 			choix--
 			if choix == 0 {
 				if WantTrade(player, player.Inv.Liste_armes[i]) {
-					print("test want trade")
 					if IsTradeable(player, "Armes", i) {
-						print("test is tradeable")
 						player.Inv.Liste_armes[i].Set_Armes("isUnlocked", "true")
 						player.Ames -= m.Inv.Liste_armes[i].Prix
 						Affichage("Succès", []string{"Vous avez acheté un objet"})
@@ -110,9 +108,7 @@ func (m *Marchand) Trade(player *Personnage) {
 			choix--
 			if choix == 0 {
 				if WantTrade(player, player.Inv.Liste_boucliers[i]) {
-					print("test want trade")
 					if IsTradeable(player, "Boucliers", i) {
-						print("test is tradeable")
 						player.Inv.Liste_boucliers[i].Set_Boucliers("isUnlocked", "true")
 						player.Ames -= m.Inv.Liste_boucliers[i].Prix
 						Affichage("Succès", []string{"Vous avez acheté un objet"})
@@ -132,9 +128,7 @@ func (m *Marchand) Trade(player *Personnage) {
 			choix--
 			if choix == 0 {
 				if WantTrade(player, player.Inv.Liste_consommables[i]) {
-					print("test want trade")
 					if IsTradeable(player, "Consommables", i) {
-						print("test is tradeable")
 						player.Inv.Liste_consommables[i].Set_Consommable("isUnlocked", "true")
 						player.Ames -= m.Inv.Liste_consommables[i].Prix
 						Affichage("Succès", []string{"Vous avez acheté un objet"})

@@ -9,11 +9,22 @@ import (
 func Combat(player, mob *Personnage) {
 	NouvelAffichage("Combat", []string{"Vous affrontez un " + mob.Nom})
 	var turnCount int = 1
-	for player.Pvact > 0 && mob.Pvact > 0 {
-		mob.charTurn(player)
-		time.Sleep(1 * time.Second)
-		player.EnemyTurn(mob, turnCount)
-		turnCount++
+	if player.Initiative > mob.Initiative {
+		for player.Pvact > 0 && mob.Pvact > 0 {
+			time.Sleep(1 * time.Second)
+			mob.charTurn(player)
+			time.Sleep(1 * time.Second)
+			player.EnemyTurn(mob, turnCount)
+			turnCount++
+		}
+	} else {
+		for player.Pvact > 0 && mob.Pvact > 0 {
+			time.Sleep(1 * time.Second)
+			player.EnemyTurn(mob, turnCount)
+			time.Sleep(1 * time.Second)
+			mob.charTurn(player)
+			turnCount++
+		}
 	}
 }
 

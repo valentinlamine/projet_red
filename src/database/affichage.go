@@ -172,7 +172,7 @@ func (p *Personnage) Affichage_Inventaire() {
 			fmt.Scan(&choix2)
 		}
 		if choix2 == 1 {
-			p.Equiper(item)
+			p.Equiper(item) //TODO : en cas de consomable, le consommer
 		} else if choix2 == 2 {
 			switch item := item.(type) {
 			case Armes:
