@@ -225,14 +225,19 @@ func IsBuyable(Ames, Prix int) bool {
 }
 
 func (m *Marchand) Menu_Marchand(p *Personnage) {
-	Affichage("Menu du marchand", []string{"Que voulez-vous faire ?", "1. Acheter un objet", "2. Quitter le menu du marchand"})
+	NouvelAffichage("Menu du marchand", []string{"Que voulez-vous faire ?", "1. Acheter un objet", "2. Parler", "3. Quitter le menu du marchand"})
 	var choix int
 	fmt.Scan(&choix)
-	for choix < 1 || choix > 2 {
+	for choix < 1 || choix > 3 {
 		Affichage("Erreur", []string{"Vous devez choisir un choix entre 1 et 2"})
 		fmt.Scan(&choix)
 	}
 	if choix == 1 {
 		m.Trade(p)
+	} else if choix == 2 {
+		Affichage("Marchand", []string{"Heh Heh Heh...",
+			"Si vous êtes en manque d'âmes, tuez des monstres !",
+			"Plus ils sont gros, plus ils ont d'âmes",
+			"Donnez les moi je donnerai des objets de valeur... Heh Heh Heh..."})
 	}
 }

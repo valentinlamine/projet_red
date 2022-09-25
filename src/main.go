@@ -72,7 +72,7 @@ func setup_personnage() {
 }
 
 func Menu() {
-	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Se déplacer", "4. Boire une potion de soin", "5. Boire une potion de poison", "6. Aller voir le marchand mort vivant", "7. Menu triche", "8. Quitter le jeu"})
+	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Se déplacer", "4. Boire fiole d'Éstus", "5. Boire une potion de poison", "6. Aller voir le marchand mort vivant", "7. Menu triche", "8. Quitter le jeu"})
 	var choix = database.Choix(1, 9)
 	switch choix {
 	case 1:
@@ -84,10 +84,10 @@ func Menu() {
 		Menu_deplacement()
 	case 4:
 		player.PrendrePot(player.Inv.Liste_consommables[0])
-		player.Affichage_Personnage()
+		//player.Affichage_Personnage()
 	case 5:
 		player.PrendrePot(player.Inv.Liste_consommables[5])
-		player.Affichage_Personnage()
+		//player.Affichage_Personnage()
 	case 6:
 		m1.Menu_Marchand(&player)
 	case 7:

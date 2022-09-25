@@ -1,5 +1,7 @@
 package database
 
+import "strconv"
+
 type Consommable struct {
 	//Nom
 	Nom string
@@ -38,7 +40,7 @@ func (c *Consommable) Init_Consommable(nom string) {
 	} else if nom == "Potion de poids max" {
 		c.InitIntern_Consommable(nom, 0, 3, 0, 0, 0, 0, 1)
 	} else if nom == "Fiole d'essence de pin pourri" { //Potion de poison
-		c.InitIntern_Consommable(nom, 0, 100, 50, 0, 0, 0, 0)
+		c.InitIntern_Consommable(nom, 0, 100, 30, 0, 0, 0, 0)
 	}
 }
 
@@ -50,6 +52,7 @@ func (p *Personnage) PrendrePot(c Consommable) {
 			if p.Pvact > p.Pvmax {
 				p.Pvact = p.Pvmax
 			}
+			Affichage("Inventaire", []string{"Vous avez bu une potion de vie, vous avez maintenant " + strconv.Itoa(p.Pvact) + " pv"})
 		}
 	} else if c.Nom == "Résine de pin doré" {
 		if p.IsInInv(1) {
@@ -79,6 +82,7 @@ func (p *Personnage) PrendrePot(c Consommable) {
 			if p.Pvact <= 0 {
 				p.Pvact = 0
 			}
+			Affichage("Inventaire", []string{"Vous avez bu une potion de poison, vous avez maintenant " + strconv.Itoa(p.Pvact) + " pv"})
 		}
 	}
 }
@@ -87,6 +91,7 @@ func (p *Personnage) IsInInv(n int) bool {
 	if p.Inv.Liste_consommables[n].Quantite > 0 {
 		return true
 	} else {
+		Affichage("Inventaire", []string{"Vous n'avez plus de " + p.Inv.Liste_consommables[n].Nom})
 		return false
 	}
 }

@@ -85,10 +85,12 @@ func (p *Personnage) Init(nom, classe string) {
 func (p *Personnage) IsDead() bool {
 	if p.Pvact <= 0 {
 		p.Ames = 0
+		p.Pvact = p.Pvmax
 		var hub Arbre
 		hub.Init()
 		p.Position = hub
 		fmt.Println("\033[31mVous êtes mort !\033[0m")
+		Attendre()
 		return true
 	} else {
 		return false
