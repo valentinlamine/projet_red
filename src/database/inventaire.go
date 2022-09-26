@@ -76,6 +76,7 @@ type Inventaire struct {
 	Liste_boucliers      []Boucliers
 	Liste_consommables   []Consommable
 	Liste_sort           []Sort
+	Liste_items          map[string]int
 }
 
 func (i *Inventaire) Init() {
@@ -210,35 +211,42 @@ func (i *Inventaire) Init() {
 		sort5,
 	)
 
+	//initialisation des item
+	i.Liste_items = make(map[string]int)
+	i.Liste_items["éclat de titanite"] = 0
+	i.Liste_items["grand éclat de titanite"] = 0
+	i.Liste_items["tablette éclat de titanite"] = 0
 }
 
 func (p *Personnage) Equiper(item interface{}) {
 	switch item := item.(type) {
 	case Armes:
-		if p.PoidsMax < p.PoidsEquip+item.poids {
+		if p.PoidsMax < p.PoidsEquip+item.Poids {
 			Affichage("Erreur", []string{"Vous ne pouvez pas porter autant de poids"})
-		} else if p.Force < item.lvlMinFor && p.Dexterite < item.lvlMinDex && p.Intelligence < item.lvlMinInt {
+		} else if p.Force < item.LvlMinFor && p.Dexterite < item.LvlMinDex && p.Intelligence < item.LvlMinInt {
 			Affichage("Erreur", []string{"Vous n'avez pas le niveau requis pour équiper cette arme"})
 		} else {
 			p.EquipementArmes = item
-			p.PoidsEquip += item.poids
+			p.PoidsEquip += item.Poids
+			p.Degats += item.Deg
 		}
 	case Boucliers:
-		if p.PoidsMax < p.PoidsEquip+item.poids {
+		if p.PoidsMax < p.PoidsEquip+item.Poids {
 			Affichage("Erreur", []string{"Vous ne pouvez pas porter autant de poids"})
-		} else if p.Force < item.lvlMinFor && p.Dexterite < item.lvlMinDex && p.Intelligence < item.lvlMinInt {
+		} else if p.Force < item.LvlMinFor && p.Dexterite < item.LvlMinDex && p.Intelligence < item.LvlMinInt {
 			Affichage("Erreur", []string{"Vous n'avez pas le niveau requis pour équiper ce bouclier"})
 		} else {
 			p.EquipementBoucliers = item
-			p.PoidsEquip += item.poids
+			p.PoidsEquip += item.Poids
+			p.Pvmax += item.Pvbonus
 		}
 	case Armures:
-		if p.PoidsMax < p.PoidsEquip+item.poids {
+		if p.PoidsMax < p.PoidsEquip+item.Poids {
 			Affichage("Erreur", []string{"Vous ne pouvez pas porter autant de poids"})
-		} else if p.Force < item.lvlMinFor && p.Dexterite < item.lvlMinDex && p.Intelligence < item.lvlMinInt {
+		} else if p.Force < item.LvlMinFor && p.Dexterite < item.LvlMinDex && p.Intelligence < item.LvlMinInt {
 			Affichage("Erreur", []string{"Vous n'avez pas le niveau requis pour équiper cette armure"})
 		} else {
-			switch item.class {
+			switch item.Class {
 			case "casque":
 				p.EquipementArmures["tete"] = item
 			case "plastron":
@@ -248,7 +256,8 @@ func (p *Personnage) Equiper(item interface{}) {
 			case "jambieres":
 				p.EquipementArmures["jambes"] = item
 			}
-			p.PoidsEquip += item.poids
+			p.PoidsEquip += item.Poids
+			p.Pvmax += item.Pvbonus
 		}
 	case Consommable:
 		p.PrendrePot(item)

@@ -2,42 +2,42 @@ package database
 
 type Armes struct {
 	// Nom et Prix
-	nom  string
+	Nom  string
 	Prix int
 	// Stat Min
-	lvlMinFor int
-	lvlMinDex int
-	lvlMinInt int
+	LvlMinFor int
+	LvlMinDex int
+	LvlMinInt int
 	// Stat Damage
-	deg        int
-	poids      int
+	Deg        int
+	Poids      int
 	IsUnlocked bool
 	IsEquiped  bool
 }
 
 type Boucliers struct {
 	// Nom et Prix
-	nom  string
+	Nom  string
 	Prix int
 	// Stat Min
-	lvlMinFor int
-	lvlMinDex int
-	lvlMinInt int
+	LvlMinFor int
+	LvlMinDex int
+	LvlMinInt int
 	// Stat Damage
-	pvbonus    int
-	poids      int
+	Pvbonus    int
+	Poids      int
 	IsUnlocked bool
 	IsEquiped  bool
 }
 
 func (a *Armes) InitIntern_Armes(nom string, Prix, lvlMinFor, lvlMinDex, lvlMinInt, deg, poids int) {
-	a.nom = nom
+	a.Nom = nom
 	a.Prix = Prix
-	a.lvlMinFor = lvlMinFor
-	a.lvlMinDex = lvlMinDex
-	a.lvlMinInt = lvlMinInt
-	a.deg = deg
-	a.poids = poids
+	a.LvlMinFor = lvlMinFor
+	a.LvlMinDex = lvlMinDex
+	a.LvlMinInt = lvlMinInt
+	a.Deg = deg
+	a.Poids = poids
 	a.IsUnlocked = false
 
 }
@@ -61,13 +61,13 @@ func (a *Armes) Init_Armes(nom string) {
 }
 
 func (b *Boucliers) InitIntern_Bouclier(nom string, Prix, lvlMinFor, lvlMinDex, lvlMinInt, pvbonus, poids int) {
-	b.nom = nom
+	b.Nom = nom
 	b.Prix = Prix
-	b.lvlMinFor = lvlMinFor
-	b.lvlMinDex = lvlMinDex
-	b.lvlMinInt = lvlMinInt
-	b.pvbonus = pvbonus
-	b.poids = poids
+	b.LvlMinFor = lvlMinFor
+	b.LvlMinDex = lvlMinDex
+	b.LvlMinInt = lvlMinInt
+	b.Pvbonus = pvbonus
+	b.Poids = poids
 	b.IsUnlocked = false
 	b.IsEquiped = false
 

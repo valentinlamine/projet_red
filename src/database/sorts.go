@@ -4,6 +4,7 @@ import "strconv"
 
 type Sort struct {
 	Nom        string
+	Prix       int
 	CoutMana   int
 	Degats     int
 	BoostPv    int
@@ -16,8 +17,9 @@ const (
 	HEAL
 )
 
-func (s *Sort) Init(nom string, coutMana int, degats int, boostPv, Type int) {
+func (s *Sort) Init(nom string, prix, coutMana, degats, boostPv, Type int) {
 	s.Nom = nom
+	s.Prix = prix
 	s.CoutMana = coutMana
 	s.Degats = degats
 	s.BoostPv = boostPv
@@ -27,26 +29,30 @@ func (s *Sort) Init(nom string, coutMana int, degats int, boostPv, Type int) {
 
 func (s *Sort) InitSort(number int) {
 	if number == 1 {
-		s.Init("Coup de poing", 10, 15, 0, DPS)
+		s.Init("Coup de poing", 500, 10, 15, 0, DPS)
 	} else if number == 2 {
-		s.Init("Boule de feu", 15, 20, 0, DPS)
+		s.Init("Boule de feu", 500, 15, 20, 0, DPS)
 	} else if number == 3 {
-		s.Init("Grande boule de feu", 25, 30, 0, DPS)
+		s.Init("Grande boule de feu", 500, 25, 30, 0, DPS)
 	} else if number == 4 {
-		s.Init("Soin", 20, 0, 30, HEAL)
+		s.Init("Soin", 500, 20, 0, 30, HEAL)
 	} else if number == 5 {
-		s.Init("Grand soin", 40, 0, 70, HEAL)
+		s.Init("Grand soin", 500, 40, 0, 70, HEAL)
 	}
 }
 
 func (p *Personnage) SubirSort(s Sort, target *Personnage) {
-	switch s.Type {
-	case DPS:
-		target.Pvact -= s.Degats
-		Affichage("Combat", []string{"Vous avez infligé " + strconv.Itoa(s.Degats) + " points de dégats à " + target.Nom})
-	case HEAL:
-		p.Pvact += s.BoostPv
-		Affichage("Combat", []string{"Vous avez gagné " + strconv.Itoa(s.BoostPv) + " points de vie"})
+	if p.Mana >= s.CoutMana {
+		switch s.Type {
+		case DPS:
+			target.Pvact -= s.Degats
+			Affichage("Combat", []string{"Vous avez infligé " + strconv.Itoa(s.Degats) + " points de dégats à " + target.Nom, "Il vous reste " + strconv.Itoa(p.Mana-s.CoutMana) + " points de mana"})
+		case HEAL:
+			p.Pvact += s.BoostPv
+			Affichage("Combat", []string{"Vous avez gagné " + strconv.Itoa(s.BoostPv) + " points de vie"})
+		}
+	} else {
+		Affichage("Combat", []string{"Vous n'avez pas assez de mana pour utiliser ce sort"})
 	}
 }
 

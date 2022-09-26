@@ -2,28 +2,28 @@ package database
 
 type Armures struct {
 	// Nom
-	nom   string
-	class string
-	prix  int
+	Nom   string
+	Class string
+	Prix  int
 	// Stat Min
-	lvlMinFor int
-	lvlMinDex int
-	lvlMinInt int
+	LvlMinFor int
+	LvlMinDex int
+	LvlMinInt int
 	// Stat PvBonus
-	pvbonus    int
-	poids      int
-	isUnlocked bool
+	Pvbonus    int
+	Poids      int
+	IsUnlocked bool
 }
 
 func (a *Armures) InitIntern_Armures(nom, class string, prix, lvlMinFor, lvlMinDex, lvlMinInt, pvbonus, poids int) {
-	a.nom = nom
-	a.class = class
-	a.prix = prix
-	a.lvlMinFor = lvlMinFor
-	a.lvlMinDex = lvlMinDex
-	a.lvlMinInt = lvlMinInt
-	a.pvbonus = pvbonus
-	a.poids = poids
+	a.Nom = nom
+	a.Class = class
+	a.Prix = prix
+	a.LvlMinFor = lvlMinFor
+	a.LvlMinDex = lvlMinDex
+	a.LvlMinInt = lvlMinInt
+	a.Pvbonus = pvbonus
+	a.Poids = poids
 }
 
 //TODO Changer les stats des armures

@@ -35,15 +35,15 @@ func (c *Consommable) Init_Consommable(nom string) {
 	if nom == "Fiole d'Estus" { //Potion de vie, se recupère aux Feux
 		c.InitIntern_Consommable(nom, 20, 3, 50, 0, 0, 0, 0)
 	} else if nom == "Résine de pin doré" { //Potion de force
-		c.InitIntern_Consommable(nom, 50, 3, 0, 2, 0, 0, 0)
+		c.InitIntern_Consommable(nom, 50, 0, 0, 2, 0, 0, 0)
 	} else if nom == "Résine de pin brulé" { //Potion de dextérité
-		c.InitIntern_Consommable(nom, 50, 3, 0, 0, 2, 0, 0)
+		c.InitIntern_Consommable(nom, 50, 0, 0, 0, 2, 0, 0)
 	} else if nom == "Résine de pin pourri" { //Potion d'intelligence
-		c.InitIntern_Consommable(nom, 50, 3, 0, 0, 0, 1, 0)
+		c.InitIntern_Consommable(nom, 50, 0, 0, 0, 0, 1, 0)
 	} else if nom == "Potion de poids max" {
-		c.InitIntern_Consommable(nom, 50, 3, 0, 0, 0, 0, 1)
+		c.InitIntern_Consommable(nom, 50, 0, 0, 0, 0, 0, 1)
 	} else if nom == "Fiole d'essence de pin pourri" { //Potion de poison
-		c.InitIntern_Consommable(nom, 50, 100, 30, 0, 0, 0, 0)
+		c.InitIntern_Consommable(nom, 50, 0, 30, 0, 0, 0, 0)
 	}
 }
 

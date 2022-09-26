@@ -33,7 +33,6 @@ func Affichage(titre string, list []string) {
 	fmt.Print("├", strings.Repeat("─", longest), "┤", "\n")
 	//affichage des lignes de texte
 	for _, s := range list {
-		//fmt.Println(longest, len(s), longest-len(s))
 		fmt.Print("│", s, strings.Repeat(" ", longest-uniseg.GraphemeClusterCount(s)), "│", "\n")
 	}
 	//affichage du bas de la boite
@@ -55,7 +54,7 @@ func (p *Personnage) Affichage_Personnage() {
 }
 
 func (p *Personnage) Affichage_Inventaire() {
-	var nom string
+	var Nom string
 	longueur := 50
 	var list_objets []string
 	nb_objets := 0
@@ -72,10 +71,10 @@ func (p *Personnage) Affichage_Inventaire() {
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	for index := 0; index < len(p.Inv.Liste_armes); index++ {
 		if p.Inv.Liste_armes[index].IsUnlocked {
-			nom = p.Inv.Liste_armes[index].nom
+			Nom = p.Inv.Liste_armes[index].Nom
 			nb_objets++
-			list_objets = append(list_objets, nom)
-			fmt.Print("│  ", nb_objets, ". ", nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-5), "│", "\n")
+			list_objets = append(list_objets, Nom)
+			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
 		}
 	}
 	//affichage des boucliers débloqués
@@ -84,10 +83,10 @@ func (p *Personnage) Affichage_Inventaire() {
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	for index := 0; index < len(p.Inv.Liste_boucliers); index++ {
 		if p.Inv.Liste_boucliers[index].IsUnlocked {
-			nom = p.Inv.Liste_boucliers[index].nom
+			Nom = p.Inv.Liste_boucliers[index].Nom
 			nb_objets++
-			list_objets = append(list_objets, nom)
-			fmt.Print("│  ", nb_objets, ". ", nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-5), "│", "\n")
+			list_objets = append(list_objets, Nom)
+			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
 		}
 	}
 	//affichage des consommables débloqués
@@ -96,10 +95,10 @@ func (p *Personnage) Affichage_Inventaire() {
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	for index := 0; index < len(p.Inv.Liste_consommables); index++ {
 		if p.Inv.Liste_consommables[index].Quantite > 0 {
-			nom = p.Inv.Liste_consommables[index].Nom
+			Nom = p.Inv.Liste_consommables[index].Nom
 			nb_objets++
-			list_objets = append(list_objets, nom)
-			fmt.Print("│  ", nb_objets, ". ", nom, " ("+strconv.Itoa(p.Inv.Liste_consommables[index].Quantite)+")", strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-(8+len(strconv.Itoa(p.Inv.Liste_consommables[index].Quantite)))), "│", "\n")
+			list_objets = append(list_objets, Nom)
+			fmt.Print("│  ", nb_objets, ". ", Nom, " ("+strconv.Itoa(p.Inv.Liste_consommables[index].Quantite)+")", strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-(8+len(strconv.Itoa(p.Inv.Liste_consommables[index].Quantite)))), "│", "\n")
 		}
 	}
 	//affichage des armures de tête débloquées
@@ -107,11 +106,11 @@ func (p *Personnage) Affichage_Inventaire() {
 	fmt.Print("│", "Casques débloquées :", strings.Repeat(" ", longueur-20), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	for index := 0; index < len(p.Inv.Liste_armures_tete); index++ {
-		if p.Inv.Liste_armures_tete[index].isUnlocked {
-			nom = p.Inv.Liste_armures_tete[index].nom
+		if p.Inv.Liste_armures_tete[index].IsUnlocked {
+			Nom = p.Inv.Liste_armures_tete[index].Nom
 			nb_objets++
-			list_objets = append(list_objets, nom)
-			fmt.Print("│  ", nb_objets, ". ", nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-5), "│", "\n")
+			list_objets = append(list_objets, Nom)
+			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
 		}
 	}
 	//affichage des armures de torse débloquées
@@ -119,11 +118,11 @@ func (p *Personnage) Affichage_Inventaire() {
 	fmt.Print("│", "Plastrons débloquées :", strings.Repeat(" ", longueur-22), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	for index := 0; index < len(p.Inv.Liste_armures_torse); index++ {
-		if p.Inv.Liste_armures_torse[index].isUnlocked {
-			nom = p.Inv.Liste_armures_torse[index].nom
+		if p.Inv.Liste_armures_torse[index].IsUnlocked {
+			Nom = p.Inv.Liste_armures_torse[index].Nom
 			nb_objets++
-			list_objets = append(list_objets, nom)
-			fmt.Print("│  ", nb_objets, ". ", nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-5), "│", "\n")
+			list_objets = append(list_objets, Nom)
+			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
 		}
 	}
 	//affichage des armures de jambes débloquées
@@ -131,11 +130,11 @@ func (p *Personnage) Affichage_Inventaire() {
 	fmt.Print("│", "Jambières débloquées :", strings.Repeat(" ", longueur-22), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	for index := 0; index < len(p.Inv.Liste_armures_jambes); index++ {
-		if p.Inv.Liste_armures_jambes[index].isUnlocked {
-			nom = p.Inv.Liste_armures_jambes[index].nom
+		if p.Inv.Liste_armures_jambes[index].IsUnlocked {
+			Nom = p.Inv.Liste_armures_jambes[index].Nom
 			nb_objets++
-			list_objets = append(list_objets, nom)
-			fmt.Print("│  ", nb_objets, ". ", nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-6), "│", "\n")
+			list_objets = append(list_objets, Nom)
+			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-6), "│", "\n")
 		}
 	}
 	//affichage des armures de bras débloquées
@@ -143,11 +142,11 @@ func (p *Personnage) Affichage_Inventaire() {
 	fmt.Print("│", "Brassards débloquées :", strings.Repeat(" ", longueur-22), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	for index := 0; index < len(p.Inv.Liste_armures_bras); index++ {
-		if p.Inv.Liste_armures_bras[index].isUnlocked {
-			nom = p.Inv.Liste_armures_bras[index].nom
+		if p.Inv.Liste_armures_bras[index].IsUnlocked {
+			Nom = p.Inv.Liste_armures_bras[index].Nom
 			nb_objets++
-			list_objets = append(list_objets, nom)
-			fmt.Print("│  ", nb_objets, ". ", nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(nom)-6), "│", "\n")
+			list_objets = append(list_objets, Nom)
+			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-6), "│", "\n")
 		}
 	}
 	//affichage du bas de la boite
@@ -209,42 +208,42 @@ func (p *Personnage) Affichage_inventaire_equipe() {
 	//affichage de l'arme équipée
 	fmt.Print("│", "Arme équipée :", strings.Repeat(" ", longueur-14), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	fmt.Print("│ ● ", p.EquipementArmes.nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmes.nom)-3), "│", "\n")
+	fmt.Print("│ ● ", p.EquipementArmes.Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmes.Nom)-3), "│", "\n")
 	//affichage du bouclier équipé
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Bouclier équipé :", strings.Repeat(" ", longueur-17), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	fmt.Print("│ ● ", p.EquipementBoucliers.nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementBoucliers.nom)-3), "│", "\n")
+	fmt.Print("│ ● ", p.EquipementBoucliers.Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementBoucliers.Nom)-3), "│", "\n")
 	//affichage de l'armure de tête équipée
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Casque équipée :", strings.Repeat(" ", longueur-16), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	fmt.Print("│ ● ", p.EquipementArmures["Tete"].nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["Tete"].nom)-3), "│", "\n")
+	fmt.Print("│ ● ", p.EquipementArmures["Tete"].Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["Tete"].Nom)-3), "│", "\n")
 	//affichage de l'armure de torse équipée
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Plastron équipée :", strings.Repeat(" ", longueur-18), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	fmt.Print("│ ● ", p.EquipementArmures["Torse"].nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["Torse"].nom)-3), "│", "\n")
+	fmt.Print("│ ● ", p.EquipementArmures["Torse"].Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["Torse"].Nom)-3), "│", "\n")
 	//affichage de l'armure de jambes équipée
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Jambières équipée :", strings.Repeat(" ", longueur-19), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	fmt.Print("│ ● ", p.EquipementArmures["Jambes"].nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["Jambes"].nom)-3), "│", "\n")
+	fmt.Print("│ ● ", p.EquipementArmures["Jambes"].Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["Jambes"].Nom)-3), "│", "\n")
 	//affichage de l'armure de bras équipée
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Brassards équipée :", strings.Repeat(" ", longueur-19), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	fmt.Print("│ ● ", p.EquipementArmures["Bras"].nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["Bras"].nom)-3), "│", "\n")
+	fmt.Print("│ ● ", p.EquipementArmures["Bras"].Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["Bras"].Nom)-3), "│", "\n")
 	//affichage du bas de la boite
 	fmt.Print("└", strings.Repeat("─", longueur), "┘", "\n")
 }
 
 func (a *Armes) Affichage() {
-	Affichage("Arme", []string{"Nom : " + a.nom, "Stat Min Force : " + strconv.Itoa(a.lvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.lvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.lvlMinInt), "Dégâts : " + strconv.Itoa(a.deg), "Poids : " + strconv.Itoa(a.poids), "Débloqué : " + strconv.FormatBool(a.IsUnlocked), "Équipé : " + strconv.FormatBool(a.IsEquiped)})
+	Affichage("Arme", []string{"Nom : " + a.Nom, "Stat Min Force : " + strconv.Itoa(a.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.LvlMinInt), "Dégâts : " + strconv.Itoa(a.Deg), "Poids : " + strconv.Itoa(a.Poids), "Débloqué : " + strconv.FormatBool(a.IsUnlocked), "Équipé : " + strconv.FormatBool(a.IsEquiped)})
 }
 
 func (b *Boucliers) Affichage() {
-	Affichage("Bouclier", []string{"Nom : " + b.nom, "Stat Min Force : " + strconv.Itoa(b.lvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(b.lvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(b.lvlMinInt), "PV Bonus : " + strconv.Itoa(b.pvbonus), "Poids : " + strconv.Itoa(b.poids), "Débloqué : " + strconv.FormatBool(b.IsUnlocked), "Équipé : " + strconv.FormatBool(b.IsEquiped)})
+	Affichage("Bouclier", []string{"Nom : " + b.Nom, "Stat Min Force : " + strconv.Itoa(b.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(b.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(b.LvlMinInt), "PV Bonus : " + strconv.Itoa(b.Pvbonus), "Poids : " + strconv.Itoa(b.Poids), "Débloqué : " + strconv.FormatBool(b.IsUnlocked), "Équipé : " + strconv.FormatBool(b.IsEquiped)})
 }
 
 func (c *Consommable) Affichage() {
@@ -252,7 +251,11 @@ func (c *Consommable) Affichage() {
 }
 
 func (a *Armures) Affichage() {
-	Affichage("Armure", []string{"Nom : " + a.nom, "Stat Min Force : " + strconv.Itoa(a.lvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.lvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.lvlMinInt), "PV Bonus : " + strconv.Itoa(a.pvbonus), "Poids : " + strconv.Itoa(a.poids), "Débloqué : " + strconv.FormatBool(a.isUnlocked)})
+	Affichage("Armure", []string{"Nom : " + a.Nom, "Stat Min Force : " + strconv.Itoa(a.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.LvlMinInt), "PV Bonus : " + strconv.Itoa(a.Pvbonus), "Poids : " + strconv.Itoa(a.Poids), "Débloqué : " + strconv.FormatBool(a.IsUnlocked)})
+}
+
+func (s *Sort) Affichage() {
+	Affichage("Sort", []string{"Nom : " + s.Nom, "Prix : " + strconv.Itoa(s.Prix), "Cout Mana : " + strconv.Itoa(s.CoutMana), "Dégâts : " + strconv.Itoa(s.Degats), "Boost PV : " + strconv.Itoa(s.BoostPv), "Type : " + strconv.Itoa(s.Type), "Débloqué : " + strconv.FormatBool(s.IsUnlocked)})
 }
 
 func Attendre() {
