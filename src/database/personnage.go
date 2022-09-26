@@ -19,6 +19,7 @@ type Personnage struct {
 	PoidsEquip          int // Poids total des objets équipés
 	PoidsMax            int // Poids maximum que peut porter le personnage
 	Mana                int // Mana du personnage
+	ManaMax             int // Mana maximum du personnage
 	Degats              int
 	EquipementArmes     Armes
 	EquipementBoucliers Boucliers

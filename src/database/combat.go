@@ -54,6 +54,9 @@ func (player *Personnage) EnemyTurn(mob *Personnage, turnC int) {
 		if turnC%3 == 0 {
 			player.Pvact -= mob.Degats * 2
 			Affichage(mob.Nom, []string{"Le " + mob.Nom + " vous a infligé " + strconv.Itoa(mob.Degats*2) + " dégats, il vous reste " + strconv.Itoa(player.Pvact) + " pv"})
+		} else if turnC%4 == 0 {
+			Affichage(mob.Nom, []string{"Le " + mob.Nom + " vous a empoisonné"})
+			player.PrendrePot(mob.Inv.Liste_consommables[5])
 		} else {
 			player.Pvact -= mob.Degats
 			if player.Pvact < 0 {

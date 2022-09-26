@@ -228,6 +228,8 @@ func (p *Personnage) Equiper(item interface{}) {
 			}
 			p.PoidsEquip += item.poids
 		}
+	case Consommable:
+		p.PrendrePot(item)
 	}
 
 }

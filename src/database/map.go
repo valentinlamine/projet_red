@@ -60,15 +60,9 @@ func (p *Personnage) Deplacement(base Arbre, direction string) bool {
 			restart = true
 		}
 	} else if direction == "retour" {
-		if p.Position.Val["name"] == "hub" {
-			Affichage("Déplacement", []string{"Nous sommes déjà au hub."})
-			Attendre()
-			restart = true
-		} else {
-			p.Position = base
-			Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé au hub."})
-			Attendre()
-		}
+		p.Position = base
+		Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé au hub."})
+		Attendre()
 	}
 	return restart
 }

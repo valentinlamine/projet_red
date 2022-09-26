@@ -41,7 +41,7 @@ func Affichage(titre string, list []string) {
 }
 
 func (p *Personnage) Affichage_Personnage() {
-	Affichage("Personnage", []string{"Nom : " + p.Nom, "Niveau : " + strconv.Itoa(p.Niveau), "PV : " + strconv.Itoa(p.Pvact), "PV Max : " + strconv.Itoa(p.Pvmax), "Vitalité: " + strconv.Itoa(p.Vitalite), "Force : " + strconv.Itoa(p.Force), "Dextérité : " + strconv.Itoa(p.Dexterite), "Intelligence : " + strconv.Itoa(p.Intelligence), "Ames : " + strconv.Itoa(p.Ames)})
+	Affichage("Personnage", []string{"Nom : " + p.Nom, "Classe : " + p.Classe, "Niveau : " + strconv.Itoa(p.Niveau), "Ames : " + strconv.Itoa(p.Ames), "PV : " + strconv.Itoa(p.Pvact) + "/" + strconv.Itoa(p.Pvmax), "Poids : " + strconv.Itoa(p.PoidsEquip) + "/" + strconv.Itoa(p.PoidsMax), "Vitalité: " + strconv.Itoa(p.Vitalite), "Force : " + strconv.Itoa(p.Force), "Dextérité : " + strconv.Itoa(p.Dexterite), "Intelligence : " + strconv.Itoa(p.Intelligence), "Position : " + p.Position.Val["name"], "Mana : " + strconv.Itoa(p.Mana) + "/" + strconv.Itoa(p.ManaMax), "Dégâts : " + strconv.Itoa(p.Degats)})
 	fmt.Println("Appuyez sur 1 pour voir votre inventaire équipé")
 	fmt.Println("Appuyez sur 0 pour revenir au menu principal")
 	var choix = Choix(0, 1)
@@ -163,8 +163,13 @@ func (p *Personnage) Affichage_Inventaire() {
 	}
 	if choix != 0 {
 		//affichage de l'objet choisi en utilisant la fonction Affichage
-		Affichage("Inventaire", []string{"Vous avez choisi l'objet : " + list_objets[choix-1], "Que voulez vous faire avec cet objet ? ", "1. L'équiper", "2. Afficher ces statistiques", "3. Retourner au menu précédent"})
 		item := p.Inv.Get_Item(list_objets[choix-1])
+		switch item := item.(type) {
+		case Consommable:
+			Affichage("Inventaire", []string{"Vous avez choisi l'objet : " + item.Nom, "Que voulez vous faire avec cet objet ? ", "1. Le consommer", "2. Afficher ces statistiques", "3. Retourner au menu précédent"})
+		default:
+			Affichage("Inventaire", []string{"Vous avez choisi l'objet : " + list_objets[choix-1], "Que voulez vous faire avec cet objet ? ", "1. L'équiper", "2. Afficher ces statistiques", "3. Retourner au menu précédent"})
+		}
 		var choix2 int
 		fmt.Scan(&choix2)
 		for choix2 < 1 || choix2 > 3 {
@@ -172,7 +177,7 @@ func (p *Personnage) Affichage_Inventaire() {
 			fmt.Scan(&choix2)
 		}
 		if choix2 == 1 {
-			p.Equiper(item) //TODO : en cas de consomable, le consommer
+			p.Equiper(item) //si consommable la fonction Equiper() va le consommer
 		} else if choix2 == 2 {
 			switch item := item.(type) {
 			case Armes:
