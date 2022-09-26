@@ -73,6 +73,13 @@ type Inventaire struct {
 
 func (i *Inventaire) Init() {
 	//Initialisation des armes
+	/* Idéee optimisation appel de fonction
+	for {
+		var a Armes
+		a.Init_Armes("0")
+		i.Liste_armes = append(i.Liste_armes, a)
+	}
+	*/
 	dague.Init_Armes("Dague")
 	claymore.Init_Armes("Claymore")
 	rapière.Init_Armes("Rapière")
