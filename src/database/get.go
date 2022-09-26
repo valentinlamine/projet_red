@@ -124,5 +124,10 @@ func (i *Inventaire) Get_Item(nom string) interface{} {
 			return v
 		}
 	}
+	for _, v := range i.Liste_sort {
+		if v.Nom == nom {
+			return v
+		}
+	}
 	return nil
 }

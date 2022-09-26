@@ -55,7 +55,7 @@ func (p *Personnage) Affichage_Personnage() {
 }
 
 func (p *Personnage) Affichage_Inventaire() {
-	nom := "None"
+	var nom string
 	longueur := 50
 	var list_objets []string
 	nb_objets := 0
@@ -155,12 +155,7 @@ func (p *Personnage) Affichage_Inventaire() {
 
 	//choix de l'objet à afficher
 	fmt.Print("Choisissez un objet à afficher (0 pour quitter) : ")
-	var choix int
-	fmt.Scan(&choix)
-	for choix < 0 || choix > len(list_objets) {
-		fmt.Print("Choix incorrect, veuillez réessayer : ")
-		fmt.Scan(&choix)
-	}
+	var choix = Choix(0, len(list_objets))
 	if choix != 0 {
 		//affichage de l'objet choisi en utilisant la fonction Affichage
 		item := p.Inv.Get_Item(list_objets[choix-1])

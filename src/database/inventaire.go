@@ -60,6 +60,13 @@ var Jambières_feu Armures
 var Jambières_dragon Armures
 var Jambières_vide Armures
 
+//liste des variables des sorts
+var sort1 Sort
+var sort2 Sort
+var sort3 Sort
+var sort4 Sort
+var sort5 Sort
+
 type Inventaire struct {
 	Liste_armes          []Armes
 	Liste_armures_tete   []Armures
@@ -68,7 +75,7 @@ type Inventaire struct {
 	Liste_armures_jambes []Armures
 	Liste_boucliers      []Boucliers
 	Liste_consommables   []Consommable
-	Liste_sort           []string //TODO Sort
+	Liste_sort           []Sort
 }
 
 func (i *Inventaire) Init() {
@@ -186,6 +193,21 @@ func (i *Inventaire) Init() {
 		Jambières_chevalier,
 		Jambières_feu,
 		Jambières_dragon,
+	)
+
+	//initialisation des sorts
+	sort1.InitSort(1)
+	sort1.IsUnlocked = true
+	sort2.InitSort(2)
+	sort3.InitSort(3)
+	sort4.InitSort(4)
+	sort5.InitSort(5)
+	i.Liste_sort = append(i.Liste_sort,
+		sort1,
+		sort2,
+		sort3,
+		sort4,
+		sort5,
 	)
 
 }

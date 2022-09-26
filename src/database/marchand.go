@@ -33,6 +33,9 @@ func (m *Marchand) InitMarchand(number int) {
 		m.Inv.Liste_armures_jambes[1].isUnlocked = true
 		m.Inv.Liste_armures_bras[1].isUnlocked = true
 		m.Nombre_Trade()
+	} else if number == 2 {
+		m.Init("Laurentius", inv)
+		//TODO
 	}
 }
 
@@ -392,12 +395,7 @@ func (m *Marchand) First_trade(player *Personnage) {
 
 func (m *Marchand) Menu_Marchand(p *Personnage) {
 	NouvelAffichage("Menu du marchand", []string{"Que voulez-vous faire ?", "1. Acheter un objet", "2. Parler", "3. Quitter le menu du marchand"})
-	var choix int
-	fmt.Scan(&choix)
-	for choix < 1 || choix > 3 {
-		Affichage("Erreur", []string{"Vous devez choisir un choix entre 1 et 3"})
-		fmt.Scan(&choix)
-	}
+	var choix = Choix(1, 3)
 	if choix == 1 {
 		m.Trade(p)
 	} else if choix == 2 {

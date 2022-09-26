@@ -24,7 +24,6 @@ type Personnage struct {
 	EquipementArmes     Armes
 	EquipementBoucliers Boucliers
 	EquipementArmures   map[string]Armures
-	SortConnus          []Sort
 	Initiative          int
 	Ames                int // Nombre d'âmes du personnage(Argent/EXP)
 }
@@ -35,6 +34,8 @@ func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int, Ames int
 	p.Niveau = 1
 	p.Vitalite = Vit
 	p.Pvmax = 20 * p.Vitalite
+	p.ManaMax = 10 * p.Intelligence
+	p.Mana = p.ManaMax
 	p.Force = For
 	p.Dexterite = Dex
 	p.Intelligence = Int

@@ -15,6 +15,7 @@ func Combat(player, mob *Personnage) {
 			mob.charTurn(player)
 			time.Sleep(1 * time.Second)
 			player.EnemyTurn(mob, turnCount)
+			player.Mana += 15
 			turnCount++
 		}
 	} else {
@@ -23,6 +24,7 @@ func Combat(player, mob *Personnage) {
 			player.EnemyTurn(mob, turnCount)
 			time.Sleep(1 * time.Second)
 			mob.charTurn(player)
+			player.Mana += 15
 			turnCount++
 		}
 	}
@@ -30,7 +32,7 @@ func Combat(player, mob *Personnage) {
 
 func (mob *Personnage) charTurn(player *Personnage) {
 	var Choix int
-	Affichage("Combat", []string{"Que voulez vous faire ?", "1. Attaquer", "2. Inventaire", "3. Fuir"})
+	Affichage("Combat", []string{"Que voulez vous faire ?", "1. Attaquer", "2. Attaque lourde", "3. Sorts", "4. Inventaire", "5. Fuir"})
 	fmt.Scan(&Choix)
 	switch Choix {
 	case 1:
@@ -43,8 +45,20 @@ func (mob *Personnage) charTurn(player *Personnage) {
 			NouvelAffichage(player.Nom, []string{"Vous avez infligé " + strconv.Itoa(player.Degats) + " dégats au " + mob.Nom + ", il lui reste " + strconv.Itoa(mob.Pvact) + " pv"})
 		}
 	case 2:
-		player.Affichage_Inventaire()
+		mob.Pvact -= player.Degats * 2
+		player.Mana -= 35
+		if mob.Pvact < 0 {
+			mob.Pvact = 0
+			player.Ames += mob.Ames
+			NouvelAffichage("Combat", []string{"Vous avez tué le " + mob.Nom})
+		} else {
+			NouvelAffichage(player.Nom, []string{"Vous avez infligé " + strconv.Itoa(player.Degats) + " dégats au " + mob.Nom + ", il lui reste " + strconv.Itoa(mob.Pvact) + " pv"})
+		}
 	case 3:
+		Menu_sort(player, mob)
+	case 4:
+		player.Affichage_Inventaire()
+	case 5:
 		break
 	}
 }
