@@ -19,7 +19,7 @@ var inventaireMob database.Inventaire
 func main() {
 	inventaireMob.Init()
 	mob.Inv = inventaireMob
-	mob.Init("Mob", "Guerrier")
+	mob.Init("Mob", "Mort-vivant")
 
 	inventaire.Init()
 	carte.Init()

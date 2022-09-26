@@ -18,14 +18,17 @@ type Personnage struct {
 	Inv                 Inventaire
 	PoidsEquip          int // Poids total des objets équipés
 	PoidsMax            int // Poids maximum que peut porter le personnage
+	Mana                int // Mana du personnage
 	Degats              int
 	EquipementArmes     Armes
 	EquipementBoucliers Boucliers
 	EquipementArmures   map[string]Armures
+	SortConnus          []Sort
+	Initiative          int
 	Ames                int // Nombre d'âmes du personnage(Argent/EXP)
 }
 
-func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int int) {
+func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int, Ames int) {
 	p.Nom = nom
 	p.Classe = classe
 	p.Niveau = 1
@@ -38,13 +41,14 @@ func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int int) {
 	p.PoidsEquip = 0
 	p.PoidsMax = 5 * p.Force
 	p.Degats = p.EquipementArmes.deg
-	p.Ames = 0
 	p.EquipementArmures = make(map[string]Armures)
+	p.Initiative = 10 + p.Dexterite
+	p.Ames = Ames
 }
 
 func (p *Personnage) Init(nom, classe string) {
 	if classe == "Guerrier" {
-		p.InitIntern(nom, "Guerrier", 11, 12, 9, 8)
+		p.InitIntern(nom, "Guerrier", 11, 12, 9, 8, 0)
 		p.Inv.Liste_armes[3].Set_Armes("isUnlocked", "true")         //débloquer Uchigatana
 		p.Inv.Liste_boucliers[0].Set_Boucliers("isUnlocked", "true") //débloquer Bouclier de bois
 		p.EquipementArmes = p.Inv.Liste_armes[3]                     //équiper Uchigatana
@@ -52,7 +56,7 @@ func (p *Personnage) Init(nom, classe string) {
 		p.EquipementBoucliers = p.Inv.Liste_boucliers[0] //équiper Bouclier de bois
 
 	} else if classe == "Chevalier" {
-		p.InitIntern(nom, "Chevalier", 10, 11, 8, 10)
+		p.InitIntern(nom, "Chevalier", 10, 11, 8, 10, 0)
 		p.Inv.Liste_armes[1].Set_Armes("isUnlocked", "true")         //débloquer Claymore
 		p.Inv.Liste_boucliers[2].Set_Boucliers("isUnlocked", "true") //débloquer Bouclier de fer
 		p.EquipementArmes = p.Inv.Liste_armes[1]                     //équiper Claymore
@@ -60,13 +64,13 @@ func (p *Personnage) Init(nom, classe string) {
 		p.EquipementBoucliers = p.Inv.Liste_boucliers[2] //équiper Bouclier de fer
 
 	} else if classe == "Pyromancien" {
-		p.InitIntern(nom, "Pyromancien", 9, 9, 11, 12)
+		p.InitIntern(nom, "Pyromancien", 9, 9, 11, 12, 0)
 		p.Inv.Liste_armes[0].Set_Armes("isUnlocked", "true") //débloquer Dague
 		p.EquipementArmes = p.Inv.Liste_armes[0]             //équiper Dague
 		p.Degats = p.EquipementArmes.deg
 
 	} else if classe == "Mendiant" {
-		p.InitIntern(nom, "Mendiant", 9, 9, 9, 9)
+		p.InitIntern(nom, "Mendiant", 9, 9, 9, 9, 0)
 		p.Inv.Liste_armes[4].IsUnlocked = true          //débloquer Baton
 		p.Inv.Liste_armures_tete[0].isUnlocked = true   //débloquer première armure de tête
 		p.Inv.Liste_armures_torse[0].isUnlocked = true  //débloquer première armure de torse
@@ -79,6 +83,18 @@ func (p *Personnage) Init(nom, classe string) {
 		p.EquipementArmures["Torse"] = p.Inv.Liste_armures_torse[0]   //équiper première armure de torse
 		p.EquipementArmures["Bras"] = p.Inv.Liste_armures_bras[0]     //équiper première armure de bras
 		p.EquipementArmures["Jambes"] = p.Inv.Liste_armures_jambes[0] //équiper première armure de jambes
+		p.Pvmax = p.Pvmax +
+			p.EquipementArmures["Tete"].pvbonus +
+			p.EquipementArmures["Torse"].pvbonus +
+			p.EquipementArmures["Jambes"].pvbonus +
+			p.EquipementArmures["Pieds"].pvbonus
+
+		//Init des mobs
+	} else if classe == "Mort-vivant" {
+		p.InitIntern("Mort-vivant", "Mort-vivant", 7, 9, 8, 5, 200)
+		p.Inv.Liste_armes[4].IsUnlocked = true   //débloquer Baton
+		p.EquipementArmes = p.Inv.Liste_armes[4] //équiper Baton
+		p.Degats = p.EquipementArmes.deg
 	}
 }
 
