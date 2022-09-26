@@ -79,11 +79,11 @@ func (p *Personnage) Init(nom, classe string) {
 		p.Inv.Liste_armures_bras[0].IsUnlocked = true   //débloquer première armure de bras
 		p.Inv.Liste_armures_jambes[0].IsUnlocked = true //débloquer première armure de jambes
 
-		p.Equiper(p.Inv.Liste_armes[4])                               //équiper Baton
-		p.EquipementArmures["Tete"] = p.Inv.Liste_armures_tete[0]     //équiper première armure de tête
-		p.EquipementArmures["Torse"] = p.Inv.Liste_armures_torse[0]   //équiper première armure de torse
-		p.EquipementArmures["Bras"] = p.Inv.Liste_armures_bras[0]     //équiper première armure de bras
-		p.EquipementArmures["Jambes"] = p.Inv.Liste_armures_jambes[0] //équiper première armure de jambes
+		p.Equiper(p.Inv.Liste_armes[4])          //équiper Baton
+		p.Equiper(p.Inv.Liste_armures_tete[0])   //équiper première armure de tête
+		p.Equiper(p.Inv.Liste_armures_torse[0])  //équiper première armure de torse
+		p.Equiper(p.Inv.Liste_armures_bras[0])   //équiper première armure de bras
+		p.Equiper(p.Inv.Liste_armures_jambes[0]) //équiper première armure de jambes
 		p.Pvmax = p.Pvmax +
 			p.EquipementArmures["Tete"].Pvbonus +
 			p.EquipementArmures["Torse"].Pvbonus +
@@ -93,34 +93,34 @@ func (p *Personnage) Init(nom, classe string) {
 		//Init des mobs
 	} else if classe == "Carcasse" {
 		p.InitIntern("Carcasse", "Carcasse", 7, 9, 8, 5, 200)
-		p.Inv.Liste_armes[4].IsUnlocked = true   //débloquer Baton
-		p.EquipementArmes = p.Inv.Liste_armes[4] //équiper Baton
+		p.Inv.Liste_armes[4].IsUnlocked = true //débloquer Baton
+		p.Equiper(p.Inv.Liste_armes[4])        //équiper Baton
 
 	} else if classe == "Chevalier mort-vivant" {
-		p.InitIntern("Chevalier mort-vivant", "Chevalier mort-vivant", 8, 9, 7, 5, 200)
-		p.Inv.Liste_armes[4].IsUnlocked = true   //débloquer Baton
-		p.EquipementArmes = p.Inv.Liste_armes[4] //équiper Baton
+		p.InitIntern("Chevalier mort-vivant", "Chevalier mort-vivant", 10, 9, 7, 5, 400)
+		p.Inv.Liste_armes[4].IsUnlocked = true //débloquer Baton
+		p.Equiper(p.Inv.Liste_armes[4])        //équiper Baton
 
 	} else if classe == "Chambion mort-vivant" {
-		p.InitIntern("Chambion mort-vivant", "Chambion mort-vivant", 9, 10, 6, 5, 200)
-		p.Inv.Liste_armes[4].IsUnlocked = true   //débloquer Baton
-		p.EquipementArmes = p.Inv.Liste_armes[4] //équiper Baton
+		p.InitIntern("Chambion mort-vivant", "Chambion mort-vivant", 13, 15, 13, 5, 700)
+		p.Inv.Liste_armes[4].IsUnlocked = true //débloquer Baton
+		p.Equiper(p.Inv.Liste_armes[4])        //équiper Baton
 
 		//Init des boss
 	} else if classe == "Gargouille" {
-		p.InitIntern("Gargouille", "Gargouille", 10, 11, 5, 5, 200)
-		p.Inv.Liste_armes[4].IsUnlocked = true   //débloquer Baton
-		p.EquipementArmes = p.Inv.Liste_armes[4] //équiper Baton
+		p.InitIntern("Gargouille", "Gargouille", 40, 50, 20, 5, 4000)
+		p.Inv.Liste_armes[4].IsUnlocked = true //débloquer Baton
+		p.Equiper(p.Inv.Liste_armes[4])        //équiper Baton
 
 	} else if classe == "Démon Capra" {
-		p.InitIntern("Démon Capra", "Démon Capra", 9, 10, 6, 5, 200)
-		p.Inv.Liste_armes[4].IsUnlocked = true   //débloquer Baton
-		p.EquipementArmes = p.Inv.Liste_armes[4] //équiper Baton
+		p.InitIntern("Démon Capra", "Démon Capra", 20, 20, 15, 5, 2000)
+		p.Inv.Liste_armes[4].IsUnlocked = true //débloquer Baton
+		p.Equiper(p.Inv.Liste_armes[4])        //équiper Baton
 
 	} else if classe == "Démon taureau" {
-		p.InitIntern("Démon taureau", "Démon taureau", 8, 9, 7, 5, 200)
-		p.Inv.Liste_armes[4].IsUnlocked = true   //débloquer Baton
-		p.EquipementArmes = p.Inv.Liste_armes[4] //équiper Baton
+		p.InitIntern("Démon taureau", "Démon taureau", 30, 30, 11, 5, 3000)
+		p.Inv.Liste_armes[4].IsUnlocked = true //débloquer Baton
+		p.Equiper(p.Inv.Liste_armes[4])        //équiper Baton
 	}
 }
 

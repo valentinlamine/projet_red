@@ -219,6 +219,7 @@ func (i *Inventaire) Init() {
 }
 
 func (p *Personnage) Equiper(item interface{}) {
+	//TODO : vérifier si l'item est déjà équipé
 	switch item := item.(type) {
 	case Armes:
 		if p.PoidsMax < p.PoidsEquip+item.Poids {

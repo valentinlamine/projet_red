@@ -13,6 +13,7 @@ type Armures struct {
 	Pvbonus    int
 	Poids      int
 	IsUnlocked bool
+	IsEquiped  bool
 }
 
 func (a *Armures) InitIntern_Armures(nom, class string, prix, lvlMinFor, lvlMinDex, lvlMinInt, pvbonus, poids int) {
@@ -24,6 +25,8 @@ func (a *Armures) InitIntern_Armures(nom, class string, prix, lvlMinFor, lvlMinD
 	a.LvlMinInt = lvlMinInt
 	a.Pvbonus = pvbonus
 	a.Poids = poids
+	a.IsUnlocked = false
+	a.IsUnlocked = false
 }
 
 //TODO Changer les stats des armures
@@ -87,4 +90,8 @@ func (a *Armures) Init_Armures(nom string) {
 	} else if nom == "Pattes de Dragon" {
 		a.InitIntern_Armures("Pattes de Dragon", "jambieres", 500, 14, 10, 8, 60, 12)
 	}
+}
+
+func (a Armures) ReturnIsEquiped() bool {
+	return a.IsEquiped
 }

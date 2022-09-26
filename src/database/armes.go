@@ -39,6 +39,7 @@ func (a *Armes) InitIntern_Armes(nom string, Prix, lvlMinFor, lvlMinDex, lvlMinI
 	a.Deg = deg
 	a.Poids = poids
 	a.IsUnlocked = false
+	a.IsEquiped = false
 
 }
 
@@ -89,4 +90,12 @@ func (b *Boucliers) Init_Bouclier(nom string) {
 	} else if nom == "vide" {
 		b.InitIntern_Bouclier("vide", 0, 0, 0, 0, 0, 0)
 	}
+}
+
+func (a Armes) ReturnIsEquiped() bool {
+	return a.IsEquiped
+}
+
+func (b Boucliers) ReturnIsEquiped() bool {
+	return b.IsEquiped
 }
