@@ -9,6 +9,7 @@ type Armures struct {
 	LvlMinFor int
 	LvlMinDex int
 	LvlMinInt int
+	Lvl       int
 	// Stat PvBonus
 	Pvbonus    int
 	Poids      int
@@ -27,6 +28,7 @@ func (a *Armures) InitIntern_Armures(nom, class string, prix, lvlMinFor, lvlMinD
 	a.Poids = poids
 	a.IsUnlocked = false
 	a.IsUnlocked = false
+	a.Lvl = 1
 }
 
 //TODO Changer les stats des armures

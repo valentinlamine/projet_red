@@ -249,11 +249,11 @@ func (p *Personnage) Affichage_inventaire_equipe() {
 }
 
 func (a *Armes) Affichage() {
-	Affichage("Arme", []string{"Nom : " + a.Nom, "Stat Min Force : " + strconv.Itoa(a.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.LvlMinInt), "Dégâts : " + strconv.Itoa(a.Deg), "Poids : " + strconv.Itoa(a.Poids), "Débloqué : " + strconv.FormatBool(a.IsUnlocked), "Équipé : " + strconv.FormatBool(a.IsEquiped)})
+	Affichage("Arme", []string{"Nom : " + a.Nom, "Niveau" + strconv.Itoa(a.Lvl), "Stat Min Force : " + strconv.Itoa(a.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.LvlMinInt), "Dégâts : " + strconv.Itoa(a.Deg), "Poids : " + strconv.Itoa(a.Poids), "Débloqué : " + strconv.FormatBool(a.IsUnlocked), "Équipé : " + strconv.FormatBool(a.IsEquiped)})
 }
 
 func (b *Boucliers) Affichage() {
-	Affichage("Bouclier", []string{"Nom : " + b.Nom, "Stat Min Force : " + strconv.Itoa(b.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(b.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(b.LvlMinInt), "PV Bonus : " + strconv.Itoa(b.Pvbonus), "Poids : " + strconv.Itoa(b.Poids), "Débloqué : " + strconv.FormatBool(b.IsUnlocked), "Équipé : " + strconv.FormatBool(b.IsEquiped)})
+	Affichage("Bouclier", []string{"Nom : " + b.Nom, "Niveau" + strconv.Itoa(b.Lvl), "Stat Min Force : " + strconv.Itoa(b.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(b.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(b.LvlMinInt), "PV Bonus : " + strconv.Itoa(b.Pvbonus), "Poids : " + strconv.Itoa(b.Poids), "Débloqué : " + strconv.FormatBool(b.IsUnlocked), "Équipé : " + strconv.FormatBool(b.IsEquiped)})
 }
 
 func (c *Consommable) Affichage() {
@@ -261,7 +261,7 @@ func (c *Consommable) Affichage() {
 }
 
 func (a *Armures) Affichage() {
-	Affichage("Armure", []string{"Nom : " + a.Nom, "Stat Min Force : " + strconv.Itoa(a.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.LvlMinInt), "PV Bonus : " + strconv.Itoa(a.Pvbonus), "Poids : " + strconv.Itoa(a.Poids), "Débloqué : " + strconv.FormatBool(a.IsUnlocked)})
+	Affichage("Armure", []string{"Nom : " + a.Nom, "Niveau" + strconv.Itoa(a.Lvl), "Stat Min Force : " + strconv.Itoa(a.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.LvlMinInt), "PV Bonus : " + strconv.Itoa(a.Pvbonus), "Poids : " + strconv.Itoa(a.Poids), "Débloqué : " + strconv.FormatBool(a.IsUnlocked)})
 }
 
 func (s *Sort) Affichage() {

@@ -8,6 +8,7 @@ type Armes struct {
 	LvlMinFor int
 	LvlMinDex int
 	LvlMinInt int
+	Lvl       int
 	// Stat Damage
 	Deg        int
 	Poids      int
@@ -23,6 +24,7 @@ type Boucliers struct {
 	LvlMinFor int
 	LvlMinDex int
 	LvlMinInt int
+	Lvl       int
 	// Stat Damage
 	Pvbonus    int
 	Poids      int
@@ -40,6 +42,7 @@ func (a *Armes) InitIntern_Armes(nom string, Prix, lvlMinFor, lvlMinDex, lvlMinI
 	a.Poids = poids
 	a.IsUnlocked = false
 	a.IsEquiped = false
+	a.Lvl = 1
 
 }
 
@@ -71,6 +74,7 @@ func (b *Boucliers) InitIntern_Bouclier(nom string, Prix, lvlMinFor, lvlMinDex, 
 	b.Poids = poids
 	b.IsUnlocked = false
 	b.IsEquiped = false
+	b.Lvl = 1
 
 }
 
