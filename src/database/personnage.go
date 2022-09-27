@@ -59,6 +59,17 @@ func (p *Personnage) Init(nom, classe string) {
 		p.Equiper(p.Inv.Liste_armes[3], false)     //équiper Uchigatana
 		p.Equiper(p.Inv.Liste_boucliers[0], false) //équiper Bouclier de bois
 
+		//Débloquer armures
+		p.Inv.Liste_armures_tete[0].IsUnlocked = true
+		p.Inv.Liste_armures_torse[0].IsUnlocked = true
+		p.Inv.Liste_armures_bras[0].IsUnlocked = true
+		p.Inv.Liste_armures_jambes[0].IsUnlocked = true
+		//Equiper armures
+		p.Equiper(p.Inv.Liste_armures_tete[0], false)
+		p.Equiper(p.Inv.Liste_armures_torse[0], false)
+		p.Equiper(p.Inv.Liste_armures_bras[0], false)
+		p.Equiper(p.Inv.Liste_armures_jambes[0], false)
+
 	} else if classe == "Chevalier" {
 		p.InitIntern(nom, "Chevalier", 10, 11, 8, 10, 0)
 		p.Inv.Liste_armes[1].IsUnlocked = true           //débloquer Claymore
@@ -73,22 +84,8 @@ func (p *Personnage) Init(nom, classe string) {
 
 	} else if classe == "Mendiant" {
 		p.InitIntern(nom, "Mendiant", 9, 9, 9, 9, 0)
-		p.Inv.Liste_armes[4].IsUnlocked = true          //débloquer Baton
-		p.Inv.Liste_armures_tete[0].IsUnlocked = true   //débloquer première armure de tête
-		p.Inv.Liste_armures_torse[0].IsUnlocked = true  //débloquer première armure de torse
-		p.Inv.Liste_armures_bras[0].IsUnlocked = true   //débloquer première armure de bras
-		p.Inv.Liste_armures_jambes[0].IsUnlocked = true //débloquer première armure de jambes
-
-		p.Equiper(p.Inv.Liste_armes[4], false)          //équiper Baton
-		p.Equiper(p.Inv.Liste_armures_tete[0], false)   //équiper première armure de tête
-		p.Equiper(p.Inv.Liste_armures_torse[0], false)  //équiper première armure de torse
-		p.Equiper(p.Inv.Liste_armures_bras[0], false)   //équiper première armure de bras
-		p.Equiper(p.Inv.Liste_armures_jambes[0], false) //équiper première armure de jambes
-		p.Pvmax = p.Pvmax +
-			p.EquipementArmures["Tete"].Pvbonus +
-			p.EquipementArmures["Torse"].Pvbonus +
-			p.EquipementArmures["Jambes"].Pvbonus +
-			p.EquipementArmures["Pieds"].Pvbonus
+		p.Inv.Liste_armes[4].IsUnlocked = true //débloquer Baton
+		p.Equiper(p.Inv.Liste_armes[4], false) //équiper Baton
 
 		//Init des mobs
 	} else if classe == "Carcasse" {
@@ -101,8 +98,8 @@ func (p *Personnage) Init(nom, classe string) {
 		p.Inv.Liste_armes[4].IsUnlocked = true //débloquer Baton
 		p.Equiper(p.Inv.Liste_armes[4], false) //équiper Baton
 
-	} else if classe == "Chambion mort-vivant" {
-		p.InitIntern("Chambion mort-vivant", "Chambion mort-vivant", 13, 15, 13, 5, 700)
+	} else if classe == "Champion mort-vivant" {
+		p.InitIntern("Champion mort-vivant", "Champion mort-vivant", 13, 15, 13, 5, 700)
 		p.Inv.Liste_armes[4].IsUnlocked = true //débloquer Baton
 		p.Equiper(p.Inv.Liste_armes[4], false) //équiper Baton
 

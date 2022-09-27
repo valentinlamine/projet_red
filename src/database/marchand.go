@@ -37,6 +37,12 @@ func (m *Marchand) InitMarchand(number int) {
 	} else if number == 2 {
 		m.Init("Laurentius", inv)
 		//TODO
+	} else if number == 3 {
+		m.Init("Gardienne du feu", inv)
+		m.Inv.Liste_consommables[1].Quantite = 100
+		m.Inv.Liste_consommables[2].Quantite = 100
+		m.Inv.Liste_consommables[3].Quantite = 100
+		m.Inv.Liste_consommables[4].Quantite = 100
 	}
 }
 
