@@ -95,11 +95,11 @@ func Menu() {
 }
 
 func menu_cheat() {
-	database.Affichage("Menu cheat", []string{"Quel cheat souhaitez vous utilisez ?", "0. Quittez le menu", "1. Ajouter 1000 ames"})
+	database.Affichage("Menu cheat", []string{"Quel cheat souhaitez vous utilisez ?", "0. Quittez le menu", "1. Ajouter 1000 ames", "2. Ajouter 100 éclat de titanite", "3. Ajouter 100 grands éclats de titanite", "4. Ajouter 100 tablettes éclats de titanite"})
 	var choix int
 	fmt.Scan(&choix)
-	for choix < 0 || choix > 1 {
-		fmt.Println("Vous devez choisir un choix entre 0 et 1")
+	for choix < 0 || choix > 4 {
+		fmt.Println("Vous devez choisir un choix entre 0 et 4")
 		fmt.Scan(&choix)
 	}
 	switch choix {
@@ -108,8 +108,21 @@ func menu_cheat() {
 	case 1:
 		player.Ames += 1000
 		database.Affichage("Menu cheat", []string{"Vous avez maintenant " + fmt.Sprint(player.Ames) + " ames"})
-		database.Attendre()
+		menu_cheat()
+	case 2:
+		player.Inv.Liste_items["éclat de titanite"] += 100
+		database.Affichage("Menu cheat", []string{"Vous avez maintenant " + fmt.Sprint(player.Inv.Liste_items["éclat de titanite"]) + " éclats de titanite"})
+		menu_cheat()
+	case 3:
+		player.Inv.Liste_items["grand éclat de titanite"] += 100
+		database.Affichage("Menu cheat", []string{"Vous avez maintenant " + fmt.Sprint(player.Inv.Liste_items["grand éclat de titanite"]) + " grands éclats de titanite"})
+		menu_cheat()
+	case 4:
+		player.Inv.Liste_items["tablette éclat de titanite"] += 100
+		database.Affichage("Menu cheat", []string{"Vous avez maintenant " + fmt.Sprint(player.Inv.Liste_items["tablette éclat de titanite"]) + " tablettes éclats de titanite"})
+		menu_cheat()
 	}
+
 }
 
 func Menu_deplacement() {

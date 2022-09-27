@@ -134,7 +134,7 @@ func (p *Personnage) Affichage_Inventaire() {
 			Nom = p.Inv.Liste_armures_jambes[index].Nom
 			nb_objets++
 			list_objets = append(list_objets, Nom)
-			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-6), "│", "\n")
+			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
 		}
 	}
 	//affichage des armures de bras débloquées
@@ -146,7 +146,17 @@ func (p *Personnage) Affichage_Inventaire() {
 			Nom = p.Inv.Liste_armures_bras[index].Nom
 			nb_objets++
 			list_objets = append(list_objets, Nom)
-			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-6), "│", "\n")
+			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
+		}
+	}
+	//affichage des items débloqués
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│", "Items débloqués :", strings.Repeat(" ", longueur-17), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	for i := range p.Inv.Liste_items {
+		if p.Inv.Liste_items[i] > 0 {
+			nb_objets++
+			fmt.Print("│  ", p.Inv.Liste_items[i], "x ", i, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(i)-(4+len(strconv.Itoa(p.Inv.Liste_items[i])))), "│", "\n")
 		}
 	}
 	//affichage du bas de la boite
@@ -171,7 +181,7 @@ func (p *Personnage) Affichage_Inventaire() {
 			fmt.Scan(&choix2)
 		}
 		if choix2 == 1 {
-			p.Equiper(item) //si consommable la fonction Equiper() va le consommer
+			p.Equiper(item, true) //si consommable la fonction Equiper() va le consommer
 		} else if choix2 == 2 {
 			switch item := item.(type) {
 			case Armes:
@@ -218,22 +228,22 @@ func (p *Personnage) Affichage_inventaire_equipe() {
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Casque équipée :", strings.Repeat(" ", longueur-16), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	fmt.Print("│ ● ", p.EquipementArmures["Tete"].Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["Tete"].Nom)-3), "│", "\n")
+	fmt.Print("│ ● ", p.EquipementArmures["tete"].Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["tete"].Nom)-3), "│", "\n")
 	//affichage de l'armure de torse équipée
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Plastron équipée :", strings.Repeat(" ", longueur-18), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	fmt.Print("│ ● ", p.EquipementArmures["Torse"].Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["Torse"].Nom)-3), "│", "\n")
+	fmt.Print("│ ● ", p.EquipementArmures["torse"].Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["torse"].Nom)-3), "│", "\n")
 	//affichage de l'armure de jambes équipée
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Jambières équipée :", strings.Repeat(" ", longueur-19), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	fmt.Print("│ ● ", p.EquipementArmures["Jambes"].Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["Jambes"].Nom)-3), "│", "\n")
+	fmt.Print("│ ● ", p.EquipementArmures["jambes"].Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["jambes"].Nom)-3), "│", "\n")
 	//affichage de l'armure de bras équipée
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Brassards équipée :", strings.Repeat(" ", longueur-19), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	fmt.Print("│ ● ", p.EquipementArmures["Bras"].Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["Bras"].Nom)-3), "│", "\n")
+	fmt.Print("│ ● ", p.EquipementArmures["bras"].Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.EquipementArmures["bras"].Nom)-3), "│", "\n")
 	//affichage du bas de la boite
 	fmt.Print("└", strings.Repeat("─", longueur), "┘", "\n")
 }
