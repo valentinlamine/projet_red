@@ -19,8 +19,7 @@ var inventaireMob database.Inventaire
 func main() {
 	inventaireMob.Init()
 	mob.Inv = inventaireMob
-	mob.Init("Mob", "Mort-vivant")
-
+	mob.Init("Mob", "Carcasse")
 	inventaire.Init()
 	carte.Init()
 	m1.InitMarchand(1)
@@ -72,8 +71,8 @@ func setup_personnage() {
 }
 
 func Menu() {
-	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Se déplacer", "4. Aller voir le marchand mort vivant", "5. Menu triche", "6. Quitter le jeu"})
-	var choix = database.Choix(1, 7)
+	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Se déplacer", "4. Aller voir le marchand mort vivant", "5. Accéder au menu du hub", "6. Quitter le jeu", "7. Menu cheat"})
+	var choix = database.Choix(1, 8)
 	switch choix {
 	case 1:
 		player.Affichage_Personnage()
@@ -85,23 +84,20 @@ func Menu() {
 	case 4:
 		m1.Menu_Marchand(&player)
 	case 5:
-		menu_cheat()
+		Menu_hub()
 	case 6:
 		database.Affichage("Fin du jeu", []string{"Merci d'avoir joué !"})
 		os.Exit(-1)
 	case 7:
+		menu_cheat()
+	case 8:
 		database.Combat(&player, &mob)
 	}
 }
 
 func menu_cheat() {
-	database.Affichage("Menu cheat", []string{"Quel cheat souhaitez vous utilisez ?", "0. Quittez le menu", "1. Ajouter 1000 ames", "2. Ajouter 100 éclat de titanite", "3. Ajouter 100 grands éclats de titanite", "4. Ajouter 100 tablettes éclats de titanite"})
-	var choix int
-	fmt.Scan(&choix)
-	for choix < 0 || choix > 4 {
-		fmt.Println("Vous devez choisir un choix entre 0 et 4")
-		fmt.Scan(&choix)
-	}
+	database.Affichage("Menu cheat", []string{"Quel cheat souhaitez vous utilisez ?", "0. Quittez le menu", "1. Ajouter 1000 ames", "2. Ajouter 100 éclat de titanite", "3. Ajouter 100 grands éclats de titanite", "4. Ajouter 100 tablettes éclats de titanite", "5. Mettre une vie infini"})
+	var choix = database.Choix(0, 5)
 	switch choix {
 	case 0:
 		return
@@ -121,35 +117,45 @@ func menu_cheat() {
 		player.Inv.Liste_items["tablette éclat de titanite"] += 100
 		database.Affichage("Menu cheat", []string{"Vous avez maintenant " + fmt.Sprint(player.Inv.Liste_items["tablette éclat de titanite"]) + " tablettes éclats de titanite"})
 		menu_cheat()
+	case 5:
+		player.Pvmax = 99999
+		player.Pvact = 99999
+		database.Affichage("Menu cheat", []string{"Vous avez maintenant une vie infini"})
+		menu_cheat()
 	}
 
 }
 
 func Menu_deplacement() {
 	boucle := false
-	database.Affichage("Menu déplacement", []string{"Vous êtes à " + player.Position.Val["name"], "Où voulez-vous aller ?", "1. Devant", "2. Gauche", "3. Droite", "4. Retour au hub", "5. Retour au menu principal"})
+	database.Affichage("Menu déplacement", []string{"Vous êtes à " + player.Position.Val["name"], "Où voulez-vous aller ?", "1. Devant", "2. Gauche", "3. Droite", "4. Revenir en arrière", "5. Retour au hub", "6. Retour au menu principal"})
 	var choix = database.Choix(1, 5)
 	switch choix {
 	case 1:
-		boucle = player.Deplacement(carte, "centre")
+		boucle = player.Deplacement("centre")
 	case 2:
-		boucle = player.Deplacement(carte, "gauche")
+		boucle = player.Deplacement("gauche")
 	case 3:
-		boucle = player.Deplacement(carte, "droite")
+		boucle = player.Deplacement("droite")
 	case 4:
-		database.Affichage("Avertissement", []string{"Vous allez retourner au hub", "Si vous retournez au hub voici ce qu'il va se produire :", "● Vous allez perdre 10 ames", "● La carte sera regénéré", "", "Voulez-vous continuer ?", "1. Oui", "2. Non"})
+		boucle = player.Deplacement("retour")
+	case 5:
+		database.Affichage("Avertissement", []string{"Vous allez retourner au hub", "Si vous retournez au hub voici ce qu'il va se produire :", "● Vous allez perdre 20 ames", "● La carte sera regénéré", "", "Voulez-vous continuer ?", "1. Oui", "2. Non"})
 		choix = database.Choix(1, 2)
 		switch choix {
 		case 1:
-			player.Ames -= 10
-			boucle = player.Deplacement(carte, "retour")
+			boucle = player.Deplacement("hub")
 		case 2:
 			boucle = true
 		}
-	case 5:
+	case 6:
 		return
 	}
 	if boucle {
 		Menu_deplacement()
 	}
+}
+
+func Menu_hub() {
+	database.Affichage("Lige feu", []string{"Vous êtes à Lige feu", "Que voulez-vous faire ?", "1. Aller voir nos meilleurs marchand de la région", "2. Aller voir notre forgeron", ""})
 }

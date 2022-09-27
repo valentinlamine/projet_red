@@ -13,10 +13,11 @@ type Personnage struct {
 	Intelligence int // Intelligence du personnage (dégâts magiques, etc.)
 	//état du personnage
 	Position            Arbre // Position du personnage sur la carte
-	Pvmax               int   // Pvmax du personnage (points de vie)
-	Pvact               int   // Points de vie actuels
-	ManaMax             int   // Mana maximum du personnage
-	Mana                int   // Mana du personnage
+	Back_list           []Arbre
+	Pvmax               int // Pvmax du personnage (points de vie)
+	Pvact               int // Points de vie actuels
+	ManaMax             int // Mana maximum du personnage
+	Mana                int // Mana du personnage
 	Inv                 Inventaire
 	PoidsEquip          int // Poids total des objets équipés
 	PoidsMax            int // Poids maximum que peut porter le personnage
@@ -49,6 +50,7 @@ func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int, Ames int
 	p.Degats = p.EquipementArmes.Deg + p.Force
 	p.EquipementArmures = make(map[string]Armures)
 	p.Ames = Ames
+	p.Back_list = make([]Arbre, 0)
 }
 
 func (p *Personnage) Init(nom, classe string) {

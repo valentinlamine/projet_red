@@ -195,6 +195,9 @@ func (m *Marchand) Trade(player *Personnage) {
 					if IsTradeable(player, "Consommables", i) {
 						player.Inv.Liste_consommables[i].Quantite++
 						player.Ames -= m.Inv.Liste_consommables[i].Prix
+						if i > 0 && i < 5 {
+							player.Inv.Liste_consommables[i].Prix = int(float64(player.Inv.Liste_consommables[i].Prix) * 1.5)
+						}
 						Affichage("Succès", []string{"Vous avez acheté un objet"})
 						Attendre()
 						return
