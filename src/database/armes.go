@@ -1,5 +1,7 @@
 package database
 
+import "strconv"
+
 type Armes struct {
 	// Nom et Prix
 	Nom  string
@@ -96,10 +98,55 @@ func (b *Boucliers) Init_Bouclier(nom string) {
 	}
 }
 
-func (a Armes) ReturnIsEquiped() bool {
+func (a *Armes) ReturnIsEquiped() bool {
 	return a.IsEquiped
 }
 
-func (b Boucliers) ReturnIsEquiped() bool {
+func (b *Boucliers) ReturnIsEquiped() bool {
 	return b.IsEquiped
+}
+
+func (a *Armes) Ameliorer_arme(p *Personnage) {
+	if a.Nom == "Bâton" {
+		a.Lvl++
+		a.Deg *= 3
+	} else {
+		a.Lvl++
+		a.Deg = a.Deg + a.Deg/5
+	}
+	switch a.Lvl {
+	case 2:
+		p.Ames -= 100
+		p.Inv.Liste_items["éclat de titanite"] -= 6
+	case 3:
+		p.Ames -= 500
+		p.Inv.Liste_items["éclat de titanite"] -= 3
+		p.Inv.Liste_items["grand éclat de titanite"] -= 3
+	case 4:
+		p.Ames -= 2000
+		p.Inv.Liste_items["éclat de titanite"] -= 2
+		p.Inv.Liste_items["grand éclat de titanite"] -= 2
+		p.Inv.Liste_items["tablette éclat de titanite"] -= 2
+	}
+	Affichage("Amélioration", []string{"Félécitation, vous venez d'améliorer votre arme !", "Désormais votre " + a.Nom + " est au niveau " + strconv.Itoa(a.Lvl), "Désormais votre " + a.Nom + " fait " + strconv.Itoa(a.Deg) + " dégats !"})
+}
+
+func (b *Boucliers) Ameliorer_bouclier(p *Personnage) {
+	b.Lvl++
+	b.Pvbonus = b.Pvbonus + b.Pvbonus/5
+	switch b.Lvl {
+	case 2:
+		p.Ames -= 100
+		p.Inv.Liste_items["éclat de titanite"] -= 6
+	case 3:
+		p.Ames -= 500
+		p.Inv.Liste_items["éclat de titanite"] -= 3
+		p.Inv.Liste_items["grand éclat de titanite"] -= 3
+	case 4:
+		p.Ames -= 2000
+		p.Inv.Liste_items["éclat de titanite"] -= 2
+		p.Inv.Liste_items["grand éclat de titanite"] -= 2
+		p.Inv.Liste_items["tablette éclat de titanite"] -= 2
+	}
+	Affichage("Amélioration", []string{"Félécitation, vous venez d'améliorer votre bouclier !", "Désormais votre " + b.Nom + " est au niveau " + strconv.Itoa(b.Lvl), "Désormais votre " + b.Nom + " donne " + strconv.Itoa(b.Pvbonus) + " points de vie bonus !"})
 }

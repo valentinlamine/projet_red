@@ -283,3 +283,65 @@ func (p *Personnage) Equiper(item interface{}, annonce bool) {
 		Affichage(a, b)
 	}
 }
+
+func (p *Personnage) Remplacer_item(item interface{}) {
+	switch item := item.(type) {
+	case Armes:
+		for i, v := range p.Inv.Liste_armes {
+			if v.Nom == item.Nom {
+				p.Inv.Liste_armes[i] = item
+				if p.EquipementArmes.Nom == item.Nom {
+					p.Equiper(item, false)
+				}
+			}
+		}
+	case Boucliers:
+		for i, v := range p.Inv.Liste_boucliers {
+			if v.Nom == item.Nom {
+				p.Inv.Liste_boucliers[i] = item
+				if p.EquipementBoucliers.Nom == item.Nom {
+					p.Equiper(item, false)
+				}
+			}
+		}
+	case Armures:
+		switch item.Class {
+		case "casque":
+			for i, v := range p.Inv.Liste_armures_tete {
+				if v.Nom == item.Nom {
+					p.Inv.Liste_armures_tete[i] = item
+					if p.EquipementArmures["tete"].Nom == item.Nom {
+						p.Equiper(item, false)
+					}
+				}
+			}
+		case "plastron":
+			for i, v := range p.Inv.Liste_armures_torse {
+				if v.Nom == item.Nom {
+					p.Inv.Liste_armures_torse[i] = item
+					if p.EquipementArmures["torse"].Nom == item.Nom {
+						p.Equiper(item, false)
+					}
+				}
+			}
+		case "gantelet":
+			for i, v := range p.Inv.Liste_armures_bras {
+				if v.Nom == item.Nom {
+					p.Inv.Liste_armures_bras[i] = item
+					if p.EquipementArmures["bras"].Nom == item.Nom {
+						p.Equiper(item, false)
+					}
+				}
+			}
+		case "jambieres":
+			for i, v := range p.Inv.Liste_armures_jambes {
+				if v.Nom == item.Nom {
+					p.Inv.Liste_armures_jambes[i] = item
+					if p.EquipementArmures["jambes"].Nom == item.Nom {
+						p.Equiper(item, false)
+					}
+				}
+			}
+		}
+	}
+}

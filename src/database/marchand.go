@@ -3,6 +3,9 @@ package database
 import (
 	"fmt"
 	"strconv"
+	"strings"
+
+	"github.com/rivo/uniseg"
 )
 
 type Marchand struct {
@@ -35,14 +38,24 @@ func (m *Marchand) InitMarchand(number int) {
 		m.Inv.Liste_sort[1].IsUnlocked = true
 		m.Nombre_Trade()
 	} else if number == 2 {
-		m.Init("Laurentius", inv)
-		//TODO
-	} else if number == 3 {
-		m.Init("Gardienne du feu", inv)
+		m.Init("Marchand de niveau", inv)
 		m.Inv.Liste_consommables[1].Quantite = 100
 		m.Inv.Liste_consommables[2].Quantite = 100
 		m.Inv.Liste_consommables[3].Quantite = 100
 		m.Inv.Liste_consommables[4].Quantite = 100
+		m.Nombre_Trade()
+	} else if number == 3 {
+		m.Init("Marchand de sort", inv)
+		m.Inv.Liste_sort[1].IsUnlocked = true
+		m.Inv.Liste_sort[2].IsUnlocked = true
+		m.Inv.Liste_sort[3].IsUnlocked = true
+		m.Inv.Liste_sort[4].IsUnlocked = true
+		m.Nombre_Trade()
+	} else if number == 4 {
+		m.Init("Marchand de potion", inv)
+		m.Inv.Liste_consommables[0].Quantite = 100
+		m.Inv.Liste_consommables[5].Quantite = 100
+		m.Nombre_Trade()
 	}
 }
 
@@ -458,4 +471,162 @@ func (m *Marchand) Menu_Marchand(p *Personnage) {
 		Attendre()
 		m.Menu_Marchand(p)
 	}
+}
+
+func (p *Personnage) Forgeron_amelioration() {
+	var Nom string
+	longueur := 50
+	var list_objets []string
+	nb_objets := 0
+	//laisser 8 ligne de vide au dessus
+	fmt.Print("\n\n\n\n\n\n\n\n")
+	//affichage du haut de la boite
+	fmt.Print("╒", strings.Repeat("═", longueur), "╕", "\n")
+	//affichage du titre
+	fmt.Print("│", "Inventaire", strings.Repeat(" ", longueur-10), "│", "\n")
+	//affichage de la ligne
+	fmt.Print("╞", strings.Repeat("═", longueur), "╡", "\n")
+	//affichage des armes
+	fmt.Print("│", "Armes Améliorables :", strings.Repeat(" ", longueur-20), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	for i := 0; i < len(p.Inv.Liste_armes); i++ {
+		if p.Have_item(p.Inv.Liste_armes[i].Lvl) && p.Inv.Liste_armes[i].IsUnlocked {
+			Nom = p.Inv.Liste_armes[i].Nom
+			nb_objets++
+			list_objets = append(list_objets, Nom)
+			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
+		}
+	}
+	//affichage des boucliers
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│", "Boucliers Améliorables :", strings.Repeat(" ", longueur-24), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	for i := 0; i < len(p.Inv.Liste_boucliers); i++ {
+		if p.Have_item(p.Inv.Liste_boucliers[i].Lvl) && p.Inv.Liste_boucliers[i].IsUnlocked {
+			Nom = p.Inv.Liste_boucliers[i].Nom
+			nb_objets++
+			list_objets = append(list_objets, Nom)
+			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
+		}
+	}
+	//affichage des casques
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│", "Casques Améliorables :", strings.Repeat(" ", longueur-22), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	for i := 0; i < len(p.Inv.Liste_armures_tete); i++ {
+		if p.Have_item(p.Inv.Liste_armures_tete[i].Lvl) && p.Inv.Liste_armures_tete[i].IsUnlocked {
+			Nom = p.Inv.Liste_armures_tete[i].Nom
+			nb_objets++
+			list_objets = append(list_objets, Nom)
+			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
+		}
+	}
+	//affichage des plastrons
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│", "Plastrons Améliorables :", strings.Repeat(" ", longueur-24), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	for i := 0; i < len(p.Inv.Liste_armures_torse); i++ {
+		if p.Have_item(p.Inv.Liste_armures_torse[i].Lvl) && p.Inv.Liste_armures_torse[i].IsUnlocked {
+			Nom = p.Inv.Liste_armures_torse[i].Nom
+			nb_objets++
+			list_objets = append(list_objets, Nom)
+			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
+		}
+	}
+	//affichage des jambières
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│", "Jambières Améliorables :", strings.Repeat(" ", longueur-24), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	for i := 0; i < len(p.Inv.Liste_armures_jambes); i++ {
+		if p.Have_item(p.Inv.Liste_armures_jambes[i].Lvl) && p.Inv.Liste_armures_jambes[i].IsUnlocked {
+			Nom = p.Inv.Liste_armures_jambes[i].Nom
+			nb_objets++
+			list_objets = append(list_objets, Nom)
+			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
+		}
+	}
+	//affichage des brassards
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│", "Brassards Améliorables :", strings.Repeat(" ", longueur-24), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	for i := 0; i < len(p.Inv.Liste_armures_bras); i++ {
+		if p.Have_item(p.Inv.Liste_armures_bras[i].Lvl) && p.Inv.Liste_armures_bras[i].IsUnlocked {
+			Nom = p.Inv.Liste_armures_bras[i].Nom
+			nb_objets++
+			list_objets = append(list_objets, Nom)
+			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
+		}
+	}
+	//affichage du bas du tableau
+	fmt.Print("└", strings.Repeat("─", longueur), "┘", "\n")
+
+	//choix de l'objet à améliorer
+	fmt.Print("Choisissez l'objet à améliorer (0 pour quitter) : ")
+	var choix = Choix(0, len(list_objets))
+	if choix != 0 {
+		item := p.Inv.Get_Item(list_objets[choix-1])
+		Affichage("Inventaire", []string{"Vous avez choisi l'objet : " + list_objets[choix-1], "Que voulez vous faire avec cet objet ? ", "1. L'améliorer", "2. Afficher ces statistiques", "3. Retourner au menu précédent"})
+		var choix2 = Choix(1, 3)
+		switch choix2 {
+		case 1:
+			switch item := item.(type) {
+			case Armes:
+				item.Ameliorer_arme(p)
+				p.Remplacer_item(item)
+				Attendre()
+			case Boucliers:
+				item.Ameliorer_bouclier(p)
+				p.Remplacer_item(item)
+				Attendre()
+			case Armures:
+				item.Ameliorer_Armures(p)
+				p.Remplacer_item(item)
+				Attendre()
+			}
+		case 2:
+			switch item := item.(type) {
+			case Armes:
+				item.Affichage()
+				Attendre()
+				p.Forgeron_amelioration()
+			case Boucliers:
+				item.Affichage()
+				Attendre()
+				p.Forgeron_amelioration()
+			case Armures:
+				item.Affichage()
+				Attendre()
+				p.Forgeron_amelioration()
+			}
+		case 3:
+			p.Forgeron_amelioration()
+		}
+	}
+}
+
+func (p *Personnage) Have_item(number int) bool {
+	if number > 3 {
+		return false
+	}
+	switch number {
+	case 1:
+		if p.Inv.Liste_items["éclat de titanite"] >= 6 && p.Ames >= 100 {
+			return true
+		} else {
+			return false
+		}
+	case 2:
+		if p.Inv.Liste_items["grand éclat de titanite"] >= 3 && p.Inv.Liste_items["éclat de titanite"] >= 3 && p.Ames >= 500 {
+			return true
+		} else {
+			return false
+		}
+	case 3:
+		if p.Inv.Liste_items["grand éclat de titanite"] >= 2 && p.Inv.Liste_items["éclat de titanite"] >= 2 && p.Inv.Liste_items["tablette éclat de titanite"] >= 2 && p.Ames >= 2000 {
+			return true
+		} else {
+			return false
+		}
+	}
+	return false
 }

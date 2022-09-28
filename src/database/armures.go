@@ -1,5 +1,7 @@
 package database
 
+import "strconv"
+
 type Armures struct {
 	// Nom
 	Nom   string
@@ -94,6 +96,26 @@ func (a *Armures) Init_Armures(nom string) {
 	}
 }
 
-func (a Armures) ReturnIsEquiped() bool {
+func (a *Armures) ReturnIsEquiped() bool {
 	return a.IsEquiped
+}
+
+func (a *Armures) Ameliorer_Armures(p *Personnage) {
+	a.Lvl++
+	a.Pvbonus = a.Pvbonus + a.Pvbonus/5
+	switch a.Lvl {
+	case 2:
+		p.Ames -= 100
+		p.Inv.Liste_items["éclat de titanite"] -= 6
+	case 3:
+		p.Ames -= 500
+		p.Inv.Liste_items["éclat de titanite"] -= 3
+		p.Inv.Liste_items["grand éclat de titanite"] -= 3
+	case 4:
+		p.Ames -= 2000
+		p.Inv.Liste_items["éclat de titanite"] -= 2
+		p.Inv.Liste_items["grand éclat de titanite"] -= 2
+		p.Inv.Liste_items["tablette éclat de titanite"] -= 2
+	}
+	Affichage("Amélioration", []string{"Félécitation, vous venez d'améliorer votre armure !", "Désormais votre " + a.Nom + " est au niveau " + strconv.Itoa(a.Lvl), "Désormais votre " + a.Nom + " donne " + strconv.Itoa(a.Pvbonus) + " points de vie bonus !"})
 }
