@@ -79,15 +79,39 @@ func (p *Personnage) Init(nom, classe string) {
 		p.Equiper(p.Inv.Liste_armes[1], false)           //équiper Claymore
 		p.EquipementBoucliers = p.Inv.Liste_boucliers[2] //équiper Bouclier de fer
 
+		//Débloquer armures
+		p.Inv.Liste_armures_tete[0].IsUnlocked = true
+		p.Inv.Liste_armures_torse[0].IsUnlocked = true
+		p.Inv.Liste_armures_bras[0].IsUnlocked = true
+		p.Inv.Liste_armures_jambes[0].IsUnlocked = true
+		//Equiper armures
+		p.Equiper(p.Inv.Liste_armures_tete[0], false)
+		p.Equiper(p.Inv.Liste_armures_torse[0], false)
+		p.Equiper(p.Inv.Liste_armures_bras[0], false)
+		p.Equiper(p.Inv.Liste_armures_jambes[0], false)
+
 	} else if classe == "Pyromancien" {
-		p.InitIntern(nom, "Pyromancien", 9, 9, 11, 12, 0)
+		p.InitIntern(nom, "Pyromancien", 9, 9, 12, 12, 0)
 		p.Inv.Liste_armes[0].IsUnlocked = true //débloquer Dague
 		p.Equiper(p.Inv.Liste_armes[0], false) //équiper Dague
+
+		//Débloquer armures
+		p.Inv.Liste_armures_tete[2].IsUnlocked = true
+		p.Inv.Liste_armures_torse[2].IsUnlocked = true
+		p.Inv.Liste_armures_bras[2].IsUnlocked = true
+		p.Inv.Liste_armures_jambes[2].IsUnlocked = true
+		//Equiper armures
+		p.Equiper(p.Inv.Liste_armures_tete[2], false)
+		p.Equiper(p.Inv.Liste_armures_torse[2], false)
+		p.Equiper(p.Inv.Liste_armures_bras[2], false)
+		p.Equiper(p.Inv.Liste_armures_jambes[2], false)
 
 	} else if classe == "Mendiant" {
 		p.InitIntern(nom, "Mendiant", 9, 9, 9, 9, 0)
 		p.Inv.Liste_armes[4].IsUnlocked = true //débloquer Baton
 		p.Equiper(p.Inv.Liste_armes[4], false) //équiper Baton
+
+		//Le pauvre haha le loser, il est pauvre et il a pas d'armure haha
 
 		//Init des mobs
 	} else if classe == "Carcasse" {
