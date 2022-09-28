@@ -29,80 +29,32 @@ func (m *Marchand) InitMarchand(number int) {
 	if number == 1 {
 		m.Init("Marchand mort vivant", inv)
 		m.Inv.Liste_armes[4].IsUnlocked = true
-		m.Inv.Liste_consommables[5].Quantite = 100
 		m.Inv.Liste_boucliers[2].IsUnlocked = true
 		m.Inv.Liste_armures_tete[1].IsUnlocked = true
 		m.Inv.Liste_armures_torse[1].IsUnlocked = true
 		m.Inv.Liste_armures_jambes[1].IsUnlocked = true
 		m.Inv.Liste_armures_bras[1].IsUnlocked = true
-		m.Inv.Liste_sort[1].IsUnlocked = true
-		m.Nombre_Trade()
+		m.Nb_trade = 7
 	} else if number == 2 {
-		m.Init("Marchand de niveau", inv)
+		m.Init("Gardienne du feu", inv)
 		m.Inv.Liste_consommables[1].Quantite = 100
 		m.Inv.Liste_consommables[2].Quantite = 100
 		m.Inv.Liste_consommables[3].Quantite = 100
 		m.Inv.Liste_consommables[4].Quantite = 100
-		m.Nombre_Trade()
+		m.Nb_trade = 4
 	} else if number == 3 {
-		m.Init("Marchand de sort", inv)
+		m.Init("Laurentius", inv)
 		m.Inv.Liste_sort[1].IsUnlocked = true
 		m.Inv.Liste_sort[2].IsUnlocked = true
 		m.Inv.Liste_sort[3].IsUnlocked = true
 		m.Inv.Liste_sort[4].IsUnlocked = true
-		m.Nombre_Trade()
+		m.Nb_trade = 4
 	} else if number == 4 {
-		m.Init("Marchand de potion", inv)
+		m.Init("Petrus", inv)
 		m.Inv.Liste_consommables[0].Quantite = 100
 		m.Inv.Liste_consommables[5].Quantite = 100
-		m.Nombre_Trade()
+		m.Nb_trade = 2
 	}
-}
-
-func (m *Marchand) Nombre_Trade() {
-	var nombre int
-	for i := 0; i < len(m.Inv.Liste_armes); i++ {
-		if m.Inv.Liste_armes[i].IsUnlocked {
-			nombre++
-		}
-	}
-	for i := 0; i < len(m.Inv.Liste_boucliers); i++ {
-		if m.Inv.Liste_boucliers[i].IsUnlocked {
-			nombre++
-		}
-	}
-	for i := 0; i < len(m.Inv.Liste_consommables); i++ {
-		if m.Inv.Liste_consommables[i].Quantite > 0 {
-			nombre++
-		}
-	}
-	for i := 0; i < len(m.Inv.Liste_armures_tete); i++ {
-		if m.Inv.Liste_armures_tete[i].IsUnlocked {
-			nombre++
-		}
-	}
-	for i := 0; i < len(m.Inv.Liste_armures_torse); i++ {
-		if m.Inv.Liste_armures_torse[i].IsUnlocked {
-			nombre++
-		}
-	}
-	for i := 0; i < len(m.Inv.Liste_armures_jambes); i++ {
-		if m.Inv.Liste_armures_jambes[i].IsUnlocked {
-			nombre++
-		}
-	}
-	for i := 0; i < len(m.Inv.Liste_armures_bras); i++ {
-		if m.Inv.Liste_armures_bras[i].IsUnlocked {
-			nombre++
-		}
-	}
-	for i := 0; i < len(m.Inv.Liste_sort); i++ {
-		if m.Inv.Liste_sort[i].IsUnlocked {
-			nombre++
-		}
-	}
-
-	m.Nb_trade = nombre
 }
 
 func (m *Marchand) Affichage_Trade() {
@@ -174,8 +126,9 @@ func (m *Marchand) Trade(player *Personnage) {
 					if IsTradeable(player, "Armes", i) {
 						player.Inv.Liste_armes[i].IsUnlocked = true
 						player.Ames -= m.Inv.Liste_armes[i].Prix
-						Affichage("Succès", []string{"Vous avez acheté un objet"})
+						Affichage("Succès", []string{"Vous avez acheté l'arme " + m.Inv.Liste_armes[i].Nom})
 						Attendre()
+						m.Trade(player)
 						return
 					} else {
 						m.Trade(player)
@@ -194,8 +147,9 @@ func (m *Marchand) Trade(player *Personnage) {
 					if IsTradeable(player, "Boucliers", i) {
 						player.Inv.Liste_boucliers[i].IsUnlocked = true
 						player.Ames -= m.Inv.Liste_boucliers[i].Prix
-						Affichage("Succès", []string{"Vous avez acheté un objet"})
+						Affichage("Succès", []string{"Vous avez acheté le bouclier " + m.Inv.Liste_boucliers[i].Nom})
 						Attendre()
+						m.Trade(player)
 						return
 					} else {
 						m.Trade(player)
@@ -215,11 +169,17 @@ func (m *Marchand) Trade(player *Personnage) {
 						player.Inv.Liste_consommables[i].Quantite++
 						player.Ames -= m.Inv.Liste_consommables[i].Prix
 						if i > 0 && i < 5 {
-							player.Inv.Liste_consommables[i].Prix = int(float64(player.Inv.Liste_consommables[i].Prix) * 1.5)
+							m.Inv.Liste_consommables[i].Prix = int(float64(m.Inv.Liste_consommables[i].Prix) * 1.5)
+							player.PrendrePot(player.Inv.Liste_consommables[i])
+							player.Inv.Liste_consommables[i].Quantite--
+							m.Trade(player)
+							return
+						} else {
+							Affichage("Succès", []string{"Vous avez acheté le consommable " + m.Inv.Liste_consommables[i].Nom})
+							Attendre()
+							m.Trade(player)
+							return
 						}
-						Affichage("Succès", []string{"Vous avez acheté un objet"})
-						Attendre()
-						return
 					} else {
 						m.Trade(player)
 					}
@@ -464,11 +424,22 @@ func (m *Marchand) Menu_Marchand(p *Personnage) {
 	if choix == 1 {
 		m.Trade(p)
 	} else if choix == 2 {
-		Affichage("Marchand", []string{"Heh Heh Heh...",
-			"Si vous êtes en manque d'âmes, tuez des monstres !",
-			"Plus ils sont gros, plus ils ont d'âmes",
-			"Donnez les moi je donnerai des objets de valeur... Heh Heh Heh..."})
-		Attendre()
+		if m.Nom == "Petrus" {
+			Affichage(m.Nom, []string{"Je suis le marchand " + m.Nom + ".", "Je suis un ancien chevalier de l'Ordre de la Lumière.", "Je suis venu ici pour me reposer et me soigner.", "Je ne peux plus combattre, mais je peux vous aider à vous soigner."})
+			Attendre()
+			if p.Inv.Liste_consommables[0].Quantite < 3 {
+				Affichage(m.Nom, []string{"Je vois que vos fioles sont vides...", "Laissez moi vous remplir !"})
+				Attendre()
+				p.Inv.Liste_consommables[0].Quantite = 3
+				Affichage("Informations", []string{"Vous possédez maintenant 3 fioles d'Estus !"})
+			}
+		} else {
+			Affichage("Marchand", []string{"Heh Heh Heh...",
+				"Si vous êtes en manque d'âmes, tuez des monstres !",
+				"Plus ils sont gros, plus ils ont d'âmes",
+				"Donnez les moi je donnerai des objets de valeur... Heh Heh Heh..."})
+			Attendre()
+		}
 		m.Menu_Marchand(p)
 	}
 }

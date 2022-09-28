@@ -73,7 +73,6 @@ func Menu() {
 	case 1:
 		player.Affichage_Personnage()
 	case 2:
-		fmt.Println("Vous avez maintenant ", player.Degats, " DPS")
 		player.Affichage_Inventaire()
 	case 3:
 		Menu_deplacement()

@@ -48,21 +48,20 @@ func (a *Armes) InitIntern_Armes(nom string, Prix, lvlMinFor, lvlMinDex, lvlMinI
 
 }
 
-func (a *Armes) Init_Armes(nom string) {
-	if nom == "Dague" {
+func (a *Armes) Init_Armes(number int) {
+	switch number {
+	case 1:
 		a.InitIntern_Armes("Dague", 100, 9, 11, 8, 20, 3)
-	} else if nom == "Claymore" {
+	case 2:
 		a.InitIntern_Armes("Claymore", 2000, 11, 9, 8, 50, 8)
-	} else if nom == "Rapière" {
+	case 3:
 		a.InitIntern_Armes("Rapière", 500, 9, 12, 9, 35, 5)
-	} else if nom == "Uchigatana" {
+	case 4:
 		a.InitIntern_Armes("Uchigatana", 1000, 10, 14, 10, 40, 6)
-	} else if nom == "Bâton" {
+	case 5:
 		a.InitIntern_Armes("Bâton", 100, 7, 7, 7, 15, 3)
-	} else if nom == "Hache queue de gargouille" {
+	case 6:
 		a.InitIntern_Armes("Hache queue de gargouille", 5000, 14, 10, 8, 60, 12)
-	} else if nom == "vide" {
-		a.InitIntern_Armes("vide", 0, 0, 0, 0, 0, 0)
 	}
 }
 
@@ -80,21 +79,20 @@ func (b *Boucliers) InitIntern_Bouclier(nom string, Prix, lvlMinFor, lvlMinDex, 
 
 }
 
-func (b *Boucliers) Init_Bouclier(nom string) {
-	if nom == "Bouclier en bois" {
+func (b *Boucliers) Init_Bouclier(number int) {
+	switch number {
+	case 1:
 		b.InitIntern_Bouclier("Bouclier en bois", 50, 9, 8, 8, 20, 3)
-	} else if nom == "Bouclier en bois de cerf" {
+	case 2:
 		b.InitIntern_Bouclier("Bouclier en bois de cerf", 100, 10, 8, 8, 40, 5)
-	} else if nom == "Bouclier en fer" {
+	case 3:
 		b.InitIntern_Bouclier("Bouclier en fer", 700, 12, 8, 8, 75, 9)
-	} else if nom == "Bouclier en acier" {
+	case 4:
 		b.InitIntern_Bouclier("Bouclier en acier", 500, 10, 12, 9, 65, 5)
-	} else if nom == "Bouclier en mithril" {
+	case 5:
 		b.InitIntern_Bouclier("Bouclier en mithril", 1200, 12, 16, 10, 120, 6)
-	} else if nom == "Bouclier d'Havel" {
+	case 6:
 		b.InitIntern_Bouclier("Bouclier d'Havel", 5000, 20, 10, 10, 175, 20)
-	} else if nom == "vide" {
-		b.InitIntern_Bouclier("vide", 0, 0, 0, 0, 0, 0)
 	}
 }
 

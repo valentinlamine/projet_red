@@ -56,6 +56,8 @@ func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int, Ames int
 func (p *Personnage) Init(nom, classe string) {
 	if classe == "Guerrier" {
 		p.InitIntern(nom, "Guerrier", 11, 12, 9, 8, 0)
+		p.Inv.Liste_consommables[0].Quantite = 3
+		p.Inv.Liste_sort[0].IsUnlocked = true
 		p.Inv.Liste_armes[3].IsUnlocked = true     //débloquer Uchigatana
 		p.Inv.Liste_boucliers[0].IsUnlocked = true //débloquer Bouclier de bois
 		p.Equiper(p.Inv.Liste_armes[3], false)     //équiper Uchigatana
@@ -74,6 +76,8 @@ func (p *Personnage) Init(nom, classe string) {
 
 	} else if classe == "Chevalier" {
 		p.InitIntern(nom, "Chevalier", 10, 11, 8, 10, 0)
+		p.Inv.Liste_consommables[0].Quantite = 3
+		p.Inv.Liste_sort[0].IsUnlocked = true
 		p.Inv.Liste_armes[1].IsUnlocked = true           //débloquer Claymore
 		p.Inv.Liste_boucliers[2].IsUnlocked = true       //débloquer Bouclier de fer
 		p.Equiper(p.Inv.Liste_armes[1], false)           //équiper Claymore
@@ -92,6 +96,8 @@ func (p *Personnage) Init(nom, classe string) {
 
 	} else if classe == "Pyromancien" {
 		p.InitIntern(nom, "Pyromancien", 9, 9, 12, 12, 0)
+		p.Inv.Liste_consommables[0].Quantite = 3
+		p.Inv.Liste_sort[0].IsUnlocked = true
 		p.Inv.Liste_armes[0].IsUnlocked = true //débloquer Dague
 		p.Equiper(p.Inv.Liste_armes[0], false) //équiper Dague
 
@@ -108,6 +114,9 @@ func (p *Personnage) Init(nom, classe string) {
 
 	} else if classe == "Mendiant" {
 		p.InitIntern(nom, "Mendiant", 9, 9, 9, 9, 0)
+		p.Inv.Liste_consommables[0].Quantite = 3
+		p.Inv.Liste_consommables[1].Quantite = 1
+		p.Inv.Liste_sort[0].IsUnlocked = true
 		p.Inv.Liste_armes[4].IsUnlocked = true //débloquer Baton
 		p.Equiper(p.Inv.Liste_armes[4], false) //équiper Baton
 

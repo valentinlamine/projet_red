@@ -31,21 +31,20 @@ func (c *Consommable) InitIntern_Consommable(nom string, prix, quantite, pvBonus
 	c.MultiLvlPoidsMax = multiLvlPoidsMax
 }
 
-func (c *Consommable) Init_Consommable(nom string) {
-	if nom == "Fiole d'Estus" { //Potion de vie, se recupère aux Feux
-		c.InitIntern_Consommable(nom, 20, 3, 50, 0, 0, 0, 0)
-	} else if nom == "Vitalité" { //Augmente la vitalité, se recupère aux Feux
-		c.InitIntern_Consommable(nom, 300, 0, 1, 0, 0, 0, 0)
-	} else if nom == "Force" { //Potion de force
-		c.InitIntern_Consommable(nom, 300, 0, 0, 1, 0, 0, 0)
-	} else if nom == "Dextérité" { //Potion de dextérité
-		c.InitIntern_Consommable(nom, 300, 0, 0, 0, 1, 0, 0)
-	} else if nom == "Intelligence" { //Potion d'intelligence
-		c.InitIntern_Consommable(nom, 300, 0, 0, 0, 0, 1, 0)
-	} else if nom == "Potion de poids max" {
-		c.InitIntern_Consommable(nom, 300, 0, 0, 0, 0, 0, 1)
-	} else if nom == "Fiole d'essence de pin pourri" { //Potion de poison
-		c.InitIntern_Consommable(nom, 50, 0, 30, 0, 0, 0, 0)
+func (c *Consommable) Init_Consommable(number int) {
+	switch number {
+	case 1:
+		c.InitIntern_Consommable("Fiole d'Estus", 20, 0, 50, 0, 0, 0, 0)
+	case 2:
+		c.InitIntern_Consommable("1 niveau de Vitalité", 300, 0, 1, 0, 0, 0, 0)
+	case 3:
+		c.InitIntern_Consommable("1 niveau de Force", 300, 0, 0, 1, 0, 0, 0)
+	case 4:
+		c.InitIntern_Consommable("1 niveau de Dextérité", 300, 0, 0, 0, 1, 0, 0)
+	case 5:
+		c.InitIntern_Consommable("1 niveau de Intelligence", 300, 0, 0, 0, 0, 1, 0)
+	case 6:
+		c.InitIntern_Consommable("Fiole d'essence de pin pourri", 50, 0, 30, 0, 0, 0, 0)
 	}
 }
 
@@ -57,21 +56,38 @@ func (p *Personnage) PrendrePot(c Consommable) {
 			if p.Pvact > p.Pvmax {
 				p.Pvact = p.Pvmax
 			}
-			Affichage("Inventaire", []string{"Vous avez bu une potion de vie, vous avez maintenant " + strconv.Itoa(p.Pvact) + " pv"})
+			Affichage("Information", []string{"Vous avez bu une potion de vie, vous avez maintenant " + strconv.Itoa(p.Pvact) + " pv"})
 			Attendre()
 		}
-	} else if c.Nom == "Vitalité" {
+	} else if c.Nom == "1 niveau de Vitalité" {
 		p.Vitalite++
 		p.Niveau++
-	} else if c.Nom == "Force" {
+		p.Pvmax += 20
+		Affichage("Information", []string{"Vous avez pris un niveau de vitalité, vous avez maintenant " + strconv.Itoa(p.Vitalite) + " de vitalité"})
+		Attendre()
+	} else if c.Nom == "1 niveau de Force" {
 		p.Force++
 		p.Niveau++
-	} else if c.Nom == "Dextérité" {
+		p.Degats += 5
+		p.PoidsMax += 5
+		Affichage("Information", []string{"Vous avez pris un niveau de force, vous avez maintenant " + strconv.Itoa(p.Force) + " de force"})
+		Attendre()
+	} else if c.Nom == "1 niveau de Dextérité" {
 		p.Dexterite++
 		p.Niveau++
-	} else if c.Nom == "Intelligence" {
+		p.Initiative++
+		Affichage("Information", []string{"Vous avez pris un niveau de dextérité, vous avez maintenant " + strconv.Itoa(p.Dexterite) + " de dextérité"})
+		Attendre()
+	} else if c.Nom == "1 niveau de Intelligence" {
 		p.Intelligence++
 		p.Niveau++
+		p.ManaMax += 20
+		for _, v := range p.Inv.Liste_sort {
+			v.Degats = int(float64(v.Degats) * 1.3)
+			v.BoostPv = int(float64(v.BoostPv) * 1.3)
+		}
+		Affichage("Information", []string{"Vous avez pris un niveau d'intelligence, vous avez maintenant " + strconv.Itoa(p.Intelligence) + " d'intelligence"})
+		Attendre()
 	} else if c.Nom == "Fiole d'essence de pin pourri" {
 		if p.IsInInv(5) {
 			p.Inv.Liste_consommables[5].Quantite -= 1
