@@ -72,7 +72,7 @@ func (player *Personnage) EnemyTurn(mob *Personnage, turnC int) {
 			if player.Pvact < 0 {
 				player.Pvact = 0
 			}
-			Affichage(mob.Nom, []string{"Le " + mob.Nom + " vous a infligé " + strconv.Itoa(mob.Degats*2) + " dégats, vous avez maintenant " + strconv.Itoa(player.Pvact) + " pv"})
+			Affichage(mob.Nom, []string{"Le " + mob.Nom + " vous a infligé " + strconv.Itoa(mob.Degats) + " dégats, vous avez maintenant " + strconv.Itoa(player.Pvact) + " pv"})
 		}
 	}
 }
