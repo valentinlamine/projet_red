@@ -20,40 +20,40 @@ func (a *Arbre) Insert(val map[string]string, parent *Arbre) {
 }
 
 func (hub *Arbre) Init() {
-	hub.Insert(map[string]string{"name": "Lige feu", "mob_nb": "0", "mob_type": "none", "boss": "none", "feu": "true", "forge": "true", "loot": "0"}, nil)
+	hub.Insert(map[string]string{"name": "Lige feu", "mob_nb": "0", "mob_type": "none", "feu": "true", "forge": "true", "loot": "0"}, nil)
 	//camps des morts vivants
-	hub.Centre.Insert(map[string]string{"name": "Camps des morts vivants", "mob_nb": "4", "mob_type": "Carcasse", "boss": "none", "feu": "false", "forge": "false", "loot": "0"}, hub)
+	hub.Centre.Insert(map[string]string{"name": "Camps des morts vivants", "mob_nb": "4", "mob_type": "Carcasse", "feu": "false", "forge": "false", "loot": "0"}, hub)
 	//partie gauche
-	hub.Centre.Gauche.Insert(map[string]string{"name": "Batiment détruit", "mob_nb": "0", "mob_type": "none", "boss": "none", "feu": "true", "forge": "false", "loot": "0"}, hub.Centre)
-	hub.Centre.Gauche.Centre.Insert(map[string]string{"name": "Tour ouest", "mob_nb": "2", "mob_type": "Chevalier mort-vivant", "boss": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Gauche)
-	hub.Centre.Gauche.Centre.Gauche.Insert(map[string]string{"name": "Muraille", "mob_nb": "0", "mob_type": "none", "boss": "Démon taureau", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Gauche.Centre)
-	hub.Centre.Gauche.Centre.Gauche.Droite.Insert(map[string]string{"name": "Tour nord", "mob_nb": "0", "mob_type": "none", "boss": "none", "feu": "true", "forge": "false", "loot": "0"}, hub.Centre.Gauche.Centre.Gauche)
-	hub.Centre.Gauche.Centre.Gauche.Droite.Centre.Insert(map[string]string{"name": "Anor Londo", "mob_nb": "0", "mob_type": "none", "boss": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Gauche.Centre.Gauche.Droite)
+	hub.Centre.Gauche.Insert(map[string]string{"name": "Batiment détruit", "mob_nb": "0", "mob_type": "none", "feu": "true", "forge": "false", "loot": "0"}, hub.Centre)
+	hub.Centre.Gauche.Centre.Insert(map[string]string{"name": "Tour ouest", "mob_nb": "2", "mob_type": "Chevalier mort-vivant", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Gauche)
+	hub.Centre.Gauche.Centre.Gauche.Insert(map[string]string{"name": "Muraille", "mob_nb": "1", "mob_type": "Démon taureau", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Gauche.Centre)
+	hub.Centre.Gauche.Centre.Gauche.Droite.Insert(map[string]string{"name": "Tour nord", "mob_nb": "0", "mob_type": "none", "feu": "true", "forge": "false", "loot": "0"}, hub.Centre.Gauche.Centre.Gauche)
+	hub.Centre.Gauche.Centre.Gauche.Droite.Centre.Insert(map[string]string{"name": "Anor Londo", "mob_nb": "0", "mob_type": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Gauche.Centre.Gauche.Droite)
 	//partie droite
-	hub.Centre.Droite.Insert(map[string]string{"name": "Forteresse", "mob_nb": "0", "mob_type": "none", "boss": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre)
-	hub.Centre.Droite.Centre.Insert(map[string]string{"name": "Annexe", "mob_nb": "3", "mob_type": "Carcasse", "boss": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite)
-	hub.Centre.Droite.Centre.Gauche.Insert(map[string]string{"name": "Forge", "mob_nb": "0", "mob_type": "none", "boss": "none", "feu": "true", "forge": "true", "loot": "0"}, hub.Centre.Droite.Centre)
-	hub.Centre.Droite.Centre.Droite.Insert(map[string]string{"name": "Couloir", "mob_nb": "0", "mob_type": "none", "boss": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre)
-	hub.Centre.Droite.Centre.Droite.Gauche.Insert(map[string]string{"name": "Cuisine", "mob_nb": "2", "mob_type": "Champion mort-vivant", "boss": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite)
-	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Insert(map[string]string{"name": "Garde manger", "mob_nb": "0", "mob_type": "none", "boss": "none", "feu": "true", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche)
+	hub.Centre.Droite.Insert(map[string]string{"name": "Forteresse", "mob_nb": "0", "mob_type": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre)
+	hub.Centre.Droite.Centre.Insert(map[string]string{"name": "Annexe", "mob_nb": "3", "mob_type": "Carcasse", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite)
+	hub.Centre.Droite.Centre.Gauche.Insert(map[string]string{"name": "Forge", "mob_nb": "0", "mob_type": "none", "feu": "true", "forge": "true", "loot": "0"}, hub.Centre.Droite.Centre)
+	hub.Centre.Droite.Centre.Droite.Insert(map[string]string{"name": "Couloir", "mob_nb": "0", "mob_type": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre)
+	hub.Centre.Droite.Centre.Droite.Gauche.Insert(map[string]string{"name": "Cuisine", "mob_nb": "2", "mob_type": "Champion mort-vivant", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite)
+	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Insert(map[string]string{"name": "Garde manger", "mob_nb": "0", "mob_type": "none", "feu": "true", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche)
 	//cours inétieure
-	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Insert(map[string]string{"name": "Cours intérieure", "mob_nb": "0", "mob_type": "none", "boss": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite)
+	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Insert(map[string]string{"name": "Cours intérieure", "mob_nb": "0", "mob_type": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite)
 	//partie gauche
-	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Insert(map[string]string{"name": "Chambre du prince", "mob_nb": "0", "mob_type": "none", "boss": "none", "feu": "false", "forge": "false", "loot": "1"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre)
-	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Insert(map[string]string{"name": "Balcon de la chambre", "mob_nb": "0", "mob_type": "none", "boss": "none", "feu": "true", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche)
-	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre.Insert(map[string]string{"name": "Échelle vers le toit", "mob_nb": "0", "mob_type": "none", "boss": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche)
-	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre.Droite.Insert(map[string]string{"name": "Toit de la chambre", "mob_nb": "2", "mob_type": "Champion mort-vivant", "boss": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche)
+	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Insert(map[string]string{"name": "Chambre du prince", "mob_nb": "0", "mob_type": "none", "feu": "false", "forge": "false", "loot": "1"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre)
+	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Insert(map[string]string{"name": "Balcon de la chambre", "mob_nb": "0", "mob_type": "none", "feu": "true", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche)
+	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre.Insert(map[string]string{"name": "Échelle vers le toit", "mob_nb": "0", "mob_type": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche)
+	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre.Droite.Insert(map[string]string{"name": "Toit de la chambre", "mob_nb": "2", "mob_type": "Champion mort-vivant", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche)
 	//partie droite
-	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Droite.Insert(map[string]string{"name": "Réserve d'arme", "mob_nb": "3", "mob_type": "Champion mort-vivant", "boss": "none", "feu": "false", "forge": "false", "loot": "1"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche)
-	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Droite.Gauche.Insert(map[string]string{"name": "Tour de guet intérieur", "mob_nb": "2", "mob_type": "Carcasse", "boss": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Droite)
-	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Droite.Gauche.Centre.Insert(map[string]string{"name": "Tour de guet extérieur", "mob_nb": "0", "mob_type": "none", "boss": "none", "feu": "false", "forge": "false", "loot": "2"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Droite.Gauche)
+	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Droite.Insert(map[string]string{"name": "Réserve d'arme", "mob_nb": "3", "mob_type": "Champion mort-vivant", "feu": "false", "forge": "false", "loot": "1"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche)
+	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Droite.Gauche.Insert(map[string]string{"name": "Tour de guet intérieur", "mob_nb": "2", "mob_type": "Carcasse", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Droite)
+	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Droite.Gauche.Centre.Insert(map[string]string{"name": "Tour de guet extérieur", "mob_nb": "0", "mob_type": "none", "feu": "false", "forge": "false", "loot": "2"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Droite.Gauche)
 	//Toit de la chambre
-	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre.Droite.Gauche.Insert(map[string]string{"name": "Toit du garde manger", "mob_nb": "0", "mob_type": "none", "boss": "none", "feu": "false", "forge": "false", "loot": "3"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre)
-	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre.Droite.Droite.Insert(map[string]string{"name": "Toit de la réserve d'arme", "mob_nb": "7", "mob_type": "Champion mort-vivant", "boss": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre)
-	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre.Droite.Centre.Insert(map[string]string{"name": "Toit du palais", "mob_nb": "0", "mob_type": "none", "boss": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre)
+	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre.Droite.Gauche.Insert(map[string]string{"name": "Toit du garde manger", "mob_nb": "0", "mob_type": "none", "feu": "false", "forge": "false", "loot": "3"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre)
+	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre.Droite.Droite.Insert(map[string]string{"name": "Toit de la réserve d'arme", "mob_nb": "7", "mob_type": "Champion mort-vivant", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre)
+	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre.Droite.Centre.Insert(map[string]string{"name": "Toit du palais", "mob_nb": "0", "mob_type": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre)
 	//Toit du palais
-	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre.Droite.Centre.Centre.Insert(map[string]string{"name": "Toit du clocher", "mob_nb": "0", "mob_type": "none", "boss": "Gargouille", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre.Droite.Centre)
-	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre.Droite.Centre.Centre.Gauche.Insert(map[string]string{"name": "Tour du clocher", "mob_nb": "0", "mob_type": "none", "boss": "none", "feu": "false", "forge": "false", "loot": "4"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre.Droite.Centre.Centre)
+	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre.Droite.Centre.Centre.Insert(map[string]string{"name": "Toit du clocher", "mob_nb": "1", "mob_type": "Gargouille", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre.Droite.Centre)
+	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre.Droite.Centre.Centre.Gauche.Insert(map[string]string{"name": "Tour du clocher", "mob_nb": "0", "mob_type": "none", "feu": "false", "forge": "false", "loot": "4"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Gauche.Centre.Droite.Centre.Centre)
 
 }
 
@@ -64,6 +64,7 @@ func (p *Personnage) Deplacement(direction string) bool {
 			p.Back_list = append(p.Back_list, p.Position)
 			p.Position = *p.Position.Centre
 			if p.Do_combat() {
+				p.Mana = p.ManaMax
 				Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé à " + p.Position.Val["name"]})
 				Attendre()
 			} else {

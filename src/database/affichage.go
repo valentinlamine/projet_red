@@ -149,6 +149,16 @@ func (p *Personnage) Affichage_Inventaire() {
 			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
 		}
 	}
+	//sorts débloqués
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	fmt.Print("│", "Sorts débloqués :", strings.Repeat(" ", longueur-17), "│", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
+	for index := 0; index < len(p.Inv.Liste_sort); index++ {
+		if p.Inv.Liste_sort[index].IsUnlocked {
+			nb_objets++
+			fmt.Print("│  ●  ", p.Inv.Liste_sort[index].Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.Inv.Liste_sort[index].Nom)-5), "│", "\n")
+		}
+	}
 	//affichage des items débloqués
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Items débloqués :", strings.Repeat(" ", longueur-17), "│", "\n")
@@ -249,19 +259,19 @@ func (p *Personnage) Affichage_inventaire_equipe() {
 }
 
 func (a *Armes) Affichage() {
-	Affichage("Arme", []string{"Nom : " + a.Nom, "Niveau" + strconv.Itoa(a.Lvl), "Stat Min Force : " + strconv.Itoa(a.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.LvlMinInt), "Dégâts : " + strconv.Itoa(a.Deg), "Poids : " + strconv.Itoa(a.Poids), "Débloqué : " + strconv.FormatBool(a.IsUnlocked), "Équipé : " + strconv.FormatBool(a.IsEquiped)})
+	Affichage("Arme", []string{"Nom : " + a.Nom, "Niveau : " + strconv.Itoa(a.Lvl), "Stat Min Force : " + strconv.Itoa(a.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.LvlMinInt), "Dégâts : " + strconv.Itoa(a.Deg), "Poids : " + strconv.Itoa(a.Poids), "Équipé : " + strconv.FormatBool(a.IsEquiped)})
 }
 
 func (b *Boucliers) Affichage() {
-	Affichage("Bouclier", []string{"Nom : " + b.Nom, "Niveau" + strconv.Itoa(b.Lvl), "Stat Min Force : " + strconv.Itoa(b.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(b.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(b.LvlMinInt), "PV Bonus : " + strconv.Itoa(b.Pvbonus), "Poids : " + strconv.Itoa(b.Poids), "Débloqué : " + strconv.FormatBool(b.IsUnlocked), "Équipé : " + strconv.FormatBool(b.IsEquiped)})
+	Affichage("Bouclier", []string{"Nom : " + b.Nom, "Niveau : " + strconv.Itoa(b.Lvl), "Stat Min Force : " + strconv.Itoa(b.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(b.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(b.LvlMinInt), "PV Bonus : " + strconv.Itoa(b.Pvbonus), "Poids : " + strconv.Itoa(b.Poids), "Équipé : " + strconv.FormatBool(b.IsEquiped)})
 }
 
 func (c *Consommable) Affichage() {
-	Affichage("Consommable", []string{"Nom : " + c.Nom, "Prix : " + strconv.Itoa(c.Prix), "Quantité : " + strconv.Itoa(c.Quantite), "PV Bonus : " + strconv.Itoa(c.PvBonus), "Bonus Force : " + strconv.Itoa(c.MultiLvlFor), "Bonus Dextérité : " + strconv.Itoa(c.MultiLvlDex), "Bonus Intelligence : " + strconv.Itoa(c.MultiLvlInt), "Bonus Poids Max : " + strconv.Itoa(c.MultiLvlPoidsMax)})
+	Affichage("Consommable", []string{"Nom : " + c.Nom, "Prix : " + strconv.Itoa(c.Prix), "Quantité : " + strconv.Itoa(c.Quantite), "PV Bonus : " + strconv.Itoa(c.PvBonus), "Poids Bonus : " + strconv.Itoa(c.PoidsBonus), "Dégats bonus : " + strconv.Itoa(c.DegBonus), "Mana bonus : ", strconv.Itoa(c.ManaBonus)})
 }
 
 func (a *Armures) Affichage() {
-	Affichage("Armure", []string{"Nom : " + a.Nom, "Niveau" + strconv.Itoa(a.Lvl), "Stat Min Force : " + strconv.Itoa(a.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.LvlMinInt), "PV Bonus : " + strconv.Itoa(a.Pvbonus), "Poids : " + strconv.Itoa(a.Poids), "Débloqué : " + strconv.FormatBool(a.IsUnlocked)})
+	Affichage("Armure", []string{"Nom : " + a.Nom, "Niveau : " + strconv.Itoa(a.Lvl), "Stat Min Force : " + strconv.Itoa(a.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.LvlMinInt), "PV Bonus : " + strconv.Itoa(a.Pvbonus), "Poids : " + strconv.Itoa(a.Poids), "Débloqué : " + strconv.FormatBool(a.IsUnlocked)})
 }
 
 func (s *Sort) Affichage() {

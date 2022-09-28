@@ -58,7 +58,7 @@ func (a *Armures) Init_Armures(number int) {
 	case 8:
 		a.InitIntern_Armures("Plastron d'Havel", "plastron", 7000, 17, 13, 8, 120, 35)
 	case 9:
-		a.InitIntern_Armures("Veste de cuir  noir", "plastron", 700, 9, 12, 10, 45, 5)
+		a.InitIntern_Armures("Veste de cuir noir", "plastron", 700, 9, 12, 10, 45, 5)
 	case 10:
 		a.InitIntern_Armures("Plastron de Chevalier", "plastron", 1000, 12, 12, 10, 40, 8)
 	case 11:
@@ -113,7 +113,7 @@ func (a *Armures) Ameliorer_Armures(p *Personnage) {
 		p.Ames -= 2000
 		p.Inv.Liste_items["éclat de titanite"] -= 2
 		p.Inv.Liste_items["grand éclat de titanite"] -= 2
-		p.Inv.Liste_items["tablette éclat de titanite"] -= 2
+		p.Inv.Liste_items["tablette de titanite"] -= 2
 	}
 	Affichage("Amélioration", []string{"Félécitation, vous venez d'améliorer votre armure !", "Désormais votre " + a.Nom + " est au niveau " + strconv.Itoa(a.Lvl), "Désormais votre " + a.Nom + " donne " + strconv.Itoa(a.Pvbonus) + " points de vie bonus !"})
 }

@@ -1,6 +1,7 @@
 package database
 
 import (
+	"math/rand"
 	"strconv"
 	"time"
 )
@@ -44,13 +45,35 @@ func (mob *Personnage) charTurn(player *Personnage) {
 		}
 	case 2:
 		mob.Pvact -= player.Degats * 2
-		player.Mana -= 35
+		player.Mana -= 80
 		if mob.Pvact < 0 {
 			mob.Pvact = 0
 			player.Ames += mob.Ames
+			switch mob.Nom {
+			case "Carcasse":
+				player.Inv.Liste_items["éclat de titanite"] += rand.Intn(2) * 3
+			case "Chevalier mort-vivant":
+				player.Inv.Liste_items["grand éclat de titanite"] += rand.Intn(2) * 3
+			case "Champion mort-vivant":
+				player.Inv.Liste_items["tablette de titanite"] += rand.Intn(2) * 3
+			case "Gargouille":
+				player.Inv.Liste_items["éclat de titanite"] += rand.Intn(2) * 5
+				player.Inv.Liste_items["tablette de titanite"] += rand.Intn(2) * 2
+				if !player.Inv.Liste_armes[5].IsUnlocked {
+					player.Inv.Liste_armes[5].IsUnlocked = true
+					NouvelAffichage("Combat", []string{"Vous avez débloqué la hache de guerre"})
+				}
+			case "Démon Capra":
+				player.Inv.Liste_items["éclat de titanite"] += rand.Intn(2) * 5
+				player.Inv.Liste_items["grand éclat de titanite"] += rand.Intn(2) * 2
+			case "Démon taureau":
+				player.Inv.Liste_items["éclat de titanite"] += rand.Intn(2) * 7
+				player.Inv.Liste_items["grand éclat de titanite"] += rand.Intn(2) * 7
+				player.Inv.Liste_items["tablette de titanite"] += rand.Intn(2) * 7
+			}
 			NouvelAffichage("Combat", []string{"Vous avez tué le " + mob.Nom})
 		} else {
-			NouvelAffichage(player.Nom, []string{"Vous avez infligé " + strconv.Itoa(player.Degats*2) + " dégats au " + mob.Nom + ", il lui reste " + strconv.Itoa(mob.Pvact) + " pv"})
+			NouvelAffichage(player.Nom, []string{"Vous avez infligé " + strconv.Itoa(player.Degats*2) + " dégats au " + mob.Nom + ", il lui reste " + strconv.Itoa(mob.Pvact) + " pv", "Vous avez maintenant " + strconv.Itoa(player.Mana) + " mana"})
 		}
 	case 3:
 		Menu_sort(player, mob)

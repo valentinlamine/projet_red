@@ -13,38 +13,36 @@ type Consommable struct {
 	//Quantité
 	Quantite int
 	//Bonus
-	PvBonus          int
-	MultiLvlFor      int
-	MultiLvlDex      int
-	MultiLvlInt      int
-	MultiLvlPoidsMax int
+	DegBonus   int
+	PvBonus    int
+	PoidsBonus int
+	ManaBonus  int
 }
 
-func (c *Consommable) InitIntern_Consommable(nom string, prix, quantite, pvBonus, multiLvlFor, multiLvlDex, multiLvlInt, multiLvlPoidsMax int) {
+func (c *Consommable) InitIntern_Consommable(nom string, prix, quantite, pvBonus, degBonus, PoixBonus, Manabonus int) {
 	c.Nom = nom
 	c.Prix = prix
 	c.Quantite = quantite
 	c.PvBonus = pvBonus
-	c.MultiLvlFor = multiLvlFor
-	c.MultiLvlDex = multiLvlDex
-	c.MultiLvlInt = multiLvlInt
-	c.MultiLvlPoidsMax = multiLvlPoidsMax
+	c.DegBonus = degBonus
+	c.PoidsBonus = PoixBonus
+	c.ManaBonus = Manabonus
 }
 
 func (c *Consommable) Init_Consommable(number int) {
 	switch number {
 	case 1:
-		c.InitIntern_Consommable("Fiole d'Estus", 20, 0, 50, 0, 0, 0, 0)
+		c.InitIntern_Consommable("Fiole d'Estus", 100, 0, 0, 70, 0, 0)
 	case 2:
-		c.InitIntern_Consommable("1 niveau de Vitalité", 300, 0, 1, 0, 0, 0, 0)
+		c.InitIntern_Consommable("1 niveau de Vitalité", 300, 0, 20, 0, 0, 0)
 	case 3:
-		c.InitIntern_Consommable("1 niveau de Force", 300, 0, 0, 1, 0, 0, 0)
+		c.InitIntern_Consommable("1 niveau de Force", 300, 0, 0, 5, 5, 0)
 	case 4:
-		c.InitIntern_Consommable("1 niveau de Dextérité", 300, 0, 0, 0, 1, 0, 0)
+		c.InitIntern_Consommable("1 niveau de Dextérité", 300, 0, 0, 0, 0, 0)
 	case 5:
-		c.InitIntern_Consommable("1 niveau de Intelligence", 300, 0, 0, 0, 0, 1, 0)
+		c.InitIntern_Consommable("1 niveau de Intelligence", 300, 0, 0, 0, 0, 20)
 	case 6:
-		c.InitIntern_Consommable("Fiole d'essence de pin pourri", 50, 0, 30, 0, 0, 0, 0)
+		c.InitIntern_Consommable("Fiole d'essence de pin pourri", 100, 0, 30, 0, 0, 0)
 	}
 }
 
@@ -62,14 +60,14 @@ func (p *Personnage) PrendrePot(c Consommable) {
 	} else if c.Nom == "1 niveau de Vitalité" {
 		p.Vitalite++
 		p.Niveau++
-		p.Pvmax += 20
+		p.Pvmax += c.PvBonus
 		Affichage("Information", []string{"Vous avez pris un niveau de vitalité, vous avez maintenant " + strconv.Itoa(p.Vitalite) + " de vitalité"})
 		Attendre()
 	} else if c.Nom == "1 niveau de Force" {
 		p.Force++
 		p.Niveau++
-		p.Degats += 5
-		p.PoidsMax += 5
+		p.Degats += c.DegBonus
+		p.PoidsMax += c.PoidsBonus
 		Affichage("Information", []string{"Vous avez pris un niveau de force, vous avez maintenant " + strconv.Itoa(p.Force) + " de force"})
 		Attendre()
 	} else if c.Nom == "1 niveau de Dextérité" {
@@ -81,7 +79,7 @@ func (p *Personnage) PrendrePot(c Consommable) {
 	} else if c.Nom == "1 niveau de Intelligence" {
 		p.Intelligence++
 		p.Niveau++
-		p.ManaMax += 20
+		p.ManaMax += c.ManaBonus
 		for _, v := range p.Inv.Liste_sort {
 			v.Degats = int(float64(v.Degats) * 1.3)
 			v.BoostPv = int(float64(v.BoostPv) * 1.3)

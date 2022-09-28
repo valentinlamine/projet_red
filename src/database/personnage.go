@@ -33,7 +33,7 @@ func (p *Personnage) InitIntern(nom, classe string, Vit, For, Dex, Int, Ames int
 	//Attribut
 	p.Nom = nom
 	p.Classe = classe
-	p.Niveau = 1
+	p.Niveau = 10
 	p.Vitalite = Vit
 	p.Force = For
 	p.Dexterite = Dex
@@ -100,6 +100,7 @@ func (p *Personnage) Init(nom, classe string) {
 		p.Inv.Liste_sort[0].IsUnlocked = true
 		p.Inv.Liste_armes[0].IsUnlocked = true //débloquer Dague
 		p.Equiper(p.Inv.Liste_armes[0], false) //équiper Dague
+		p.Inv.Liste_sort[1].IsUnlocked = true  //débloquer boule de Feu
 
 		//Débloquer armures
 		p.Inv.Liste_armures_tete[2].IsUnlocked = true
@@ -124,17 +125,17 @@ func (p *Personnage) Init(nom, classe string) {
 
 		//Init des mobs
 	} else if classe == "Carcasse" {
-		p.InitIntern("Carcasse", "Carcasse", 7, 9, 8, 5, 200)
+		p.InitIntern("Carcasse", "Carcasse", 7, 9, 10, 5, 200)
 		p.Inv.Liste_armes[4].IsUnlocked = true //débloquer Baton
 		p.Equiper(p.Inv.Liste_armes[4], false) //équiper Baton
 
 	} else if classe == "Chevalier mort-vivant" {
-		p.InitIntern("Chevalier mort-vivant", "Chevalier mort-vivant", 10, 9, 7, 5, 400)
+		p.InitIntern("Chevalier mort-vivant", "Chevalier mort-vivant", 10, 9, 13, 5, 400)
 		p.Inv.Liste_armes[4].IsUnlocked = true //débloquer Baton
 		p.Equiper(p.Inv.Liste_armes[4], false) //équiper Baton
 
 	} else if classe == "Champion mort-vivant" {
-		p.InitIntern("Champion mort-vivant", "Champion mort-vivant", 13, 15, 13, 5, 700)
+		p.InitIntern("Champion mort-vivant", "Champion mort-vivant", 13, 15, 15, 5, 700)
 		p.Inv.Liste_armes[4].IsUnlocked = true //débloquer Baton
 		p.Equiper(p.Inv.Liste_armes[4], false) //équiper Baton
 
@@ -163,7 +164,8 @@ func (p *Personnage) IsDead() bool {
 		var hub Arbre
 		hub.Init()
 		p.Position = hub
-		p.Pvact = p.Pvmax / 2
+		p.Pvact = p.Pvmax
+		p.Mana = p.ManaMax
 		fmt.Println("\033[31mVous êtes mort !\033[0m")
 		Attendre()
 		return true

@@ -67,8 +67,8 @@ func setup_personnage() {
 }
 
 func Menu() {
-	database.Affichage("Menu", []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Se déplacer", "4. Accèder au menu de la carte", "5. Quitter le jeu", "6. Menu cheat"})
-	var choix = database.Choix(1, 8)
+	database.Affichage("Menu - "+player.Position.Val["name"], []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Se déplacer", "4. Accèder au menu de la carte", "5. Quitter le jeu", "6. Menu cheat"})
+	var choix = database.Choix(1, 6)
 	switch choix {
 	case 1:
 		player.Affichage_Personnage()
@@ -113,8 +113,8 @@ func menu_cheat() {
 		database.Affichage("Menu cheat", []string{"Vous avez maintenant " + fmt.Sprint(player.Inv.Liste_items["grand éclat de titanite"]) + " grands éclats de titanite"})
 		menu_cheat()
 	case 4:
-		player.Inv.Liste_items["tablette éclat de titanite"] += 100
-		database.Affichage("Menu cheat", []string{"Vous avez maintenant " + fmt.Sprint(player.Inv.Liste_items["tablette éclat de titanite"]) + " tablettes éclats de titanite"})
+		player.Inv.Liste_items["tablette de titanite"] += 100
+		database.Affichage("Menu cheat", []string{"Vous avez maintenant " + fmt.Sprint(player.Inv.Liste_items["tablette de titanite"]) + " tablettes éclats de titanite"})
 		menu_cheat()
 	case 5:
 		player.Pvmax = 99999
@@ -128,7 +128,7 @@ func menu_cheat() {
 func Menu_deplacement() {
 	boucle := false
 	database.Affichage("Menu déplacement", []string{"Vous êtes à " + player.Position.Val["name"], "Où voulez-vous aller ?", "1. Devant", "2. Gauche", "3. Droite", "4. Revenir en arrière", "5. Retour au hub", "6. Retour au menu principal"})
-	var choix = database.Choix(1, 5)
+	var choix = database.Choix(1, 6)
 	switch choix {
 	case 1:
 		boucle = player.Deplacement("centre")

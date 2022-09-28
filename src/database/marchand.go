@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/rivo/uniseg"
 )
@@ -30,11 +31,32 @@ func (m *Marchand) InitMarchand(number int) {
 		m.Init("Marchand mort vivant", inv)
 		m.Inv.Liste_armes[4].IsUnlocked = true
 		m.Inv.Liste_boucliers[2].IsUnlocked = true
+		//première armure
 		m.Inv.Liste_armures_tete[1].IsUnlocked = true
 		m.Inv.Liste_armures_torse[1].IsUnlocked = true
 		m.Inv.Liste_armures_jambes[1].IsUnlocked = true
 		m.Inv.Liste_armures_bras[1].IsUnlocked = true
-		m.Nb_trade = 7
+		//deuxième armure
+		m.Inv.Liste_armures_tete[2].IsUnlocked = true
+		m.Inv.Liste_armures_torse[2].IsUnlocked = true
+		m.Inv.Liste_armures_jambes[2].IsUnlocked = true
+		m.Inv.Liste_armures_bras[2].IsUnlocked = true
+		//troisième armure
+		m.Inv.Liste_armures_tete[3].IsUnlocked = true
+		m.Inv.Liste_armures_torse[3].IsUnlocked = true
+		m.Inv.Liste_armures_jambes[3].IsUnlocked = true
+		m.Inv.Liste_armures_bras[3].IsUnlocked = true
+		//quatrième armure
+		m.Inv.Liste_armures_tete[4].IsUnlocked = true
+		m.Inv.Liste_armures_torse[4].IsUnlocked = true
+		m.Inv.Liste_armures_jambes[4].IsUnlocked = true
+		m.Inv.Liste_armures_bras[4].IsUnlocked = true
+		//cinquième armure
+		m.Inv.Liste_armures_tete[5].IsUnlocked = true
+		m.Inv.Liste_armures_torse[5].IsUnlocked = true
+		m.Inv.Liste_armures_jambes[5].IsUnlocked = true
+		m.Inv.Liste_armures_bras[5].IsUnlocked = true
+		m.Nb_trade = 22
 	} else if number == 2 {
 		m.Init("Gardienne du feu", inv)
 		m.Inv.Liste_consommables[1].Quantite = 100
@@ -48,7 +70,8 @@ func (m *Marchand) InitMarchand(number int) {
 		m.Inv.Liste_sort[2].IsUnlocked = true
 		m.Inv.Liste_sort[3].IsUnlocked = true
 		m.Inv.Liste_sort[4].IsUnlocked = true
-		m.Nb_trade = 4
+		m.Inv.Liste_sort[5].IsUnlocked = true
+		m.Nb_trade = 5
 	} else if number == 4 {
 		m.Init("Petrus", inv)
 		m.Inv.Liste_consommables[0].Quantite = 100
@@ -60,47 +83,67 @@ func (m *Marchand) InitMarchand(number int) {
 func (m *Marchand) Affichage_Trade() {
 	var liste []string
 	liste = append(liste, "Que voulez-vous acheter ?")
+	liste = append(liste, "")
+	liste = append(liste, "Armes :")
 	for i := 0; i < len(m.Inv.Liste_armes); i++ {
 		if m.Inv.Liste_armes[i].IsUnlocked {
-			liste = append(liste, strconv.Itoa(len(liste))+". "+m.Inv.Liste_armes[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_armes[i].Prix)+" âmes")
+			liste = append(liste, strconv.Itoa(len(liste)-2)+". "+m.Inv.Liste_armes[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_armes[i].Prix)+" âmes")
 		}
 	}
+	liste = append(liste, "")
+	liste = append(liste, "Boucliers :")
 	for i := 0; i < len(m.Inv.Liste_boucliers); i++ {
 		if m.Inv.Liste_boucliers[i].IsUnlocked {
-			liste = append(liste, strconv.Itoa(len(liste))+". "+m.Inv.Liste_boucliers[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_boucliers[i].Prix)+" âmes")
+			liste = append(liste, strconv.Itoa(len(liste)-4)+". "+m.Inv.Liste_boucliers[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_boucliers[i].Prix)+" âmes")
 		}
+	}
+	liste = append(liste, "")
+	if m.Nom == "Gardienne du feu" {
+		liste = append(liste, "Livre de niveau :")
+	} else {
+		liste = append(liste, "Consommables :")
 	}
 	for i := 0; i < len(m.Inv.Liste_consommables); i++ {
 		if m.Inv.Liste_consommables[i].Quantite > 0 {
-			liste = append(liste, strconv.Itoa(len(liste))+". "+m.Inv.Liste_consommables[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_consommables[i].Prix)+" âmes")
+			liste = append(liste, strconv.Itoa(len(liste)-6)+". "+m.Inv.Liste_consommables[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_consommables[i].Prix)+" âmes")
 		}
 	}
+	liste = append(liste, "")
+	liste = append(liste, "Casque :")
 	for i := 0; i < len(m.Inv.Liste_armures_tete); i++ {
 		if m.Inv.Liste_armures_tete[i].IsUnlocked {
-			liste = append(liste, strconv.Itoa(len(liste))+". "+m.Inv.Liste_armures_tete[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_armures_tete[i].Prix)+" âmes")
+			liste = append(liste, strconv.Itoa(len(liste)-8)+". "+m.Inv.Liste_armures_tete[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_armures_tete[i].Prix)+" âmes")
 		}
 	}
+	liste = append(liste, "")
+	liste = append(liste, "Plastrons :")
 	for i := 0; i < len(m.Inv.Liste_armures_torse); i++ {
 		if m.Inv.Liste_armures_torse[i].IsUnlocked {
-			liste = append(liste, strconv.Itoa(len(liste))+". "+m.Inv.Liste_armures_torse[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_armures_torse[i].Prix)+" âmes")
+			liste = append(liste, strconv.Itoa(len(liste)-10)+". "+m.Inv.Liste_armures_torse[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_armures_torse[i].Prix)+" âmes")
 		}
 	}
+	liste = append(liste, "")
+	liste = append(liste, "Jambières :")
 	for i := 0; i < len(m.Inv.Liste_armures_jambes); i++ {
 		if m.Inv.Liste_armures_jambes[i].IsUnlocked {
-			liste = append(liste, strconv.Itoa(len(liste))+". "+m.Inv.Liste_armures_jambes[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_armures_jambes[i].Prix)+" âmes")
+			liste = append(liste, strconv.Itoa(len(liste)-12)+". "+m.Inv.Liste_armures_jambes[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_armures_jambes[i].Prix)+" âmes")
 		}
 	}
+	liste = append(liste, "")
+	liste = append(liste, "Brassards :")
 	for i := 0; i < len(m.Inv.Liste_armures_bras); i++ {
 		if m.Inv.Liste_armures_bras[i].IsUnlocked {
-			liste = append(liste, strconv.Itoa(len(liste))+". "+m.Inv.Liste_armures_bras[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_armures_bras[i].Prix)+" âmes")
+			liste = append(liste, strconv.Itoa(len(liste)-14)+". "+m.Inv.Liste_armures_bras[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_armures_bras[i].Prix)+" âmes")
 		}
 	}
+	liste = append(liste, "")
+	liste = append(liste, "Sorts :")
 	for i := 0; i < len(m.Inv.Liste_sort); i++ {
 		if m.Inv.Liste_sort[i].IsUnlocked {
-			liste = append(liste, strconv.Itoa(len(liste))+". "+m.Inv.Liste_sort[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_sort[i].Prix)+" âmes")
+			liste = append(liste, strconv.Itoa(len(liste)-16)+". "+m.Inv.Liste_sort[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_sort[i].Prix)+" âmes")
 		}
 	}
-	liste = append(liste, "", strconv.Itoa(len(liste))+". Quitter le menu d'achat")
+	liste = append(liste, "", strconv.Itoa(len(liste)-16)+". Quitter le menu d'achat")
 	Affichage(m.Nom, liste)
 }
 
@@ -169,7 +212,10 @@ func (m *Marchand) Trade(player *Personnage) {
 						player.Inv.Liste_consommables[i].Quantite++
 						player.Ames -= m.Inv.Liste_consommables[i].Prix
 						if i > 0 && i < 5 {
-							m.Inv.Liste_consommables[i].Prix = int(float64(m.Inv.Liste_consommables[i].Prix) * 1.5)
+							m.Inv.Liste_consommables[1].Prix += (player.Niveau * player.Niveau) / 2
+							m.Inv.Liste_consommables[2].Prix += (player.Niveau * player.Niveau) / 2
+							m.Inv.Liste_consommables[3].Prix += (player.Niveau * player.Niveau) / 2
+							m.Inv.Liste_consommables[4].Prix += (player.Niveau * player.Niveau) / 2
 							player.PrendrePot(player.Inv.Liste_consommables[i])
 							player.Inv.Liste_consommables[i].Quantite--
 							m.Trade(player)
@@ -433,6 +479,26 @@ func (m *Marchand) Menu_Marchand(p *Personnage) {
 				p.Inv.Liste_consommables[0].Quantite = 3
 				Affichage("Informations", []string{"Vous possédez maintenant 3 fioles d'Estus !"})
 			}
+		} else if m.Nom == "Laurentius" {
+			Affichage(m.Nom, []string{"Hmm hmmm hmmmm..."})
+			time.Sleep(3 * time.Second)
+			Attendre()
+			Affichage(m.Nom, []string{"Oh excusez moi... J'étais perdu dans mes pensées."})
+			Attendre()
+			Affichage(m.Nom, []string{"Je suis Laurentius. J'ai des amis formidables vous savez."})
+			Attendre()
+			Affichage(m.Nom, []string{"Albertus Brutus Baldus Alphus... Un grand musicien.", "Mais vous connaissez sûrement beaucoup plus Steven Spielberg."})
+			Attendre()
+			Affichage(m.Nom, []string{"Grand réalisateur de film, Ready Player One, Jurassic Park...", "Je suis un fan de Steven Spielberg."})
+			time.Sleep(2 * time.Second)
+			Attendre()
+			Affichage(m.Nom, []string{"Je suis un grand fan de Steven Spielberg..."})
+			time.Sleep(2 * time.Second)
+			Attendre()
+			Affichage(m.Nom, []string{"Bref, je suis un grand fan de Steven Spielberg."})
+			Attendre()
+			Affichage(m.Nom, []string{"Où en étais-je ?"})
+			Attendre()
 		} else {
 			Affichage("Marchand", []string{"Heh Heh Heh...",
 				"Si vous êtes en manque d'âmes, tuez des monstres !",
@@ -593,7 +659,7 @@ func (p *Personnage) Have_item(number int) bool {
 			return false
 		}
 	case 3:
-		if p.Inv.Liste_items["grand éclat de titanite"] >= 2 && p.Inv.Liste_items["éclat de titanite"] >= 2 && p.Inv.Liste_items["tablette éclat de titanite"] >= 2 && p.Ames >= 2000 {
+		if p.Inv.Liste_items["grand éclat de titanite"] >= 2 && p.Inv.Liste_items["éclat de titanite"] >= 2 && p.Inv.Liste_items["tablette de titanite"] >= 2 && p.Ames >= 2000 {
 			return true
 		} else {
 			return false

@@ -124,7 +124,7 @@ func (a *Armes) Ameliorer_arme(p *Personnage) {
 		p.Ames -= 2000
 		p.Inv.Liste_items["éclat de titanite"] -= 2
 		p.Inv.Liste_items["grand éclat de titanite"] -= 2
-		p.Inv.Liste_items["tablette éclat de titanite"] -= 2
+		p.Inv.Liste_items["tablette de titanite"] -= 2
 	}
 	Affichage("Amélioration", []string{"Félécitation, vous venez d'améliorer votre arme !", "Désormais votre " + a.Nom + " est au niveau " + strconv.Itoa(a.Lvl), "Désormais votre " + a.Nom + " fait " + strconv.Itoa(a.Deg) + " dégats !"})
 }
@@ -144,7 +144,7 @@ func (b *Boucliers) Ameliorer_bouclier(p *Personnage) {
 		p.Ames -= 2000
 		p.Inv.Liste_items["éclat de titanite"] -= 2
 		p.Inv.Liste_items["grand éclat de titanite"] -= 2
-		p.Inv.Liste_items["tablette éclat de titanite"] -= 2
+		p.Inv.Liste_items["tablette de titanite"] -= 2
 	}
 	Affichage("Amélioration", []string{"Félécitation, vous venez d'améliorer votre bouclier !", "Désormais votre " + b.Nom + " est au niveau " + strconv.Itoa(b.Lvl), "Désormais votre " + b.Nom + " donne " + strconv.Itoa(b.Pvbonus) + " points de vie bonus !"})
 }

@@ -29,15 +29,17 @@ func (s *Sort) Init(nom string, prix, coutMana, degats, boostPv, Type int) {
 
 func (s *Sort) InitSort(number int) {
 	if number == 1 {
-		s.Init("Coup de poing", 500, 10, 15, 0, DPS)
+		s.Init("Coup de poing", 100, 10, 15, 0, DPS)
 	} else if number == 2 {
-		s.Init("Boule de feu", 500, 15, 20, 0, DPS)
+		s.Init("Boule de feu", 500, 25, 25, 0, DPS)
 	} else if number == 3 {
-		s.Init("Grande boule de feu", 500, 25, 30, 0, DPS)
+		s.Init("Grande boule de feu", 2000, 60, 50, 0, DPS)
 	} else if number == 4 {
-		s.Init("Soin", 500, 20, 0, 30, HEAL)
+		s.Init("Boule du Chaos", 5000, 120, 110, 0, DPS)
 	} else if number == 5 {
-		s.Init("Grand soin", 500, 40, 0, 70, HEAL)
+		s.Init("Soin", 500, 30, 0, 50, HEAL)
+	} else if number == 6 {
+		s.Init("Grand soin", 2000, 60, 0, 120, HEAL)
 	}
 }
 

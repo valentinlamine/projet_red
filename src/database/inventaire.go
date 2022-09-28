@@ -37,16 +37,16 @@ func (i *Inventaire) Init() {
 		a.Init_Armures(j)
 		if j < 7 {
 			i.Liste_armures_tete = append(i.Liste_armures_tete, a)
-		} else if j < 14 {
+		} else if j < 13 {
 			i.Liste_armures_torse = append(i.Liste_armures_torse, a)
-		} else if j < 21 {
+		} else if j < 19 {
 			i.Liste_armures_bras = append(i.Liste_armures_bras, a)
 		} else {
 			i.Liste_armures_jambes = append(i.Liste_armures_jambes, a)
 		}
 	}
 	//initialisation des sorts
-	for j := 1; j < 6; j++ {
+	for j := 1; j < 7; j++ {
 		var s Sort
 		s.InitSort(j)
 		i.Liste_sort = append(i.Liste_sort, s)
@@ -55,7 +55,7 @@ func (i *Inventaire) Init() {
 	i.Liste_items = make(map[string]int)
 	i.Liste_items["éclat de titanite"] = 0
 	i.Liste_items["grand éclat de titanite"] = 0
-	i.Liste_items["tablette éclat de titanite"] = 0
+	i.Liste_items["tablette de titanite"] = 0
 }
 
 func (p *Personnage) Equiper(item interface{}, annonce bool) {
