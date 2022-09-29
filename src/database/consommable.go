@@ -1,6 +1,7 @@
 package database
 
 import (
+	"fmt"
 	"strconv"
 	"time"
 )
@@ -32,7 +33,7 @@ func (c *Consommable) InitIntern_Consommable(nom string, prix, quantite, pvBonus
 func (c *Consommable) Init_Consommable(number int) {
 	switch number {
 	case 1:
-		c.InitIntern_Consommable("Fiole d'Estus", 100, 0, 0, 70, 0, 0)
+		c.InitIntern_Consommable("Fiole d'Estus", 100, 0, 70, 0, 0, 0)
 	case 2:
 		c.InitIntern_Consommable("1 niveau de Vitalité", 300, 0, 20, 0, 0, 0)
 	case 3:
@@ -42,11 +43,12 @@ func (c *Consommable) Init_Consommable(number int) {
 	case 5:
 		c.InitIntern_Consommable("1 niveau de Intelligence", 300, 0, 0, 0, 0, 20)
 	case 6:
-		c.InitIntern_Consommable("Fiole d'essence de pin pourri", 100, 0, 30, 0, 0, 0)
+		c.InitIntern_Consommable("Fiole d'essence de pin pourri", 100, 0, 0, 30, 0, 0)
 	}
 }
 
 func (p *Personnage) PrendrePot(c Consommable) {
+	fmt.Print(c.Nom)
 	if c.Nom == "Fiole d'Estus" {
 		if p.IsInInv(0) {
 			p.Pvact += c.PvBonus
@@ -54,28 +56,24 @@ func (p *Personnage) PrendrePot(c Consommable) {
 			if p.Pvact > p.Pvmax {
 				p.Pvact = p.Pvmax
 			}
-			Affichage("Information", []string{"Vous avez bu une potion de vie, vous avez maintenant " + strconv.Itoa(p.Pvact) + " pv"})
-			Attendre()
+			Affichage("Information", []string{"Vous avez bu une potion de vie, vous avez maintenant " + strconv.Itoa(p.Pvact) + " pv"}, true, true)
 		}
 	} else if c.Nom == "1 niveau de Vitalité" {
 		p.Vitalite++
 		p.Niveau++
 		p.Pvmax += c.PvBonus
-		Affichage("Information", []string{"Vous avez pris un niveau de vitalité, vous avez maintenant " + strconv.Itoa(p.Vitalite) + " de vitalité"})
-		Attendre()
+		Affichage("Information", []string{"Vous avez pris un niveau de vitalité, vous avez maintenant " + strconv.Itoa(p.Vitalite) + " de vitalité"}, true, true)
 	} else if c.Nom == "1 niveau de Force" {
 		p.Force++
 		p.Niveau++
 		p.Degats += c.DegBonus
 		p.PoidsMax += c.PoidsBonus
-		Affichage("Information", []string{"Vous avez pris un niveau de force, vous avez maintenant " + strconv.Itoa(p.Force) + " de force"})
-		Attendre()
+		Affichage("Information", []string{"Vous avez pris un niveau de force, vous avez maintenant " + strconv.Itoa(p.Force) + " de force"}, true, true)
 	} else if c.Nom == "1 niveau de Dextérité" {
 		p.Dexterite++
 		p.Niveau++
 		p.Initiative++
-		Affichage("Information", []string{"Vous avez pris un niveau de dextérité, vous avez maintenant " + strconv.Itoa(p.Dexterite) + " de dextérité"})
-		Attendre()
+		Affichage("Information", []string{"Vous avez pris un niveau de dextérité, vous avez maintenant " + strconv.Itoa(p.Dexterite) + " de dextérité"}, true, true)
 	} else if c.Nom == "1 niveau de Intelligence" {
 		p.Intelligence++
 		p.Niveau++
@@ -84,15 +82,14 @@ func (p *Personnage) PrendrePot(c Consommable) {
 			v.Degats = int(float64(v.Degats) * 1.3)
 			v.BoostPv = int(float64(v.BoostPv) * 1.3)
 		}
-		Affichage("Information", []string{"Vous avez pris un niveau d'intelligence, vous avez maintenant " + strconv.Itoa(p.Intelligence) + " d'intelligence"})
-		Attendre()
+		Affichage("Information", []string{"Vous avez pris un niveau d'intelligence, vous avez maintenant " + strconv.Itoa(p.Intelligence) + " d'intelligence"}, true, true)
 	} else if c.Nom == "Fiole d'essence de pin pourri" {
 		if p.IsInInv(5) {
 			p.Inv.Liste_consommables[5].Quantite -= 1
 			for i := 0; i < 3; i++ {
 				time.Sleep(1 * time.Second)
 				p.Pvact -= c.PvBonus / 3
-				Affichage("Poison", []string{"ouch, ça fait mal !", "Vous subissez " + strconv.Itoa(c.PvBonus/3) + " de dégats", "Il vous reste " + strconv.Itoa(p.Pvact) + " pv"})
+				Affichage("Poison", []string{"ouch, ça fait mal !", "Vous subissez " + strconv.Itoa(c.PvBonus/3) + " de dégats", "Il vous reste " + strconv.Itoa(p.Pvact) + " pv"}, false, false)
 				if p.Pvact <= 0 {
 					p.Pvact = 0
 				}
@@ -106,7 +103,7 @@ func (p *Personnage) IsInInv(n int) bool {
 	if p.Inv.Liste_consommables[n].Quantite > 0 {
 		return true
 	} else {
-		Affichage("Inventaire", []string{"Vous n'avez plus de " + p.Inv.Liste_consommables[n].Nom})
+		Affichage("Inventaire", []string{"Vous n'avez plus de " + p.Inv.Liste_consommables[n].Nom}, true, true)
 		return false
 	}
 }

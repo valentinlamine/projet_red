@@ -29,8 +29,20 @@ func (m *Marchand) InitMarchand(number int) {
 	inv.Init()
 	if number == 1 {
 		m.Init("Marchand mort vivant", inv)
+		//Armes
+		m.Inv.Liste_armes[0].IsUnlocked = true
+		m.Inv.Liste_armes[1].IsUnlocked = true
+		m.Inv.Liste_armes[2].IsUnlocked = true
+		m.Inv.Liste_armes[3].IsUnlocked = true
 		m.Inv.Liste_armes[4].IsUnlocked = true
+		m.Inv.Liste_armes[5].IsUnlocked = true
+		//Boucliers
+		m.Inv.Liste_boucliers[0].IsUnlocked = true
+		m.Inv.Liste_boucliers[1].IsUnlocked = true
 		m.Inv.Liste_boucliers[2].IsUnlocked = true
+		m.Inv.Liste_boucliers[3].IsUnlocked = true
+		m.Inv.Liste_boucliers[4].IsUnlocked = true
+		m.Inv.Liste_boucliers[5].IsUnlocked = true
 		//première armure
 		m.Inv.Liste_armures_tete[1].IsUnlocked = true
 		m.Inv.Liste_armures_torse[1].IsUnlocked = true
@@ -144,7 +156,7 @@ func (m *Marchand) Affichage_Trade() {
 		}
 	}
 	liste = append(liste, "", strconv.Itoa(len(liste)-16)+". Quitter le menu d'achat")
-	Affichage(m.Nom, liste)
+	Affichage(m.Nom, liste, true, false)
 }
 
 func (m *Marchand) Trade(player *Personnage) {
@@ -155,7 +167,7 @@ func (m *Marchand) Trade(player *Personnage) {
 	var choix int
 	fmt.Scan(&choix)
 	for choix < 1 || choix > m.Nb_trade+1 {
-		Affichage("Erreur", []string{"Vous devez choisir un choix entre 1 et " + strconv.Itoa(m.Nb_trade+1)})
+		Affichage("Erreur", []string{"Vous devez choisir un choix entre 1 et " + strconv.Itoa(m.Nb_trade+1)}, false, false)
 		fmt.Scan(&choix)
 	}
 	if choix == m.Nb_trade+1 {
@@ -169,8 +181,7 @@ func (m *Marchand) Trade(player *Personnage) {
 					if IsTradeable(player, "Armes", i) {
 						player.Inv.Liste_armes[i].IsUnlocked = true
 						player.Ames -= m.Inv.Liste_armes[i].Prix
-						Affichage("Succès", []string{"Vous avez acheté l'arme " + m.Inv.Liste_armes[i].Nom})
-						Attendre()
+						Affichage("Succès", []string{"Vous avez acheté l'arme " + m.Inv.Liste_armes[i].Nom}, true, true)
 						m.Trade(player)
 						return
 					} else {
@@ -190,8 +201,7 @@ func (m *Marchand) Trade(player *Personnage) {
 					if IsTradeable(player, "Boucliers", i) {
 						player.Inv.Liste_boucliers[i].IsUnlocked = true
 						player.Ames -= m.Inv.Liste_boucliers[i].Prix
-						Affichage("Succès", []string{"Vous avez acheté le bouclier " + m.Inv.Liste_boucliers[i].Nom})
-						Attendre()
+						Affichage("Succès", []string{"Vous avez acheté le bouclier " + m.Inv.Liste_boucliers[i].Nom}, true, true)
 						m.Trade(player)
 						return
 					} else {
@@ -221,8 +231,7 @@ func (m *Marchand) Trade(player *Personnage) {
 							m.Trade(player)
 							return
 						} else {
-							Affichage("Succès", []string{"Vous avez acheté le consommable " + m.Inv.Liste_consommables[i].Nom})
-							Attendre()
+							Affichage("Succès", []string{"Vous avez acheté le consommable " + m.Inv.Liste_consommables[i].Nom}, true, true)
 							m.Trade(player)
 							return
 						}
@@ -243,8 +252,7 @@ func (m *Marchand) Trade(player *Personnage) {
 					if IsTradeable(player, "Armures_tete", i) {
 						player.Inv.Liste_armures_tete[i].IsUnlocked = true
 						player.Ames -= m.Inv.Liste_armures_tete[i].Prix
-						Affichage("Succès", []string{"Vous avez acheté un objet"})
-						Attendre()
+						Affichage("Succès", []string{"Vous avez acheté un objet"}, true, true)
 						return
 					} else {
 						m.Trade(player)
@@ -263,8 +271,7 @@ func (m *Marchand) Trade(player *Personnage) {
 					if IsTradeable(player, "Armures_torse", i) {
 						player.Inv.Liste_armures_torse[i].IsUnlocked = true
 						player.Ames -= m.Inv.Liste_armures_torse[i].Prix
-						Affichage("Succès", []string{"Vous avez acheté un objet"})
-						Attendre()
+						Affichage("Succès", []string{"Vous avez acheté un objet"}, true, true)
 						return
 					} else {
 						m.Trade(player)
@@ -283,8 +290,7 @@ func (m *Marchand) Trade(player *Personnage) {
 					if IsTradeable(player, "Armures_jambes", i) {
 						player.Inv.Liste_armures_jambes[i].IsUnlocked = true
 						player.Ames -= m.Inv.Liste_armures_jambes[i].Prix
-						Affichage("Succès", []string{"Vous avez acheté un objet"})
-						Attendre()
+						Affichage("Succès", []string{"Vous avez acheté un objet"}, true, true)
 						return
 					} else {
 						m.Trade(player)
@@ -303,8 +309,7 @@ func (m *Marchand) Trade(player *Personnage) {
 					if IsTradeable(player, "Armures_bras", i) {
 						player.Inv.Liste_armures_bras[i].IsUnlocked = true
 						player.Ames -= m.Inv.Liste_armures_bras[i].Prix
-						Affichage("Succès", []string{"Vous avez acheté un objet"})
-						Attendre()
+						Affichage("Succès", []string{"Vous avez acheté un objet"}, true, true)
 						return
 					} else {
 						m.Trade(player)
@@ -323,8 +328,7 @@ func (m *Marchand) Trade(player *Personnage) {
 					if IsTradeable(player, "Sort", i) {
 						player.Inv.Liste_sort[i].IsUnlocked = true
 						player.Ames -= m.Inv.Liste_sort[i].Prix
-						Affichage("Succès", []string{"Vous avez acheté un objet"})
-						Attendre()
+						Affichage("Succès", []string{"Vous avez acheté un objet"}, true, true)
 						return
 					} else {
 						m.Trade(player)
@@ -341,20 +345,20 @@ func WantTrade(player *Personnage, item interface{}) bool {
 	//vérifie si item est une structure Armes, Boucliers ou Consommable
 	switch item := item.(type) {
 	case Armes:
-		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.Nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"})
+		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.Nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"}, false, false)
 	case Boucliers:
-		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.Nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"})
+		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.Nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"}, false, false)
 	case Consommable:
-		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.Nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"})
+		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.Nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"}, false, false)
 	case Armures:
-		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.Nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"})
+		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.Nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"}, false, false)
 	case Sort:
-		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.Nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"})
+		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.Nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"}, false, false)
 	}
 	var choix int
 	fmt.Scan(&choix)
 	for choix < 1 || choix > 3 {
-		Affichage("Erreur", []string{"Vous devez choisir un choix entre 1 et 3"})
+		Affichage("Erreur", []string{"Vous devez choisir un choix entre 1 et 3"}, false, false)
 		fmt.Scan(&choix)
 	}
 	switch choix {
@@ -390,57 +394,49 @@ func IsTradeable(player *Personnage, item_type string, index int) bool {
 		if IsBuyable(player.Ames, player.Inv.Liste_armes[index].Prix) && !player.Inv.Liste_armes[index].IsUnlocked {
 			tradeable = true
 		} else if player.Inv.Liste_armes[index].IsUnlocked {
-			Affichage("Marchand", []string{"Vous possédez déjà cet objet"})
-			Attendre()
+			Affichage("Marchand", []string{"Vous possédez déjà cet objet"}, true, true)
 		}
 	} else if item_type == "Boucliers" {
 		if IsBuyable(player.Ames, player.Inv.Liste_boucliers[index].Prix) && !player.Inv.Liste_boucliers[index].IsUnlocked {
 			tradeable = true
 		} else if player.Inv.Liste_boucliers[index].IsUnlocked {
-			Affichage("Marchand", []string{"Vous possédez déjà cet objet"})
-			Attendre()
+			Affichage("Marchand", []string{"Vous possédez déjà cet objet"}, true, true)
 		}
 	} else if item_type == "Consommables" {
 		if IsBuyable(player.Ames, player.Inv.Liste_consommables[index].Prix) && player.Inv.Liste_consommables[index].Quantite <= 100 {
 			tradeable = true
 		} else if player.Inv.Liste_consommables[index].Quantite > 100 {
-			Affichage("Marchand", []string{"Vous possédez déjà la quantité maximale de cet objet"})
-			Attendre()
+			Affichage("Marchand", []string{"Vous possédez déjà la quantité maximale de cet objet"}, true, true)
 		}
 	} else if item_type == "Armures_tete" {
 		if IsBuyable(player.Ames, player.Inv.Liste_armures_tete[index].Prix) && !player.Inv.Liste_armures_tete[index].IsUnlocked {
 			tradeable = true
 		} else if player.Inv.Liste_armures_tete[index].IsUnlocked {
-			Affichage("Marchand", []string{"Vous possédez déjà cet objet"})
-			Attendre()
+			Affichage("Marchand", []string{"Vous possédez déjà cet objet"}, true, true)
 		}
 	} else if item_type == "Armures_torse" {
 		if IsBuyable(player.Ames, player.Inv.Liste_armures_torse[index].Prix) && !player.Inv.Liste_armures_torse[index].IsUnlocked {
 			tradeable = true
 		} else if player.Inv.Liste_armures_torse[index].IsUnlocked {
-			Affichage("Marchand", []string{"Vous possédez déjà cet objet"})
-			Attendre()
+			Affichage("Marchand", []string{"Vous possédez déjà cet objet"}, true, true)
 		}
 	} else if item_type == "Armures_jambes" {
 		if IsBuyable(player.Ames, player.Inv.Liste_armures_jambes[index].Prix) && !player.Inv.Liste_armures_jambes[index].IsUnlocked {
 			tradeable = true
 		} else if player.Inv.Liste_armures_jambes[index].IsUnlocked {
-			Affichage("Marchand", []string{"Vous possédez déjà cet objet"})
-			Attendre()
+			Affichage("Marchand", []string{"Vous possédez déjà cet objet"}, true, true)
 		}
 	} else if item_type == "Armures_bras" {
 		if IsBuyable(player.Ames, player.Inv.Liste_armures_bras[index].Prix) && !player.Inv.Liste_armures_bras[index].IsUnlocked {
 			tradeable = true
 		} else if player.Inv.Liste_armures_bras[index].IsUnlocked {
-			Affichage("Marchand", []string{"Vous possédez déjà cet objet"})
-			Attendre()
+			Affichage("Marchand", []string{"Vous possédez déjà cet objet"}, true, true)
 		}
 	} else if item_type == "Sort" {
 		if IsBuyable(player.Ames, player.Inv.Liste_sort[index].Prix) && !player.Inv.Liste_sort[index].IsUnlocked {
 			tradeable = true
 		} else if player.Inv.Liste_sort[index].IsUnlocked {
-			Affichage("Marchand", []string{"Vous possédez déjà cet objet"})
-			Attendre()
+			Affichage("Marchand", []string{"Vous possédez déjà cet objet"}, true, true)
 		}
 	}
 	return tradeable
@@ -448,63 +444,55 @@ func IsTradeable(player *Personnage, item_type string, index int) bool {
 
 func IsBuyable(Ames, Prix int) bool {
 	if Ames <= Prix {
-		Affichage("Erreur", []string{"Vous n'avez pas assez d'âmes pour acheter cet objet"})
-		Attendre()
+		Affichage("Erreur", []string{"Vous n'avez pas assez d'âmes pour acheter cet objet"}, true, true)
 		return false
 	}
 	return true
 }
 
 func (m *Marchand) IsFirst_trade(player *Personnage) {
-	Affichage(m.Nom, []string{"Bienvenue dans mon magasin !", "Je suis le marchand " + m.Nom + ".", "Comme vous avez l'air d'être nouveau, laissez moi vous faire un petit cadeau !"})
-	Attendre()
+	Affichage(m.Nom, []string{"Bienvenue dans mon magasin !", "Je suis le marchand " + m.Nom + ".", "Comme vous avez l'air d'être nouveau, laissez moi vous faire un petit cadeau !"}, true, true)
 	player.Inv.Liste_consommables[0].Quantite += 1
 	m.First_trade = false
-	Affichage("Informations", []string{"Félicitations !!!", "Vous avez obtenu une Fiole d'Estus gratuitement !"})
-	Attendre()
+	Affichage("Informations", []string{"Félicitations !!!", "Vous avez obtenu une Fiole d'Estus gratuitement !"}, true, true)
 }
 
 func (m *Marchand) Menu_Marchand(p *Personnage) {
-	NouvelAffichage("Menu du marchand", []string{"Que voulez-vous faire ?", "1. Acheter un objet", "2. Parler", "3. Quitter le menu du marchand"})
+	Affichage("Menu du marchand", []string{"Que voulez-vous faire ?", "1. Acheter un objet", "2. Parler", "3. Quitter le menu du marchand"}, true, false)
 	var choix = Choix(1, 3)
 	if choix == 1 {
 		m.Trade(p)
 	} else if choix == 2 {
 		if m.Nom == "Petrus" {
-			Affichage(m.Nom, []string{"Je suis le marchand " + m.Nom + ".", "Je suis un ancien chevalier de l'Ordre de la Lumière.", "Je suis venu ici pour me reposer et me soigner.", "Je ne peux plus combattre, mais je peux vous aider à vous soigner."})
-			Attendre()
+			Affichage(m.Nom, []string{"Je suis le marchand " + m.Nom + ".", "Je suis un ancien chevalier de l'Ordre de la Lumière.", "Je suis venu ici pour me reposer et me soigner.", "Je ne peux plus combattre, mais je peux vous aider à vous soigner."}, true, true)
 			if p.Inv.Liste_consommables[0].Quantite < 3 {
-				Affichage(m.Nom, []string{"Je vois que vos fioles sont vides...", "Laissez moi vous remplir !"})
-				Attendre()
+				Affichage(m.Nom, []string{"Je vois que vos fioles sont vides...", "Laissez moi vous remplir !"}, true, true)
 				p.Inv.Liste_consommables[0].Quantite = 3
-				Affichage("Informations", []string{"Vous possédez maintenant 3 fioles d'Estus !"})
+				Affichage("Informations", []string{"Vous possédez maintenant 3 fioles d'Estus !"}, true, true)
 			}
 		} else if m.Nom == "Laurentius" {
-			Affichage(m.Nom, []string{"Hmm hmmm hmmmm..."})
+			Affichage(m.Nom, []string{"Hmm hmmm hmmmm..."}, true, false)
 			time.Sleep(3 * time.Second)
 			Attendre()
-			Affichage(m.Nom, []string{"Oh excusez moi... J'étais perdu dans mes pensées."})
-			Attendre()
-			Affichage(m.Nom, []string{"Je suis Laurentius. J'ai des amis formidables vous savez."})
-			Attendre()
-			Affichage(m.Nom, []string{"Albertus Brutus Baldus Alphus... Un grand musicien.", "Mais vous connaissez sûrement beaucoup plus Steven Spielberg."})
-			Attendre()
-			Affichage(m.Nom, []string{"Grand réalisateur de film, Ready Player One, Jurassic Park...", "Je suis un fan de Steven Spielberg."})
+			Affichage(m.Nom, []string{"Oh excusez moi... J'étais perdu dans mes pensées."}, true, true)
+			Affichage(m.Nom, []string{"Je suis Laurentius. J'ai des amis formidables vous savez."}, true, true)
+			Affichage(m.Nom, []string{"Albertus Brutus Baldus Alphus... Un grand musicien.", "Mais vous connaissez sûrement beaucoup plus Steven Spielberg."}, true, true)
+			Affichage(m.Nom, []string{"Grand réalisateur de film, Ready Player One, Jurassic Park...", "Je suis un fan de Steven Spielberg."}, true, false)
 			time.Sleep(2 * time.Second)
 			Attendre()
-			Affichage(m.Nom, []string{"Je suis un grand fan de Steven Spielberg..."})
+			Affichage(m.Nom, []string{"Je suis un grand fan de Steven Spielberg..."}, true, false)
 			time.Sleep(2 * time.Second)
 			Attendre()
-			Affichage(m.Nom, []string{"Bref, je suis un grand fan de Steven Spielberg."})
-			Attendre()
-			Affichage(m.Nom, []string{"Où en étais-je ?"})
-			Attendre()
+			Affichage(m.Nom, []string{"Bref, je suis un grand fan de Steven Spielberg."}, true, true)
+			Affichage(m.Nom, []string{"Où en étais-je ?"}, true, true)
+		} else if m.Nom == "Gardienne du feu" {
+			Affichage(m.Nom, []string{"Je suis la gardienne du feu.", "Je peux améliorer tes compétences contre de l'argent."}, true, true)
+			Affichage(m.Nom, []string{"Si tu veux apprendre de nouveaux sorts, tu peux aller voir mon ami Laurientus.", "de ce qu'il m'a dit, il est un grand fan de Steven Spielberg."}, true, true)
 		} else {
 			Affichage("Marchand", []string{"Heh Heh Heh...",
 				"Si vous êtes en manque d'âmes, tuez des monstres !",
 				"Plus ils sont gros, plus ils ont d'âmes",
-				"Donnez les moi je donnerai des objets de valeur... Heh Heh Heh..."})
-			Attendre()
+				"Donnez les moi je donnerai des objets de valeur... Heh Heh Heh..."}, true, true)
 		}
 		m.Menu_Marchand(p)
 	}
@@ -516,7 +504,10 @@ func (p *Personnage) Forgeron_amelioration() {
 	var list_objets []string
 	nb_objets := 0
 	//laisser 8 ligne de vide au dessus
-	fmt.Print("\n\n\n\n\n\n\n\n")
+	fmt.Print("\n\n\n\n\n\n\n\n\n\n")
+	fmt.Print("\n\n\n\n\n\n\n\n\n\n")
+	fmt.Print("\n\n\n\n\n\n\n\n\n\n")
+	fmt.Print("\n\n\n\n\n\n\n\n\n\n")
 	//affichage du haut de la boite
 	fmt.Print("╒", strings.Repeat("═", longueur), "╕", "\n")
 	//affichage du titre
@@ -602,7 +593,7 @@ func (p *Personnage) Forgeron_amelioration() {
 	var choix = Choix(0, len(list_objets))
 	if choix != 0 {
 		item := p.Inv.Get_Item(list_objets[choix-1])
-		Affichage("Inventaire", []string{"Vous avez choisi l'objet : " + list_objets[choix-1], "Que voulez vous faire avec cet objet ? ", "1. L'améliorer", "2. Afficher ces statistiques", "3. Retourner au menu précédent"})
+		Affichage("Inventaire", []string{"Vous avez choisi l'objet : " + list_objets[choix-1], "Que voulez vous faire avec cet objet ? ", "1. L'améliorer", "2. Afficher ces statistiques", "3. Retourner au menu précédent"}, true, false)
 		var choix2 = Choix(1, 3)
 		switch choix2 {
 		case 1:
