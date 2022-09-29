@@ -101,13 +101,14 @@ func (joueur *Personnage) Tour_Ennemi(monstre *Personnage, CompteurTour int) {
 			if joueur.VieAct > 0 {
 				Affichage(monstre.Nom, []string{"Le " + monstre.Nom + " vous a infligé " + strconv.Itoa(monstre.Degats*2) + " dégats, vous avez maintenant " + strconv.Itoa(joueur.VieAct) + " de vie"}, false, false)
 			}
-		} else if CompteurTour%4 == 0 {
+		} else if CompteurTour%5 == 0 {
 			Affichage(monstre.Nom, []string{"Le " + monstre.Nom + " vous a empoisonné"}, false, false)
 			joueur.Inv.Liste_Consommables[5].Quantite++
 			joueur.Prendre_Potion(monstre.Inv.Liste_Consommables[5])
 		} else {
 			aleatoire := rand.Intn(3)
 			if aleatoire == 0 {
+				Affichage(monstre.Nom, []string{"Le " + monstre.Nom + " n'a pas attaqué"}, false, false)
 				return
 			}
 			joueur.VieAct -= monstre.Degats
