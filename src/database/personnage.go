@@ -46,7 +46,7 @@ func (p *Personnage) Initialisation_Interne(nom, classe string, Vit, For, Dex, I
 	p.PoidsMax = 5 * p.Force
 	//Etat actuel
 	p.Initiative = 10 + p.Dexterite
-	p.VieAct = p.VieMax / 2
+	p.VieAct = p.VieMax
 	p.ManaAct = p.ManaMax
 	p.PoidsAct = 0
 	p.Degats = p.EquipementArmes.Degats + p.Force
@@ -57,7 +57,7 @@ func (p *Personnage) Initialisation_Interne(nom, classe string, Vit, For, Dex, I
 
 func (p *Personnage) Initialisation(nom, classe string) {
 	if classe == "Guerrier" {
-		p.Initialisation_Interne(nom, "Guerrier", 11, 12, 9, 8, 0)
+		p.Initialisation_Interne(nom, "Guerrier", 11, 12, 9, 6, 0)
 		p.Inv.Liste_Consommables[0].Quantite = 3
 		p.Inv.Liste_Sorts[0].EstDebloque = true
 		p.Inv.Liste_Armes[3].EstDebloque = true     //débloquer Uchigatana
@@ -97,7 +97,7 @@ func (p *Personnage) Initialisation(nom, classe string) {
 		p.Equiper(p.Inv.Liste_Armures_Jambes[0], false)
 
 	} else if classe == "Pyromancien" {
-		p.Initialisation_Interne(nom, "Pyromancien", 9, 9, 12, 12, 0)
+		p.Initialisation_Interne(nom, "Pyromancien", 9, 7, 12, 12, 0)
 		p.Inv.Liste_Consommables[0].Quantite = 3
 		p.Inv.Liste_Sorts[0].EstDebloque = true
 		p.Inv.Liste_Armes[0].EstDebloque = true //débloquer Dague

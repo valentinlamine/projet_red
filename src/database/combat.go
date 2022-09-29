@@ -52,7 +52,7 @@ func (monstre *Personnage) Tour_Joueur(joueur *Personnage) bool {
 		degats = joueur.Degats * 2
 
 	case 3:
-		Menu_Sort(joueur, monstre)
+		degats = Menu_Sort(joueur, monstre)
 	case 4:
 		joueur.Affichage_Inventaire()
 	}

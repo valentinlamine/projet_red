@@ -1,6 +1,9 @@
 package database
 
-import "strconv"
+import (
+	"fmt"
+	"strconv"
+)
 
 type Sort struct {
 	Nom         string
@@ -44,6 +47,7 @@ func (s *Sort) Initialisation_Sort(nombre int) {
 }
 
 func (p *Personnage) Subir_Sort(s Sort, cible *Personnage) {
+	fmt.Println(p.ManaAct, s.ManaCout)
 	if p.ManaAct >= s.ManaCout {
 		switch s.Type {
 		case DPS:
@@ -58,7 +62,8 @@ func (p *Personnage) Subir_Sort(s Sort, cible *Personnage) {
 	}
 }
 
-func Menu_Sort(p *Personnage, cible *Personnage) {
+func Menu_Sort(p *Personnage, cible *Personnage) int {
+	var degats int
 	var liste_affichage []string
 	var liste_nom []string
 	liste_affichage = append(liste_affichage, "Quel sort voulez-vous utiliser ?")
@@ -76,8 +81,10 @@ func Menu_Sort(p *Personnage, cible *Personnage) {
 		switch item := item.(type) {
 		case Sort:
 			p.Subir_Sort(item, cible)
+			degats = item.Degats
 		default:
 			println("Erreur should never happend")
 		}
 	}
+	return degats
 }

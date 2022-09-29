@@ -67,7 +67,7 @@ func (m *Marchand) Initialisation_Marchand(nombre int) {
 		m.Inv.Liste_Armures_Torse[5].EstDebloque = true
 		m.Inv.Liste_Armures_Jambes[5].EstDebloque = true
 		m.Inv.Liste_Armures_Bras[5].EstDebloque = true
-		m.NombreTrade = 22
+		m.NombreTrade = 33
 	} else if nombre == 2 {
 		m.Initialisation("Gardienne du feu", inv)
 		m.Inv.Liste_Consommables[1].Quantite = 100
@@ -99,14 +99,14 @@ func (m *Marchand) Affichage_Echange(joueur *Personnage) {
 	liste = append(liste, "Armes :")
 	for i := 0; i < len(m.Inv.Liste_Armes); i++ {
 		if m.Inv.Liste_Armes[i].EstDebloque {
-			liste = append(liste, strconv.Itoa(len(liste)-2)+". "+m.Inv.Liste_Armes[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_Armes[i].Prix)+" âmes")
+			liste = append(liste, strconv.Itoa(len(liste)-3)+". "+m.Inv.Liste_Armes[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_Armes[i].Prix)+" âmes")
 		}
 	}
 	liste = append(liste, "")
 	liste = append(liste, "Boucliers :")
 	for i := 0; i < len(m.Inv.Liste_Boucliers); i++ {
 		if m.Inv.Liste_Boucliers[i].EstDebloque {
-			liste = append(liste, strconv.Itoa(len(liste)-4)+". "+m.Inv.Liste_Boucliers[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_Boucliers[i].Prix)+" âmes")
+			liste = append(liste, strconv.Itoa(len(liste)-5)+". "+m.Inv.Liste_Boucliers[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_Boucliers[i].Prix)+" âmes")
 		}
 	}
 	liste = append(liste, "")
@@ -117,45 +117,45 @@ func (m *Marchand) Affichage_Echange(joueur *Personnage) {
 	}
 	for i := 0; i < len(m.Inv.Liste_Consommables); i++ {
 		if m.Inv.Liste_Consommables[i].Quantite > 0 {
-			liste = append(liste, strconv.Itoa(len(liste)-6)+". "+m.Inv.Liste_Consommables[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_Consommables[i].Prix)+" âmes")
+			liste = append(liste, strconv.Itoa(len(liste)-7)+". "+m.Inv.Liste_Consommables[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_Consommables[i].Prix)+" âmes")
 		}
 	}
 	liste = append(liste, "")
 	liste = append(liste, "Casque :")
 	for i := 0; i < len(m.Inv.Liste_Armures_Tete); i++ {
 		if m.Inv.Liste_Armures_Tete[i].EstDebloque {
-			liste = append(liste, strconv.Itoa(len(liste)-8)+". "+m.Inv.Liste_Armures_Tete[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_Armures_Tete[i].Prix)+" âmes")
+			liste = append(liste, strconv.Itoa(len(liste)-9)+". "+m.Inv.Liste_Armures_Tete[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_Armures_Tete[i].Prix)+" âmes")
 		}
 	}
 	liste = append(liste, "")
 	liste = append(liste, "Plastrons :")
 	for i := 0; i < len(m.Inv.Liste_Armures_Torse); i++ {
 		if m.Inv.Liste_Armures_Torse[i].EstDebloque {
-			liste = append(liste, strconv.Itoa(len(liste)-10)+". "+m.Inv.Liste_Armures_Torse[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_Armures_Torse[i].Prix)+" âmes")
+			liste = append(liste, strconv.Itoa(len(liste)-11)+". "+m.Inv.Liste_Armures_Torse[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_Armures_Torse[i].Prix)+" âmes")
 		}
 	}
 	liste = append(liste, "")
 	liste = append(liste, "Jambières :")
 	for i := 0; i < len(m.Inv.Liste_Armures_Jambes); i++ {
 		if m.Inv.Liste_Armures_Jambes[i].EstDebloque {
-			liste = append(liste, strconv.Itoa(len(liste)-12)+". "+m.Inv.Liste_Armures_Jambes[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_Armures_Jambes[i].Prix)+" âmes")
+			liste = append(liste, strconv.Itoa(len(liste)-13)+". "+m.Inv.Liste_Armures_Jambes[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_Armures_Jambes[i].Prix)+" âmes")
 		}
 	}
 	liste = append(liste, "")
 	liste = append(liste, "Brassards :")
 	for i := 0; i < len(m.Inv.Liste_Armures_Bras); i++ {
 		if m.Inv.Liste_Armures_Bras[i].EstDebloque {
-			liste = append(liste, strconv.Itoa(len(liste)-14)+". "+m.Inv.Liste_Armures_Bras[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_Armures_Bras[i].Prix)+" âmes")
+			liste = append(liste, strconv.Itoa(len(liste)-15)+". "+m.Inv.Liste_Armures_Bras[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_Armures_Bras[i].Prix)+" âmes")
 		}
 	}
 	liste = append(liste, "")
 	liste = append(liste, "Sorts :")
 	for i := 0; i < len(m.Inv.Liste_Sorts); i++ {
 		if m.Inv.Liste_Sorts[i].EstDebloque {
-			liste = append(liste, strconv.Itoa(len(liste)-16)+". "+m.Inv.Liste_Sorts[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_Sorts[i].Prix)+" âmes")
+			liste = append(liste, strconv.Itoa(len(liste)-17)+". "+m.Inv.Liste_Sorts[i].Nom+" | "+strconv.Itoa(m.Inv.Liste_Sorts[i].Prix)+" âmes")
 		}
 	}
-	liste = append(liste, "", strconv.Itoa(len(liste)-16)+". Quitter le menu d'achat")
+	liste = append(liste, "", strconv.Itoa(len(liste)-17)+". Quitter le menu d'achat")
 	Affichage(m.Nom, liste, true, false)
 }
 
