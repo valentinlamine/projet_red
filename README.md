@@ -25,7 +25,7 @@ Le menu des statistiques permet aussi d'afficher les armes et amures équipés.
 Le menu de l'inventaire permet de choisir une arme ou une armure à équiper, ou de choisir une potion et la consommer.
 Le menu déplacement permet de choisir une direction dans laquelle se déplacer.
 Le menu hub permet d'accéder aux marchands et forgeron qui se trouvent au hub, Lige feu.
-    André le forgeron permet d'ameliorer une arme ou une armure contre des éclats de Titanite.
+    André le forgeron permet d'améliorer une arme ou une armure contre des éclats de Titanite.
     Petrus marchand permet d'acheter des potions et des armes et armures.
     Laurentius est un entraineur sorcier, il permet d'acheter des sorts et de les apprendre.
     La Gardienne du feu est un PNJ qui permet d'améliorer nos statistiques contre des âmes.
@@ -36,15 +36,15 @@ S'il choisit de combattre, il peut choisir d'attaquer, de lancer un sort ou d'ut
 
 C'est en tuant des ennemis que le joueur obtiens des âmes, qui lui permettent d'augmenter ses statistiques et qui servent aussi de monnaie.
 
-Le joueur peut mourir, dans ce cas il perd ses âmes, les ennimis réapparaissent et il est ramené au hub.
+Le joueur peut mourir, dans ce cas il perd ses âmes, les ennemis réapparaissent et il est ramené au hub.
 
 ### Statistiques
 
 Le joueur a 4 statistiques: la Vitalité, la Force, la Dextérité et l'Intelligence. Ces statistique sont améliorable auprès de la Gardienne du feu, qui se trouve au hub.
 
 La Vitalité augmente la vie du joueur.
-La Force augmente les dégâts des attaques physiques et permet d'augemanter la limite de poids maximum équiper.
-La Dextérité augmente les chances de commancer le combat en premier.
+La Force augmente les dégâts des attaques physiques et permet d'augmenter la limite de poids maximum équiper.
+La Dextérité augmente les chances de commencer le combat en premier.
 L'Intelligence augmente les dégâts des attaques magiques.
 
 ### Equipement
@@ -64,10 +64,10 @@ L'inventaire est aussi basé sur une structure qui regroupe des listes d'autres 
 L'inventaire est lui-même un attribut de la structure du joueur, ce qui permet de l'initialiser avec des objets dès le début du jeu.
 L'inventaire du joueur est initialiser avec toutes les armes et armures du jeu, mais qui sont pour l'instant bloquées pour le joueur. Il peut les débloquer en achetant les armes où en les ramassant sur des monstres.
 
-Les combats sont basés sur deux fonction qui bouclent. La première fonction, `Faire_Combat()`, s'éxécute tant qu'il y a des monstres, si le joueur choisis d'attaquer, il rentre dans la fonction `Combat()`, sinon il fuit le combat et retourne à la zone précédante. La fonction `Combat()` s'éxécute tant que le joueur ou l'ennemi n'a pas 0 points de vie. Elle appelle la fonction `Tour_Joueur()` puis `Tour_Ennemi()` ou inversement selon la statistique de Dextérité des combatants. La fonction `Tour_Joueur()` laisse le choix entre attaque, attaque lourdes, sorts et inventaire. L'attaque lourde inflige deux fois plus de dégât mais coûte de la mana. La fonction `Tour_Ennemi()` inflige des dégâts au joueur en l'attaquant. Tous les 3 tours le monstre inflige une attaques critique, et tous les 5 tours le monstre empoisonne le joueur. Le nombre de tour est stocké dans la varibale `CompteurTour`. Chaque tour le joueur regagne de la mana.
+Les combats sont basés sur deux fonction qui bouclent. La première fonction, `Faire_Combat()`, s'éxécute tant qu'il y a des monstres, si le joueur choisis d'attaquer, il rentre dans la fonction `Combat()`, sinon il fuit le combat et retourne à la zone précédente. La fonction `Combat()` s'exécute tant que le joueur ou l'ennemi n'a pas 0 points de vie. Elle appelle la fonction `Tour_Joueur()` puis `Tour_Ennemi()` ou inversement selon la statistique de Dextérité des combattants. La fonction `Tour_Joueur()` laisse le choix entre attaque, attaque lourdes, sorts et inventaire. L'attaque lourde inflige deux fois plus de dégât mais coûte de la mana. La fonction `Tour_Ennemi()` inflige des dégâts au joueur en l'attaquant. Tous les 3 tours le monstre inflige une attaques critique, et tous les 5 tours le monstre empoisonne le joueur. Le nombre de tour est stocké dans la variable `CompteurTour`. Chaque tour le joueur regagne de la mana.
 
 Notre carte du jeu est une structure Arbre, avec les attributs gauche, droite, centre et parent qui pointent vers d'autres Arbres. Chaque arbre représente une zone du jeu, cette zone peut contenir un marchand, des monstres ou un boss.
-(N'allez pas voir l'initialisation de la carte pour votre santé mentalen ça marche juste, posez pas de questions)
+(N'allez pas voir l'initialisation de la carte pour votre santé mentale, ça marche juste, posez pas de questions)
 
 
 ## Contribuer
