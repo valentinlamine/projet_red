@@ -101,7 +101,14 @@ func Menu_Hub() {
 		var choix = Choix(1, 2)
 		switch choix {
 		case 1:
-			joueur.Deplacement("hub")
+			Affichage("Avertissement", []string{"Vous allez retourner à Lige feu", "Si vous retournez à Lige feu voici ce qu'il va se produire :", "● Vous allez perdre 20 ames", "● La carte sera regénéré", "", "Voulez-vous continuer ?", "1. Oui", "2. Non"}, false, false)
+			choix = Choix(1, 2)
+			switch choix {
+			case 1:
+				joueur.Deplacement("hub")
+			case 2:
+				return
+			}
 		case 2:
 			return
 		}

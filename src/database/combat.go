@@ -47,10 +47,13 @@ func (monstre *Personnage) Tour_Joueur(joueur *Personnage) bool {
 		monstre.VieAct -= joueur.Degats
 		degats = joueur.Degats
 	case 2:
-		monstre.VieAct -= joueur.Degats * 2
-		joueur.ManaAct -= 80
-		degats = joueur.Degats * 2
-
+		if joueur.ManaAct >= 80 {
+			monstre.VieAct -= joueur.Degats * 2
+			joueur.ManaAct -= 80
+			degats = joueur.Degats * 2
+		} else {
+			Affichage("Combat", []string{"Vous n'avez pas assez de mana"}, false, false)
+		}
 	case 3:
 		degats = Menu_Sort(joueur, monstre)
 	case 4:

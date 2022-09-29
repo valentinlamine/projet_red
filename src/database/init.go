@@ -14,6 +14,8 @@ var m2 Marchand
 var m3 Marchand
 var m4 Marchand
 
+var nom string
+
 func Initialisation() {
 	carte.Initialisation()
 	inventaire.Initialisation()
@@ -27,8 +29,8 @@ func Initialisation() {
 
 func Initialisation_Personnage() {
 	Affichage("Création du personnage", []string{"Bienvenue dans le jeu de rôle !", "Pour commencer, vous devez créer votre personnage", "Choisissez un nom"}, true, false)
-	nom := Initialisation_Nom()
 	//on met la première lettre en majuscule et le reste en minuscule
+	Initialisation_Nom()
 	for i, c := range nom {
 		if i == 0 {
 			nom = strings.ToUpper(string(c))
@@ -52,26 +54,27 @@ func Initialisation_Personnage() {
 	joueur.Position = carte
 }
 
-func Initialisation_Nom() string {
+func Initialisation_Nom() {
 	boucle := true
-	var nom string
 	scanner := bufio.NewScanner(os.Stdin)
-	if scanner.Scan() {
-		line := scanner.Text()
-		nom = line
-	}
+
 	for boucle {
-		for _, letter := range nom {
-			if (letter < 'A' || letter > 'Z') && (letter < 'a' || letter > 'z') {
-				Affichage("Création du personnage", []string{"Le nom ne peut contenir que des lettres et des chiffres", "Choisissez un nom"}, false, false)
-				Initialisation_Nom()
-			}
+		if scanner.Scan() {
+			line := scanner.Text()
+			nom = line
 		}
 		if len(nom) < 1 {
 			Affichage("Création du personnage", []string{"Le nom ne peut être vide", "Choisissez un nom"}, false, false)
-			Initialisation_Nom()
+		} else {
+			for _, letter := range nom {
+				if (letter < 'A' || letter > 'Z') && (letter < 'a' || letter > 'z') {
+					Affichage("Création du personnage", []string{"Le nom ne peut contenir que des lettres et des chiffres", "Choisissez un nom"}, false, false)
+					Initialisation_Nom()
+					return
+				}
+			}
+			boucle = false
 		}
-		boucle = false
+
 	}
-	return nom
 }

@@ -115,6 +115,10 @@ func (p *Personnage) Deplacement(direction string) bool {
 		var base Arbre
 		base.Initialisation()
 		p.Position = base
+		p.VieAct = p.VieMax
+		if p.Inv.Liste_Consommables[0].Quantite < 3 {
+			p.Inv.Liste_Consommables[0].Quantite = 3
+		}
 		p.ListeRetour = []Arbre{}
 		if p.Ames > 20 {
 			p.Ames -= 20

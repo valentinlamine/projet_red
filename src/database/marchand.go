@@ -67,6 +67,7 @@ func (m *Marchand) Initialisation_Marchand(nombre int) {
 		m.Inv.Liste_Armures_Torse[5].EstDebloque = true
 		m.Inv.Liste_Armures_Jambes[5].EstDebloque = true
 		m.Inv.Liste_Armures_Bras[5].EstDebloque = true
+		m.PremierTrade = false
 		m.NombreTrade = 33
 	} else if nombre == 2 {
 		m.Initialisation("Gardienne du feu", inv)
@@ -74,6 +75,7 @@ func (m *Marchand) Initialisation_Marchand(nombre int) {
 		m.Inv.Liste_Consommables[2].Quantite = 100
 		m.Inv.Liste_Consommables[3].Quantite = 100
 		m.Inv.Liste_Consommables[4].Quantite = 100
+		m.PremierTrade = false
 		m.NombreTrade = 4
 	} else if nombre == 3 {
 		m.Initialisation("Laurentius", inv)
@@ -82,6 +84,7 @@ func (m *Marchand) Initialisation_Marchand(nombre int) {
 		m.Inv.Liste_Sorts[3].EstDebloque = true
 		m.Inv.Liste_Sorts[4].EstDebloque = true
 		m.Inv.Liste_Sorts[5].EstDebloque = true
+		m.PremierTrade = false
 		m.NombreTrade = 5
 	} else if nombre == 4 {
 		m.Initialisation("Petrus", inv)

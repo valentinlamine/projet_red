@@ -1,7 +1,6 @@
 package database
 
 import (
-	"fmt"
 	"strconv"
 	"time"
 )
@@ -43,12 +42,11 @@ func (c *Consommable) Initialisation_Consommable(nombre int) {
 	case 5:
 		c.Initialisation_Interne_Consommable("1 niveau de Intelligence", 300, 0, 0, 0, 0, 20)
 	case 6:
-		c.Initialisation_Interne_Consommable("Fiole d'essence de pin pourri", 100, 0, 0, 30, 0, 0)
+		c.Initialisation_Interne_Consommable("Fiole d'essence de pin pourri", 100, 0, 30, 0, 0, 0)
 	}
 }
 
 func (p *Personnage) Prendre_Potion(c Consommable) {
-	fmt.Print(c.Nom)
 	if c.Nom == "Fiole d'Estus" {
 		if p.Est_Dans_Inventaire(0) {
 			p.VieAct += c.VieBonus
