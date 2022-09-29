@@ -159,8 +159,10 @@ func (p *Personnage) Affichage_Inventaire() {
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	for index := 0; index < len(p.Inv.Liste_Sorts); index++ {
 		if p.Inv.Liste_Sorts[index].EstDebloque {
+			Nom = p.Inv.Liste_Sorts[index].Nom
 			nb_objets++
-			fmt.Print("│  ●  ", p.Inv.Liste_Sorts[index].Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.Inv.Liste_Sorts[index].Nom)-5), "│", "\n")
+			list_objets = append(list_objets, Nom)
+			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
 		}
 	}
 	//affichage des items débloqués
@@ -182,13 +184,19 @@ func (p *Personnage) Affichage_Inventaire() {
 	if choix != 0 {
 		//affichage de l'objet choisi en utilisant la fonction Affichage
 		item := p.Inv.Recuperer_Item(list_objets[choix-1])
+		var choix2 int
 		switch item := item.(type) {
 		case Consommable:
 			Affichage("Inventaire", []string{"Vous avez choisi l'objet : " + item.Nom, "Que voulez vous faire avec cet objet ? ", "1. Le consommer", "2. Afficher ces statistiques", "3. Retourner au menu précédent"}, false, false)
+			choix2 = Choix(1, 3)
+		case Sort:
+			Affichage("Inventaire", []string{"Vous avez choisi le sort : " + item.Nom, "Que voulez vous faire avec ce sort ? ", "2. Afficher ces statistiques", "3. Retourner au menu précédent"}, false, false)
+			choix2 = Choix(2, 3)
 		default:
 			Affichage("Inventaire", []string{"Vous avez choisi l'objet : " + list_objets[choix-1], "Que voulez vous faire avec cet objet ? ", "1. L'équiper", "2. Afficher ces statistiques", "3. Retourner au menu précédent"}, false, false)
+			choix2 = Choix(1, 3)
 		}
-		var choix2 = Choix(1, 3)
+
 		if choix2 == 1 {
 			p.Equiper(item, true) //si consommable la fonction Equiper() va le consommer
 		} else if choix2 == 2 {
@@ -203,6 +211,9 @@ func (p *Personnage) Affichage_Inventaire() {
 				item.Affichage()
 				p.Affichage_Inventaire()
 			case Armures:
+				item.Affichage()
+				p.Affichage_Inventaire()
+			case Sort:
 				item.Affichage()
 				p.Affichage_Inventaire()
 			default:
@@ -265,7 +276,7 @@ func (b *Boucliers) Affichage() {
 }
 
 func (c *Consommable) Affichage() {
-	Affichage("Consommable", []string{"Nom : " + c.Nom, "Prix : " + strconv.Itoa(c.Prix), "Quantité : " + strconv.Itoa(c.Quantite), "PV Bonus : " + strconv.Itoa(c.VieBonus), "Poids Bonus : " + strconv.Itoa(c.PoidsBonus), "Dégats bonus : " + strconv.Itoa(c.DegatsBonus), "ManaAct bonus : ", strconv.Itoa(c.ManaBonus)}, true, true)
+	Affichage("Consommable", []string{"Nom : " + c.Nom, "Prix : " + strconv.Itoa(c.Prix), "Quantité : " + strconv.Itoa(c.Quantite), "PV Bonus : " + strconv.Itoa(c.VieBonus), "Poids Bonus : " + strconv.Itoa(c.PoidsBonus), "Dégats bonus : " + strconv.Itoa(c.DegatsBonus), "Mana bonus : " + strconv.Itoa(c.ManaBonus)}, true, true)
 }
 
 func (a *Armures) Affichage() {
@@ -273,7 +284,7 @@ func (a *Armures) Affichage() {
 }
 
 func (s *Sort) Affichage() {
-	Affichage("Sort", []string{"Nom : " + s.Nom, "Prix : " + strconv.Itoa(s.Prix), "Cout ManaAct : " + strconv.Itoa(s.ManaCout), "Dégâts : " + strconv.Itoa(s.Degats), "Boost PV : " + strconv.Itoa(s.BoostVie), "Type : " + strconv.Itoa(s.Type), "Débloqué : " + strconv.FormatBool(s.EstDebloque)}, true, true)
+	Affichage("Sort", []string{"Nom : " + s.Nom, "Prix : " + strconv.Itoa(s.Prix), "Cout Mana : " + strconv.Itoa(s.ManaCout), "Dégâts : " + strconv.Itoa(s.Degats), "Boost PV : " + strconv.Itoa(s.BoostVie), "Type : " + strconv.Itoa(s.Type), "Débloqué : " + strconv.FormatBool(s.EstDebloque)}, true, true)
 }
 
 func Attendre() {

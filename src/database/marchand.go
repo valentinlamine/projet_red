@@ -91,9 +91,10 @@ func (m *Marchand) Initialisation_Marchand(nombre int) {
 	}
 }
 
-func (m *Marchand) Affichage_Echange() {
+func (m *Marchand) Affichage_Echange(joueur *Personnage) {
 	var liste []string
 	liste = append(liste, "Que voulez-vous acheter ?")
+	liste = append(liste, "Vous possédez : "+strconv.Itoa(joueur.Ames)+" Ames")
 	liste = append(liste, "")
 	liste = append(liste, "Armes :")
 	for i := 0; i < len(m.Inv.Liste_Armes); i++ {
@@ -162,7 +163,7 @@ func (m *Marchand) Echange(joueur *Personnage) {
 	if m.PremierTrade {
 		m.Est_Premier_Echange(joueur)
 	}
-	m.Affichage_Echange()
+	m.Affichage_Echange(joueur)
 	var choix = Choix(1, m.NombreTrade+1)
 	if choix == m.NombreTrade+1 {
 		m.Menu_Marchand(joueur)

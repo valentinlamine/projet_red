@@ -106,7 +106,7 @@ func Menu_Hub() {
 			return
 		}
 	}
-	Affichage("Lige feu", []string{"Vous êtes à " + joueur.Position.Val["nom"], "Que voulez-vous faire ?", "1. Aller voir le forgeron", "2. Aller voir le marchand forgeron", "3. Aller voir le marchand de niveau", "4. Aller vois le marchand de sort", "5. Aller voir le marchand de consommable", "6. Revenir au menu principal"}, true, false)
+	Affichage("Lige feu", []string{"Vous êtes à " + joueur.Position.Val["nom"], "Que voulez-vous faire ?", "1. Aller voir André forgeron", "2. Aller voir André marchand", "3. Aller voir la gardienne du feu", "4. Aller vois Laurentius", "5. Aller voir Pétrus", "6. Revenir au menu principal"}, true, false)
 	var choix = Choix(1, 6)
 	switch choix {
 	case 1:
