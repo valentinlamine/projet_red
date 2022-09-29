@@ -134,7 +134,7 @@ func (p *Personnage) Equiper(item interface{}, annonce bool) {
 		isconso = true
 	}
 	if annonce && !isconso {
-		Affichage(a, b)
+		Affichage(a, b, true, true)
 	}
 }
 

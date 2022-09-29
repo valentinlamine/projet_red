@@ -1,6 +1,8 @@
 package database
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Personnage struct {
 	Nom    string // Nom du personnage
@@ -116,7 +118,6 @@ func (p *Personnage) Init(nom, classe string) {
 	} else if classe == "Mendiant" {
 		p.InitIntern(nom, "Mendiant", 9, 9, 9, 9, 0)
 		p.Inv.Liste_consommables[0].Quantite = 3
-		p.Inv.Liste_consommables[1].Quantite = 1
 		p.Inv.Liste_sort[0].IsUnlocked = true
 		p.Inv.Liste_armes[4].IsUnlocked = true //débloquer Baton
 		p.Equiper(p.Inv.Liste_armes[4], false) //équiper Baton

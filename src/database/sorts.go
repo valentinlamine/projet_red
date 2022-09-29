@@ -48,13 +48,13 @@ func (p *Personnage) SubirSort(s Sort, target *Personnage) {
 		switch s.Type {
 		case DPS:
 			target.Pvact -= s.Degats
-			Affichage("Combat", []string{"Vous avez infligé " + strconv.Itoa(s.Degats) + " points de dégats à " + target.Nom, "Il vous reste " + strconv.Itoa(p.Mana-s.CoutMana) + " points de mana"})
+			Affichage("Combat", []string{"Vous avez infligé " + strconv.Itoa(s.Degats) + " points de dégats à " + target.Nom, "Il vous reste " + strconv.Itoa(p.Mana-s.CoutMana) + " points de mana"}, false, false)
 		case HEAL:
 			p.Pvact += s.BoostPv
-			Affichage("Combat", []string{"Vous avez gagné " + strconv.Itoa(s.BoostPv) + " points de vie"})
+			Affichage("Combat", []string{"Vous avez gagné " + strconv.Itoa(s.BoostPv) + " points de vie"}, false, false)
 		}
 	} else {
-		Affichage("Combat", []string{"Vous n'avez pas assez de mana pour utiliser ce sort"})
+		Affichage("Combat", []string{"Vous n'avez pas assez de mana pour utiliser ce sort"}, false, false)
 	}
 }
 
@@ -69,7 +69,7 @@ func Menu_sort(p *Personnage, target *Personnage) {
 		}
 	}
 	liste_affichage = append(liste_affichage, "0. Retour")
-	NouvelAffichage("Sort", liste_affichage)
+	Affichage("Sort", liste_affichage, true, false)
 	var choix = Choix(0, len(liste_nom))
 	if choix != 0 {
 		item := p.Inv.Get_Item(liste_nom[choix-1])

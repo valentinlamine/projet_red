@@ -8,14 +8,7 @@ import (
 	"github.com/rivo/uniseg"
 )
 
-func NouvelAffichage(titre string, contenu []string) {
-	//laisser 8 ligne de vide au dessus
-	fmt.Print("\n\n\n\n\n\n\n\n")
-	//affichage
-	Affichage(titre, contenu)
-}
-
-func Affichage(titre string, list []string) {
+func Affichage(titre string, list []string, espace bool, attendre bool) {
 	longest := 0
 	for _, s := range list {
 		if uniseg.GraphemeClusterCount(s) > longest {
@@ -24,6 +17,12 @@ func Affichage(titre string, list []string) {
 	}
 	if uniseg.GraphemeClusterCount(titre) > longest {
 		longest = uniseg.GraphemeClusterCount(titre)
+	}
+	if espace {
+		fmt.Print("\n\n\n\n\n\n\n\n\n\n")
+		fmt.Print("\n\n\n\n\n\n\n\n\n\n")
+		fmt.Print("\n\n\n\n\n\n\n\n\n\n")
+		fmt.Print("\n\n\n\n\n\n\n\n\n\n")
 	}
 	//affichage du haut de la boite
 	fmt.Print("╒", strings.Repeat("═", longest), "╕", "\n")
@@ -37,10 +36,13 @@ func Affichage(titre string, list []string) {
 	}
 	//affichage du bas de la boite
 	fmt.Print("╘", strings.Repeat("═", longest), "╛", "\n")
+	if attendre {
+		Attendre()
+	}
 }
 
 func (p *Personnage) Affichage_Personnage() {
-	Affichage("Personnage", []string{"Nom : " + p.Nom, "Classe : " + p.Classe, "Niveau : " + strconv.Itoa(p.Niveau), "Ames : " + strconv.Itoa(p.Ames), "PV : " + strconv.Itoa(p.Pvact) + "/" + strconv.Itoa(p.Pvmax), "Poids : " + strconv.Itoa(p.PoidsEquip) + "/" + strconv.Itoa(p.PoidsMax), "Vitalité: " + strconv.Itoa(p.Vitalite), "Force : " + strconv.Itoa(p.Force), "Dextérité : " + strconv.Itoa(p.Dexterite), "Intelligence : " + strconv.Itoa(p.Intelligence), "Position : " + p.Position.Val["name"], "Mana : " + strconv.Itoa(p.Mana) + "/" + strconv.Itoa(p.ManaMax), "Dégâts : " + strconv.Itoa(p.Degats)})
+	Affichage("Personnage", []string{"Nom : " + p.Nom, "Classe : " + p.Classe, "Niveau : " + strconv.Itoa(p.Niveau), "Ames : " + strconv.Itoa(p.Ames), "PV : " + strconv.Itoa(p.Pvact) + "/" + strconv.Itoa(p.Pvmax), "Poids : " + strconv.Itoa(p.PoidsEquip) + "/" + strconv.Itoa(p.PoidsMax), "Vitalité: " + strconv.Itoa(p.Vitalite), "Force : " + strconv.Itoa(p.Force), "Dextérité : " + strconv.Itoa(p.Dexterite), "Intelligence : " + strconv.Itoa(p.Intelligence), "Position : " + p.Position.Val["name"], "Mana : " + strconv.Itoa(p.Mana) + "/" + strconv.Itoa(p.ManaMax), "Dégâts : " + strconv.Itoa(p.Degats)}, true, false)
 	fmt.Println("Appuyez sur 1 pour voir votre inventaire équipé")
 	fmt.Println("Appuyez sur 0 pour revenir au menu principal")
 	var choix = Choix(0, 1)
@@ -59,7 +61,9 @@ func (p *Personnage) Affichage_Inventaire() {
 	var list_objets []string
 	nb_objets := 0
 	//laisser 8 ligne de vide au dessus
-	fmt.Print("\n\n\n\n\n\n\n\n")
+	fmt.Print("\n\n\n\n\n\n\n\n\n\n")
+	fmt.Print("\n\n\n\n\n\n\n\n\n\n")
+	fmt.Print("\n\n\n\n\n\n\n\n\n\n")
 	//affichage du haut de la boite
 	fmt.Print("╒", strings.Repeat("═", longueur), "╕", "\n")
 	//affichage du titre
@@ -180,9 +184,9 @@ func (p *Personnage) Affichage_Inventaire() {
 		item := p.Inv.Get_Item(list_objets[choix-1])
 		switch item := item.(type) {
 		case Consommable:
-			Affichage("Inventaire", []string{"Vous avez choisi l'objet : " + item.Nom, "Que voulez vous faire avec cet objet ? ", "1. Le consommer", "2. Afficher ces statistiques", "3. Retourner au menu précédent"})
+			Affichage("Inventaire", []string{"Vous avez choisi l'objet : " + item.Nom, "Que voulez vous faire avec cet objet ? ", "1. Le consommer", "2. Afficher ces statistiques", "3. Retourner au menu précédent"}, false, false)
 		default:
-			Affichage("Inventaire", []string{"Vous avez choisi l'objet : " + list_objets[choix-1], "Que voulez vous faire avec cet objet ? ", "1. L'équiper", "2. Afficher ces statistiques", "3. Retourner au menu précédent"})
+			Affichage("Inventaire", []string{"Vous avez choisi l'objet : " + list_objets[choix-1], "Que voulez vous faire avec cet objet ? ", "1. L'équiper", "2. Afficher ces statistiques", "3. Retourner au menu précédent"}, false, false)
 		}
 		var choix2 int
 		fmt.Scan(&choix2)
@@ -196,19 +200,15 @@ func (p *Personnage) Affichage_Inventaire() {
 			switch item := item.(type) {
 			case Armes:
 				item.Affichage()
-				Attendre()
 				p.Affichage_Inventaire()
 			case Boucliers:
 				item.Affichage()
-				Attendre()
 				p.Affichage_Inventaire()
 			case Consommable:
 				item.Affichage()
-				Attendre()
 				p.Affichage_Inventaire()
 			case Armures:
 				item.Affichage()
-				Attendre()
 				p.Affichage_Inventaire()
 			default:
 				print("Erreur")
@@ -221,6 +221,9 @@ func (p *Personnage) Affichage_Inventaire() {
 
 func (p *Personnage) Affichage_inventaire_equipe() {
 	longueur := 50
+	fmt.Print("\n\n\n\n\n\n\n\n\n\n")
+	fmt.Print("\n\n\n\n\n\n\n\n\n\n")
+	fmt.Print("\n\n\n\n\n\n\n\n\n\n")
 	//affichage du haut de la boite
 	fmt.Print("╒", strings.Repeat("═", longueur), "╕", "\n")
 	fmt.Print("│", "Inventaire équipé :", strings.Repeat(" ", longueur-19), "│", "\n")
@@ -259,23 +262,23 @@ func (p *Personnage) Affichage_inventaire_equipe() {
 }
 
 func (a *Armes) Affichage() {
-	Affichage("Arme", []string{"Nom : " + a.Nom, "Niveau : " + strconv.Itoa(a.Lvl), "Stat Min Force : " + strconv.Itoa(a.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.LvlMinInt), "Dégâts : " + strconv.Itoa(a.Deg), "Poids : " + strconv.Itoa(a.Poids), "Équipé : " + strconv.FormatBool(a.IsEquiped)})
+	Affichage("Arme", []string{"Nom : " + a.Nom, "Niveau : " + strconv.Itoa(a.Lvl), "Stat Min Force : " + strconv.Itoa(a.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.LvlMinInt), "Dégâts : " + strconv.Itoa(a.Deg), "Poids : " + strconv.Itoa(a.Poids), "Équipé : " + strconv.FormatBool(a.IsEquiped)}, true, true)
 }
 
 func (b *Boucliers) Affichage() {
-	Affichage("Bouclier", []string{"Nom : " + b.Nom, "Niveau : " + strconv.Itoa(b.Lvl), "Stat Min Force : " + strconv.Itoa(b.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(b.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(b.LvlMinInt), "PV Bonus : " + strconv.Itoa(b.Pvbonus), "Poids : " + strconv.Itoa(b.Poids), "Équipé : " + strconv.FormatBool(b.IsEquiped)})
+	Affichage("Bouclier", []string{"Nom : " + b.Nom, "Niveau : " + strconv.Itoa(b.Lvl), "Stat Min Force : " + strconv.Itoa(b.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(b.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(b.LvlMinInt), "PV Bonus : " + strconv.Itoa(b.Pvbonus), "Poids : " + strconv.Itoa(b.Poids), "Équipé : " + strconv.FormatBool(b.IsEquiped)}, true, true)
 }
 
 func (c *Consommable) Affichage() {
-	Affichage("Consommable", []string{"Nom : " + c.Nom, "Prix : " + strconv.Itoa(c.Prix), "Quantité : " + strconv.Itoa(c.Quantite), "PV Bonus : " + strconv.Itoa(c.PvBonus), "Poids Bonus : " + strconv.Itoa(c.PoidsBonus), "Dégats bonus : " + strconv.Itoa(c.DegBonus), "Mana bonus : ", strconv.Itoa(c.ManaBonus)})
+	Affichage("Consommable", []string{"Nom : " + c.Nom, "Prix : " + strconv.Itoa(c.Prix), "Quantité : " + strconv.Itoa(c.Quantite), "PV Bonus : " + strconv.Itoa(c.PvBonus), "Poids Bonus : " + strconv.Itoa(c.PoidsBonus), "Dégats bonus : " + strconv.Itoa(c.DegBonus), "Mana bonus : ", strconv.Itoa(c.ManaBonus)}, true, true)
 }
 
 func (a *Armures) Affichage() {
-	Affichage("Armure", []string{"Nom : " + a.Nom, "Niveau : " + strconv.Itoa(a.Lvl), "Stat Min Force : " + strconv.Itoa(a.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.LvlMinInt), "PV Bonus : " + strconv.Itoa(a.Pvbonus), "Poids : " + strconv.Itoa(a.Poids), "Débloqué : " + strconv.FormatBool(a.IsUnlocked)})
+	Affichage("Armure", []string{"Nom : " + a.Nom, "Niveau : " + strconv.Itoa(a.Lvl), "Stat Min Force : " + strconv.Itoa(a.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.LvlMinInt), "PV Bonus : " + strconv.Itoa(a.Pvbonus), "Poids : " + strconv.Itoa(a.Poids), "Débloqué : " + strconv.FormatBool(a.IsUnlocked)}, true, true)
 }
 
 func (s *Sort) Affichage() {
-	Affichage("Sort", []string{"Nom : " + s.Nom, "Prix : " + strconv.Itoa(s.Prix), "Cout Mana : " + strconv.Itoa(s.CoutMana), "Dégâts : " + strconv.Itoa(s.Degats), "Boost PV : " + strconv.Itoa(s.BoostPv), "Type : " + strconv.Itoa(s.Type), "Débloqué : " + strconv.FormatBool(s.IsUnlocked)})
+	Affichage("Sort", []string{"Nom : " + s.Nom, "Prix : " + strconv.Itoa(s.Prix), "Cout Mana : " + strconv.Itoa(s.CoutMana), "Dégâts : " + strconv.Itoa(s.Degats), "Boost PV : " + strconv.Itoa(s.BoostPv), "Type : " + strconv.Itoa(s.Type), "Débloqué : " + strconv.FormatBool(s.IsUnlocked)}, true, true)
 }
 
 func Attendre() {

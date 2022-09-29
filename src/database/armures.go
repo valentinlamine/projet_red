@@ -82,7 +82,7 @@ func (a *Armures) Init_Armures(number int) {
 	case 19:
 		a.InitIntern_Armures("Jambières de Carcasse", "jambieres", 500, 8, 8, 6, 25, 8)
 	case 20:
-		a.InitIntern_Armures("Jambières d'Havel", "jambieres", 500, 11, 9, 8, 80, 25)
+		a.InitIntern_Armures("Jambières d'Havel", "jambieres", 5000, 11, 9, 8, 80, 25)
 	case 21:
 		a.InitIntern_Armures("Bottes de cuir  noir", "jambieres", 500, 9, 12, 9, 35, 5)
 	case 22:
@@ -115,5 +115,5 @@ func (a *Armures) Ameliorer_Armures(p *Personnage) {
 		p.Inv.Liste_items["grand éclat de titanite"] -= 2
 		p.Inv.Liste_items["tablette de titanite"] -= 2
 	}
-	Affichage("Amélioration", []string{"Félécitation, vous venez d'améliorer votre armure !", "Désormais votre " + a.Nom + " est au niveau " + strconv.Itoa(a.Lvl), "Désormais votre " + a.Nom + " donne " + strconv.Itoa(a.Pvbonus) + " points de vie bonus !"})
+	Affichage("Amélioration", []string{"Félécitation, vous venez d'améliorer votre armure !", "Désormais votre " + a.Nom + " est au niveau " + strconv.Itoa(a.Lvl), "Désormais votre " + a.Nom + " donne " + strconv.Itoa(a.Pvbonus) + " points de vie bonus !"}, true, true)
 }

@@ -65,15 +65,13 @@ func (p *Personnage) Deplacement(direction string) bool {
 			p.Position = *p.Position.Centre
 			if p.Do_combat() {
 				p.Mana = p.ManaMax
-				Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé à " + p.Position.Val["name"]})
-				Attendre()
+				Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé à " + p.Position.Val["name"]}, true, true)
 			} else {
 				p.Position = p.Back_list[len(p.Back_list)-1]
 				p.Back_list = p.Back_list[:len(p.Back_list)-1]
 			}
 		} else {
-			Affichage("Déplacement", []string{"On dirait que nous nous sommes perdu...", "Il n'y a rien ici.", "Il faut trouver un autre chemin."})
-			Attendre()
+			Affichage("Déplacement", []string{"On dirait que nous nous sommes perdu...", "Il n'y a rien ici.", "Il faut trouver un autre chemin."}, true, true)
 			restart = true
 		}
 	} else if direction == "gauche" {
@@ -81,15 +79,13 @@ func (p *Personnage) Deplacement(direction string) bool {
 			p.Back_list = append(p.Back_list, p.Position)
 			p.Position = *p.Position.Gauche
 			if p.Do_combat() {
-				Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé à " + p.Position.Val["name"]})
-				Attendre()
+				Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé à " + p.Position.Val["name"]}, true, true)
 			} else {
 				p.Position = p.Back_list[len(p.Back_list)-1]
 				p.Back_list = p.Back_list[:len(p.Back_list)-1]
 			}
 		} else {
-			Affichage("Déplacement", []string{"On dirait que nous nous sommes perdu...", "Il n'y a rien ici.", "Il faut trouver un autre chemin."})
-			Attendre()
+			Affichage("Déplacement", []string{"On dirait que nous nous sommes perdu...", "Il n'y a rien ici.", "Il faut trouver un autre chemin."}, true, true)
 			restart = true
 		}
 	} else if direction == "droite" {
@@ -97,26 +93,22 @@ func (p *Personnage) Deplacement(direction string) bool {
 			p.Back_list = append(p.Back_list, p.Position)
 			p.Position = *p.Position.Droite
 			if p.Do_combat() {
-				Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé à " + p.Position.Val["name"]})
-				Attendre()
+				Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé à " + p.Position.Val["name"]}, true, true)
 			} else {
 				p.Position = p.Back_list[len(p.Back_list)-1]
 				p.Back_list = p.Back_list[:len(p.Back_list)-1]
 			}
 		} else {
-			Affichage("Déplacement", []string{"On dirait que nous nous sommes perdu...", "Il n'y a rien ici.", "Il faut trouver un autre chemin."})
-			Attendre()
+			Affichage("Déplacement", []string{"On dirait que nous nous sommes perdu...", "Il n'y a rien ici.", "Il faut trouver un autre chemin."}, true, true)
 			restart = true
 		}
 	} else if direction == "retour" {
 		if len(p.Back_list) > 0 {
 			p.Position = p.Back_list[len(p.Back_list)-1]
 			p.Back_list = p.Back_list[:len(p.Back_list)-1]
-			Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé à " + p.Position.Val["name"]})
-			Attendre()
+			Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé à " + p.Position.Val["name"]}, true, true)
 		} else {
-			Affichage("Déplacement", []string{"On dirait que nous nous sommes perdu...", "Il n'y a rien ici.", "Il faut trouver un autre chemin."})
-			Attendre()
+			Affichage("Déplacement", []string{"On dirait que nous nous sommes perdu...", "Il n'y a rien ici.", "Il faut trouver un autre chemin."}, true, true)
 			restart = true
 		}
 	} else if direction == "hub" {
@@ -126,11 +118,9 @@ func (p *Personnage) Deplacement(direction string) bool {
 		p.Back_list = []Arbre{}
 		if p.Ames > 20 {
 			p.Ames -= 20
-			Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé au hub."})
-			Attendre()
+			Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé au hub."}, true, true)
 		} else {
-			Affichage("Déplacement", []string{"On dirait que nous n'avons pas assez d'âmes pour revenir au hub."})
-			Attendre()
+			Affichage("Déplacement", []string{"On dirait que nous n'avons pas assez d'âmes pour revenir au hub."}, true, true)
 			restart = true
 		}
 	}
