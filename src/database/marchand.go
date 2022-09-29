@@ -28,7 +28,7 @@ func (m *Marchand) Initialisation_Marchand(nombre int) {
 	var inv Inventaire
 	inv.Initialisation()
 	if nombre == 1 {
-		m.Initialisation("Marchand mort vivant", inv)
+		m.Initialisation("André", inv)
 		//Armes
 		m.Inv.Liste_Armes[0].EstDebloque = true
 		m.Inv.Liste_Armes[1].EstDebloque = true
@@ -431,7 +431,7 @@ func Est_Echangeable(joueur *Personnage, item_type string, index int) bool {
 }
 
 func Est_Achetable(Ames, Prix int) bool {
-	if Ames <= Prix {
+	if Ames < Prix {
 		Affichage("Erreur", []string{"Vous n'avez pas assez d'âmes pour acheter cet objet"}, true, true)
 		return false
 	}
@@ -474,8 +474,8 @@ func (m *Marchand) Menu_Marchand(p *Personnage) {
 			Affichage(m.Nom, []string{"Bref, je suis un grand fan de Steven Spielberg."}, true, true)
 			Affichage(m.Nom, []string{"Où en étais-je ?"}, true, true)
 		} else if m.Nom == "Gardienne du feu" {
-			Affichage(m.Nom, []string{"Je suis la gardienne du feu.", "Je peux améliorer tes compétences contre de l'argent."}, true, true)
-			Affichage(m.Nom, []string{"Si tu veux apprendre de nouveaux sorts, tu peux aller voir mon ami Laurientus.", "de ce qu'il m'a dit, il est un grand fan de Steven Spielberg."}, true, true)
+			Affichage(m.Nom, []string{"Je suis la gardienne du feu.", "Je peux améliorer tes compétences contre des âmes."}, true, true)
+			Affichage(m.Nom, []string{"Si tu veux apprendre de nouveaux sorts, tu peux aller voir mon ami Laurentius.", "de ce qu'il m'a dit, il est un grand fan de Steven Spielberg."}, true, true)
 		} else {
 			Affichage("Marchand", []string{"Heh Heh Heh...",
 				"Si vous êtes en manque d'âmes, tuez des monstres !",

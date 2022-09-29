@@ -7,7 +7,7 @@ import (
 
 func Menu() {
 	joueur.Est_Mort()
-	Affichage("Menu - "+joueur.Position.Val["nom"], []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Se déplacer", "4. Accèder au menu de lige feu", "5. Quitter le jeu"}, true, false)
+	Affichage("Menu - "+joueur.Position.Val["nom"], []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Se déplacer", "4. Accéder au menu de lige feu", "5. Quitter le jeu"}, true, false)
 	var choix = Choix(1, 6)
 	switch choix {
 	case 1:
@@ -139,7 +139,7 @@ func Menu_Forgeron() {
 		joueur.Forgeron_Amelioration()
 	case 2:
 		Affichage("André", []string{"Bonjour aventurier", "Je me présente, Je suis le forgeron de ce village"}, true, true)
-		Affichage("André", []string{"Je peux améliorer tes armes, tes boucliers et tes armures", "Mais pour cela il me faut des ressources que tu peux récupérer sur les monstres", "Et évidemment je reste un buisness man", "Chaque amélioration te coutera des Ames"}, true, true)
+		Affichage("André", []string{"Je peux améliorer tes armes, tes boucliers et tes armures", "Mais pour cela il me faut des ressources que tu peux récupérer sur les monstres", "Et évidemment je reste un business man", "Chaque amélioration te coûtera des Ames"}, true, true)
 		Affichage("André", []string{"Voici le prix de mes améliorations :", "", "Pour une amélioration de tier 1, il te faudra :  ", "  ● 6 éclats de titanite", "  ● 100 âmes", "Pour une amélioration de tier 2, il te faudra :  ", "  ● 3 éclats de titanite", "  ● 3 grands éclats de titanite", "  ● 500 âmes", "Pour une amélioration de tier 3, il te faudra :  ", "  ● 2 éclats de titanite", "  ● 2 grands éclats de titanite", "  ● 2 tablettes éclats de titanite", "  ● 2000 âmes"}, true, true)
 		Menu_Forgeron()
 	}

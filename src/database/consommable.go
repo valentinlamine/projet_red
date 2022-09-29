@@ -87,10 +87,11 @@ func (p *Personnage) Prendre_Potion(c Consommable) {
 			for i := 0; i < 3; i++ {
 				time.Sleep(1 * time.Second)
 				p.VieAct -= c.VieBonus / 3
-				Affichage("Poison", []string{"ouch, ça fait mal !", "Vous subissez " + strconv.Itoa(c.VieBonus/3) + " de dégats", "Il vous reste " + strconv.Itoa(p.VieAct) + " de vie"}, false, false)
 				if p.VieAct <= 0 {
 					p.VieAct = 0
+					return
 				}
+				Affichage("Poison", []string{"ouch, ça fait mal !", "Vous subissez " + strconv.Itoa(c.VieBonus/3) + " de dégats", "Il vous reste " + strconv.Itoa(p.VieAct) + " de vie"}, false, false)
 			}
 			Attendre()
 		}

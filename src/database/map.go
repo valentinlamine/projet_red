@@ -67,8 +67,10 @@ func (p *Personnage) Deplacement(direction string) bool {
 				p.ManaAct = p.ManaMax
 				Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé à " + p.Position.Val["nom"]}, true, true)
 			} else {
-				p.Position = p.ListeRetour[len(p.ListeRetour)-1]
-				p.ListeRetour = p.ListeRetour[:len(p.ListeRetour)-1]
+				if p.Ames != 0 && p.ManaAct != p.ManaMax && p.VieAct != p.VieMax && p.Position.Val["nom"] != "Lige feu" { //condition de post mortem
+					p.Position = p.ListeRetour[len(p.ListeRetour)-1]
+					p.ListeRetour = p.ListeRetour[:len(p.ListeRetour)-1]
+				}
 			}
 		} else {
 			Affichage("Déplacement", []string{"On dirait que nous nous sommes perdu...", "Il n'y a rien ici.", "Il faut trouver un autre chemin."}, true, true)
@@ -81,8 +83,10 @@ func (p *Personnage) Deplacement(direction string) bool {
 			if p.Faire_Combat() {
 				Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé à " + p.Position.Val["nom"]}, true, true)
 			} else {
-				p.Position = p.ListeRetour[len(p.ListeRetour)-1]
-				p.ListeRetour = p.ListeRetour[:len(p.ListeRetour)-1]
+				if p.Ames != 0 && p.ManaAct != p.ManaMax && p.VieAct != p.VieMax && p.Position.Val["nom"] != "Lige feu" { //condition de post mortem
+					p.Position = p.ListeRetour[len(p.ListeRetour)-1]
+					p.ListeRetour = p.ListeRetour[:len(p.ListeRetour)-1]
+				}
 			}
 		} else {
 			Affichage("Déplacement", []string{"On dirait que nous nous sommes perdu...", "Il n'y a rien ici.", "Il faut trouver un autre chemin."}, true, true)
@@ -95,8 +99,10 @@ func (p *Personnage) Deplacement(direction string) bool {
 			if p.Faire_Combat() {
 				Affichage("Déplacement", []string{"félicitation nous sommes désormais arrivé à " + p.Position.Val["nom"]}, true, true)
 			} else {
-				p.Position = p.ListeRetour[len(p.ListeRetour)-1]
-				p.ListeRetour = p.ListeRetour[:len(p.ListeRetour)-1]
+				if p.Ames != 0 && p.ManaAct != p.ManaMax && p.VieAct != p.VieMax && p.Position.Val["nom"] != "Lige feu" { //condition de post mortem
+					p.Position = p.ListeRetour[len(p.ListeRetour)-1]
+					p.ListeRetour = p.ListeRetour[:len(p.ListeRetour)-1]
+				}
 			}
 		} else {
 			Affichage("Déplacement", []string{"On dirait que nous nous sommes perdu...", "Il n'y a rien ici.", "Il faut trouver un autre chemin."}, true, true)

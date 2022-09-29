@@ -1,7 +1,6 @@
 package database
 
 import (
-	"fmt"
 	"strconv"
 )
 
@@ -47,7 +46,6 @@ func (s *Sort) Initialisation_Sort(nombre int) {
 }
 
 func (p *Personnage) Subir_Sort(s Sort, cible *Personnage) {
-	fmt.Println(p.ManaAct, s.ManaCout)
 	if p.ManaAct >= s.ManaCout {
 		switch s.Type {
 		case DPS:

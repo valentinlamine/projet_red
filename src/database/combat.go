@@ -106,6 +106,10 @@ func (joueur *Personnage) Tour_Ennemi(monstre *Personnage, CompteurTour int) {
 			joueur.Inv.Liste_Consommables[5].Quantite++
 			joueur.Prendre_Potion(monstre.Inv.Liste_Consommables[5])
 		} else {
+			aleatoire := rand.Intn(3)
+			if aleatoire == 0 {
+				return
+			}
 			joueur.VieAct -= monstre.Degats
 			if joueur.VieAct < 0 {
 				joueur.VieAct = 0
