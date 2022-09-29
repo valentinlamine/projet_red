@@ -36,7 +36,7 @@ func (hub *Arbre) Initialisation() {
 	hub.Centre.Droite.Centre.Droite.Inserer(map[string]string{"nom": "Couloir", "monstre_nombre": "0", "monstre_type": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre)
 	hub.Centre.Droite.Centre.Droite.Gauche.Inserer(map[string]string{"nom": "Cuisine", "monstre_nombre": "2", "monstre_type": "Champion mort-vivant", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite)
 	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Inserer(map[string]string{"nom": "Garde manger", "monstre_nombre": "0", "monstre_type": "none", "feu": "true", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche)
-	//cours inétieure
+	//cours intérieur
 	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Inserer(map[string]string{"nom": "Cours intérieure", "monstre_nombre": "0", "monstre_type": "none", "feu": "false", "forge": "false", "loot": "0"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite)
 	//partie gauche
 	hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre.Gauche.Inserer(map[string]string{"nom": "Chambre du prince", "monstre_nombre": "0", "monstre_type": "none", "feu": "false", "forge": "false", "loot": "1"}, hub.Centre.Droite.Centre.Droite.Gauche.Droite.Centre)
