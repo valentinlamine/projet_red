@@ -163,12 +163,7 @@ func (m *Marchand) Echange(joueur *Personnage) {
 		m.Est_Premier_Echange(joueur)
 	}
 	m.Affichage_Echange()
-	var choix int
-	fmt.Scan(&choix)
-	for choix < 1 || choix > m.NombreTrade+1 {
-		Affichage("Erreur", []string{"Vous devez choisir un choix entre 1 et " + strconv.Itoa(m.NombreTrade+1)}, false, false)
-		fmt.Scan(&choix)
-	}
+	var choix = Choix(1, m.NombreTrade+1)
 	if choix == m.NombreTrade+1 {
 		m.Menu_Marchand(joueur)
 	}
@@ -354,12 +349,7 @@ func Souhaite_Echanger(joueur *Personnage, item interface{}) bool {
 	case Sort:
 		Affichage("Marchand", []string{"Que voulez-vous faire ?", "1. Acheter l'item " + item.Nom, "2. Afficher les caractéristiques de l'objet", "3. Revenir en arrière"}, false, false)
 	}
-	var choix int
-	fmt.Scan(&choix)
-	for choix < 1 || choix > 3 {
-		Affichage("Erreur", []string{"Vous devez choisir un choix entre 1 et 3"}, false, false)
-		fmt.Scan(&choix)
-	}
+	var choix = Choix(1, 3)
 	switch choix {
 	case 1:
 		return true

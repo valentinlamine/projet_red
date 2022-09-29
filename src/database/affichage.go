@@ -188,12 +188,7 @@ func (p *Personnage) Affichage_Inventaire() {
 		default:
 			Affichage("Inventaire", []string{"Vous avez choisi l'objet : " + list_objets[choix-1], "Que voulez vous faire avec cet objet ? ", "1. L'équiper", "2. Afficher ces statistiques", "3. Retourner au menu précédent"}, false, false)
 		}
-		var choix2 int
-		fmt.Scan(&choix2)
-		for choix2 < 1 || choix2 > 3 {
-			fmt.Print("Choix incorrect, veuillez réessayer : ")
-			fmt.Scan(&choix2)
-		}
+		var choix2 = Choix(1, 3)
 		if choix2 == 1 {
 			p.Equiper(item, true) //si consommable la fonction Equiper() va le consommer
 		} else if choix2 == 2 {
@@ -283,20 +278,22 @@ func (s *Sort) Affichage() {
 
 func Attendre() {
 	fmt.Println("Appuyez sur 0 pour continuer")
-	var choix int
+	var choix string
 	fmt.Scan(&choix)
-	for choix != 0 {
+	for choix != "0" {
 		fmt.Println("Appuyez sur 0 pour continuer")
 		fmt.Scan(&choix)
 	}
 }
 
 func Choix(nb1, nb2 int) int {
-	var a int
-	fmt.Scan(&a)
-	for a < nb1 || a > nb2 {
-		fmt.Println("Vous devez choisir un nombre entre", nb1, "et", nb2)
-		fmt.Scan(&a)
+	var choix string
+	fmt.Scan(&choix)
+	chiffre, err := strconv.Atoi(choix)
+	for err != nil || chiffre < nb1 || chiffre > nb2 {
+		fmt.Println("Veuillez entrer un nombre entre", nb1, "et", nb2)
+		fmt.Scan(&choix)
+		chiffre, err = strconv.Atoi(choix)
 	}
-	return a
+	return chiffre
 }

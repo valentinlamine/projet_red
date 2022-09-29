@@ -1,7 +1,8 @@
 package database
 
 import (
-	"fmt"
+	"bufio"
+	"os"
 	"strings"
 )
 
@@ -26,15 +27,7 @@ func Initialisation() {
 
 func Initialisation_Personnage() {
 	Affichage("Création du personnage", []string{"Bienvenue dans le jeu de rôle !", "Pour commencer, vous devez créer votre personnage", "Choisissez un nom"}, true, false)
-	var nom string
-	fmt.Scan(&nom)
-	//si le nom contient autre chose que des lettres, on demande de recommencer
-	for _, c := range nom {
-		if !strings.Contains("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZéèàùçâêîôäëïöüÿìò", string(c)) {
-			Affichage("Erreur", []string{"Le nom ne peut contenir que des lettres", "Veuillez recommencer"}, false, false)
-			fmt.Scan(&nom)
-		}
-	}
+	nom := Initialisation_Nom()
 	//on met la première lettre en majuscule et le reste en minuscule
 	for i, c := range nom {
 		if i == 0 {
@@ -57,4 +50,28 @@ func Initialisation_Personnage() {
 		joueur.Initialisation(nom, "Mendiant")
 	}
 	joueur.Position = carte
+}
+
+func Initialisation_Nom() string {
+	boucle := true
+	var nom string
+	scanner := bufio.NewScanner(os.Stdin)
+	if scanner.Scan() {
+		line := scanner.Text()
+		nom = line
+	}
+	for boucle {
+		for _, letter := range nom {
+			if (letter < 'A' || letter > 'Z') && (letter < 'a' || letter > 'z') {
+				Affichage("Création du personnage", []string{"Le nom ne peut contenir que des lettres et des chiffres", "Choisissez un nom"}, false, false)
+				Initialisation_Nom()
+			}
+		}
+		if len(nom) < 1 {
+			Affichage("Création du personnage", []string{"Le nom ne peut être vide", "Choisissez un nom"}, false, false)
+			Initialisation_Nom()
+		}
+		boucle = false
+	}
+	return nom
 }
