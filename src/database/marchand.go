@@ -34,7 +34,6 @@ func (m *Marchand) Initialisation_Marchand(nombre int) {
 		m.Inv.Liste_Armes[1].EstDebloque = true
 		m.Inv.Liste_Armes[2].EstDebloque = true
 		m.Inv.Liste_Armes[3].EstDebloque = true
-		m.Inv.Liste_Armes[4].EstDebloque = true
 		m.Inv.Liste_Armes[5].EstDebloque = true
 		//Boucliers
 		m.Inv.Liste_Boucliers[0].EstDebloque = true

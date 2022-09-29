@@ -7,7 +7,7 @@ import (
 
 func Menu() {
 	joueur.Est_Mort()
-	Affichage("Menu - "+joueur.Position.Val["nom"], []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Se déplacer", "4. Accèder au menu de la carte", "5. Quitter le jeu"}, true, false)
+	Affichage("Menu - "+joueur.Position.Val["nom"], []string{"Que voulez-vous faire ?", "1. Accéder aux statistiques du personnage", "2. Accéder à l'inventaire du personnage", "3. Se déplacer", "4. Accèder au menu de lige feu", "5. Quitter le jeu"}, true, false)
 	var choix = Choix(1, 6)
 	switch choix {
 	case 1:
@@ -67,7 +67,7 @@ func Menu_Triche() {
 
 func Menu_Deplacement() {
 	boucle := false
-	Affichage("Menu déplacement", []string{"Vous êtes à " + joueur.Position.Val["nom"], "Où voulez-vous aller ?", "1. Devant", "2. Gauche", "3. Droite", "4. Revenir en arrière", "5. Retour au hub", "6. Retour au menu principal"}, true, false)
+	Affichage("Menu déplacement", []string{"Vous êtes à " + joueur.Position.Val["nom"], "Où voulez-vous aller ?", "1. Devant", "2. Gauche", "3. Droite", "4. Revenir en arrière", "5. Retour à Lige feu", "6. Retour au menu principal"}, true, false)
 	var choix = Choix(1, 6)
 	switch choix {
 	case 1:
@@ -79,7 +79,7 @@ func Menu_Deplacement() {
 	case 4:
 		boucle = joueur.Deplacement("retour")
 	case 5:
-		Affichage("Avertissement", []string{"Vous allez retourner au hub", "Si vous retournez au hub voici ce qu'il va se produire :", "● Vous allez perdre 20 ames", "● La carte sera regénéré", "", "Voulez-vous continuer ?", "1. Oui", "2. Non"}, false, false)
+		Affichage("Avertissement", []string{"Vous allez retourner à Lige feu", "Si vous retournez à Lige feu voici ce qu'il va se produire :", "● Vous allez perdre 20 ames", "● La carte sera regénéré", "", "Voulez-vous continuer ?", "1. Oui", "2. Non"}, false, false)
 		choix = Choix(1, 2)
 		switch choix {
 		case 1:
@@ -96,8 +96,18 @@ func Menu_Deplacement() {
 }
 
 func Menu_Hub() {
-	Affichage("Lige feu", []string{"Vous êtes à " + joueur.Position.Val["nom"], "Que voulez-vous faire ?", "1. Aller voir le forgeron", "2. Aller voir le marchand forgeron", "3. Aller voir le marchand de niveau", "4. Aller vois le marchand de sort", "5. Aller voir le marchand de consommable"}, true, false)
-	var choix = Choix(1, 5)
+	if joueur.Position.Val["nom"] != "Lige feu" {
+		Affichage("Avertissement", []string{"Vous n'êtes pas à Lige feu", "Vous ne pouvez donc pas accéder au menu de Lige Feu", "Voulez-vous retourner à Lige feu ?", "1. Oui", "2. Non"}, false, false)
+		var choix = Choix(1, 2)
+		switch choix {
+		case 1:
+			joueur.Deplacement("hub")
+		case 2:
+			return
+		}
+	}
+	Affichage("Lige feu", []string{"Vous êtes à " + joueur.Position.Val["nom"], "Que voulez-vous faire ?", "1. Aller voir le forgeron", "2. Aller voir le marchand forgeron", "3. Aller voir le marchand de niveau", "4. Aller vois le marchand de sort", "5. Aller voir le marchand de consommable", "6. Revenir au menu principal"}, true, false)
+	var choix = Choix(1, 6)
 	switch choix {
 	case 1:
 		Menu_Forgeron()
@@ -109,6 +119,8 @@ func Menu_Hub() {
 		m3.Menu_Marchand(&joueur)
 	case 5:
 		m4.Menu_Marchand(&joueur)
+	case 6:
+		return
 	}
 }
 

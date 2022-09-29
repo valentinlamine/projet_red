@@ -36,6 +36,7 @@ func Combat(joueur, monstre *Personnage) bool {
 }
 
 func (monstre *Personnage) Tour_Joueur(joueur *Personnage) bool {
+	var degats int
 	if joueur.Est_Mort() {
 		return true
 	}
@@ -44,49 +45,45 @@ func (monstre *Personnage) Tour_Joueur(joueur *Personnage) bool {
 	switch Choix {
 	case 1:
 		monstre.VieAct -= joueur.Degats
-		if monstre.VieAct < 0 {
-			monstre.VieAct = 0
-			joueur.Ames += monstre.Ames
-			Affichage("Combat", []string{"Vous avez tué le " + monstre.Nom}, true, false)
-		} else {
-			Affichage(joueur.Nom, []string{"Vous avez infligé " + strconv.Itoa(joueur.Degats) + " dégats au " + monstre.Nom + ", il lui reste " + strconv.Itoa(monstre.VieAct) + " de vie"}, false, false)
-		}
+		degats = joueur.Degats
 	case 2:
 		monstre.VieAct -= joueur.Degats * 2
 		joueur.ManaAct -= 80
-		if monstre.VieAct < 0 {
-			monstre.VieAct = 0
-			joueur.Ames += monstre.Ames
-			switch monstre.Nom {
-			case "Carcasse":
-				joueur.Inv.Liste_Items["éclat de titanite"] += rand.Intn(2) * 3
-			case "Chevalier mort-vivant":
-				joueur.Inv.Liste_Items["grand éclat de titanite"] += rand.Intn(2) * 3
-			case "Champion mort-vivant":
-				joueur.Inv.Liste_Items["tablette de titanite"] += rand.Intn(2) * 3
-			case "Gargouille":
-				joueur.Inv.Liste_Items["éclat de titanite"] += rand.Intn(2) * 5
-				joueur.Inv.Liste_Items["tablette de titanite"] += rand.Intn(2) * 2
-				if !joueur.Inv.Liste_Armes[5].EstDebloque {
-					joueur.Inv.Liste_Armes[5].EstDebloque = true
-					Affichage("Combat", []string{"Vous avez débloqué la hache de guerre"}, true, false)
-				}
-			case "Démon Capra":
-				joueur.Inv.Liste_Items["éclat de titanite"] += rand.Intn(2) * 5
-				joueur.Inv.Liste_Items["grand éclat de titanite"] += rand.Intn(2) * 2
-			case "Démon taureau":
-				joueur.Inv.Liste_Items["éclat de titanite"] += rand.Intn(2) * 7
-				joueur.Inv.Liste_Items["grand éclat de titanite"] += rand.Intn(2) * 7
-				joueur.Inv.Liste_Items["tablette de titanite"] += rand.Intn(2) * 7
-			}
-			Affichage("Combat", []string{"Vous avez tué le " + monstre.Nom}, true, false)
-		} else {
-			Affichage(joueur.Nom, []string{"Vous avez infligé " + strconv.Itoa(joueur.Degats*2) + " dégats au " + monstre.Nom + ", il lui reste " + strconv.Itoa(monstre.VieAct) + " de vie", "Vous avez maintenant " + strconv.Itoa(joueur.ManaAct) + " mana"}, false, false)
-		}
+		degats = joueur.Degats * 2
+
 	case 3:
 		Menu_Sort(joueur, monstre)
 	case 4:
 		joueur.Affichage_Inventaire()
+	}
+	if monstre.VieAct < 0 {
+		monstre.VieAct = 0
+		joueur.Ames += monstre.Ames
+		switch monstre.Nom {
+		case "Carcasse":
+			joueur.Inv.Liste_Items["éclat de titanite"] += rand.Intn(2) * 3
+		case "Chevalier mort-vivant":
+			joueur.Inv.Liste_Items["grand éclat de titanite"] += rand.Intn(2) * 3
+		case "Champion mort-vivant":
+			joueur.Inv.Liste_Items["tablette de titanite"] += rand.Intn(2) * 3
+		case "Gargouille":
+			joueur.Inv.Liste_Items["éclat de titanite"] += rand.Intn(2) * 5
+			joueur.Inv.Liste_Items["tablette de titanite"] += rand.Intn(2) * 2
+			if !joueur.Inv.Liste_Armes[5].EstDebloque {
+				joueur.Inv.Liste_Armes[5].EstDebloque = true
+				Affichage("Combat", []string{"Vous avez débloqué la hache de guerre"}, true, false)
+			}
+		case "Démon Capra":
+			joueur.Inv.Liste_Items["éclat de titanite"] += rand.Intn(2) * 5
+			joueur.Inv.Liste_Items["grand éclat de titanite"] += rand.Intn(2) * 2
+		case "Démon taureau":
+			joueur.Inv.Liste_Items["éclat de titanite"] += rand.Intn(2) * 7
+			joueur.Inv.Liste_Items["grand éclat de titanite"] += rand.Intn(2) * 7
+			joueur.Inv.Liste_Items["tablette de titanite"] += rand.Intn(2) * 7
+		}
+		Affichage("Combat", []string{"Vous avez tué le " + monstre.Nom}, true, false)
+	} else {
+		Affichage(joueur.Nom, []string{"Vous avez infligé " + strconv.Itoa(degats) + " dégats au " + monstre.Nom + ", il lui reste " + strconv.Itoa(monstre.VieAct) + " de vie", "Vous avez maintenant " + strconv.Itoa(joueur.ManaAct) + " mana"}, false, false)
 	}
 	return false
 }
