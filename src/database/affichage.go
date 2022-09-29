@@ -8,15 +8,15 @@ import (
 	"github.com/rivo/uniseg"
 )
 
-func Affichage(titre string, list []string, espace bool, attendre bool) {
-	longest := 0
-	for _, s := range list {
-		if uniseg.GraphemeClusterCount(s) > longest {
-			longest = uniseg.GraphemeClusterCount(s)
+func Affichage(titre string, liste []string, espace bool, attendre bool) {
+	longueur := 0
+	for _, s := range liste {
+		if uniseg.GraphemeClusterCount(s) > longueur {
+			longueur = uniseg.GraphemeClusterCount(s)
 		}
 	}
-	if uniseg.GraphemeClusterCount(titre) > longest {
-		longest = uniseg.GraphemeClusterCount(titre)
+	if uniseg.GraphemeClusterCount(titre) > longueur {
+		longueur = uniseg.GraphemeClusterCount(titre)
 	}
 	if espace {
 		fmt.Print("\n\n\n\n\n\n\n\n\n\n")
@@ -25,30 +25,30 @@ func Affichage(titre string, list []string, espace bool, attendre bool) {
 		fmt.Print("\n\n\n\n\n\n\n\n\n\n")
 	}
 	//affichage du haut de la boite
-	fmt.Print("╒", strings.Repeat("═", longest), "╕", "\n")
+	fmt.Print("╒", strings.Repeat("═", longueur), "╕", "\n")
 	//affichage du titre
-	fmt.Print("│", titre, strings.Repeat(" ", longest-uniseg.GraphemeClusterCount(titre)), "│", "\n")
+	fmt.Print("│", titre, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(titre)), "│", "\n")
 	//affichage de la ligne
-	fmt.Print("├", strings.Repeat("─", longest), "┤", "\n")
+	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	//affichage des lignes de texte
-	for _, s := range list {
-		fmt.Print("│", s, strings.Repeat(" ", longest-uniseg.GraphemeClusterCount(s)), "│", "\n")
+	for _, s := range liste {
+		fmt.Print("│", s, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(s)), "│", "\n")
 	}
 	//affichage du bas de la boite
-	fmt.Print("╘", strings.Repeat("═", longest), "╛", "\n")
+	fmt.Print("╘", strings.Repeat("═", longueur), "╛", "\n")
 	if attendre {
 		Attendre()
 	}
 }
 
 func (p *Personnage) Affichage_Personnage() {
-	Affichage("Personnage", []string{"Nom : " + p.Nom, "Classe : " + p.Classe, "Niveau : " + strconv.Itoa(p.Niveau), "Ames : " + strconv.Itoa(p.Ames), "PV : " + strconv.Itoa(p.Pvact) + "/" + strconv.Itoa(p.Pvmax), "Poids : " + strconv.Itoa(p.PoidsEquip) + "/" + strconv.Itoa(p.PoidsMax), "Vitalité: " + strconv.Itoa(p.Vitalite), "Force : " + strconv.Itoa(p.Force), "Dextérité : " + strconv.Itoa(p.Dexterite), "Intelligence : " + strconv.Itoa(p.Intelligence), "Position : " + p.Position.Val["name"], "Mana : " + strconv.Itoa(p.Mana) + "/" + strconv.Itoa(p.ManaMax), "Dégâts : " + strconv.Itoa(p.Degats)}, true, false)
+	Affichage("Personnage", []string{"Nom : " + p.Nom, "Classe : " + p.Classe, "Niveau : " + strconv.Itoa(p.Niveau), "Ames : " + strconv.Itoa(p.Ames), "PV : " + strconv.Itoa(p.VieAct) + "/" + strconv.Itoa(p.VieMax), "Poids : " + strconv.Itoa(p.PoidsAct) + "/" + strconv.Itoa(p.PoidsMax), "Vitalité: " + strconv.Itoa(p.Vitalite), "Force : " + strconv.Itoa(p.Force), "Dextérité : " + strconv.Itoa(p.Dexterite), "Intelligence : " + strconv.Itoa(p.Intelligence), "Position : " + p.Position.Val["nom"], "ManaAct : " + strconv.Itoa(p.ManaAct) + "/" + strconv.Itoa(p.ManaMax), "Dégâts : " + strconv.Itoa(p.Degats)}, true, false)
 	fmt.Println("Appuyez sur 1 pour voir votre inventaire équipé")
 	fmt.Println("Appuyez sur 0 pour revenir au menu principal")
 	var choix = Choix(0, 1)
 	switch choix {
 	case 1:
-		p.Affichage_inventaire_equipe()
+		p.Affichage_Inventaire_Equipe()
 		Attendre()
 	case 0:
 		return
@@ -57,9 +57,9 @@ func (p *Personnage) Affichage_Personnage() {
 
 func (p *Personnage) Affichage_Inventaire() {
 	var Nom string
-	longueur := 50
 	var list_objets []string
-	nb_objets := 0
+	var nb_objets int
+	longueur := 50
 	//laisser 8 ligne de vide au dessus
 	fmt.Print("\n\n\n\n\n\n\n\n\n\n")
 	fmt.Print("\n\n\n\n\n\n\n\n\n\n")
@@ -73,9 +73,9 @@ func (p *Personnage) Affichage_Inventaire() {
 	//affichage des armes débloquées
 	fmt.Print("│", "Armes débloquées :", strings.Repeat(" ", longueur-18), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	for index := 0; index < len(p.Inv.Liste_armes); index++ {
-		if p.Inv.Liste_armes[index].IsUnlocked {
-			Nom = p.Inv.Liste_armes[index].Nom
+	for index := 0; index < len(p.Inv.Liste_Armes); index++ {
+		if p.Inv.Liste_Armes[index].EstDebloque {
+			Nom = p.Inv.Liste_Armes[index].Nom
 			nb_objets++
 			list_objets = append(list_objets, Nom)
 			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
@@ -85,9 +85,9 @@ func (p *Personnage) Affichage_Inventaire() {
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Boucliers débloqués :", strings.Repeat(" ", longueur-21), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	for index := 0; index < len(p.Inv.Liste_boucliers); index++ {
-		if p.Inv.Liste_boucliers[index].IsUnlocked {
-			Nom = p.Inv.Liste_boucliers[index].Nom
+	for index := 0; index < len(p.Inv.Liste_Boucliers); index++ {
+		if p.Inv.Liste_Boucliers[index].EstDebloque {
+			Nom = p.Inv.Liste_Boucliers[index].Nom
 			nb_objets++
 			list_objets = append(list_objets, Nom)
 			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
@@ -97,21 +97,21 @@ func (p *Personnage) Affichage_Inventaire() {
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Consommables débloqués :", strings.Repeat(" ", longueur-24), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	for index := 0; index < len(p.Inv.Liste_consommables); index++ {
-		if p.Inv.Liste_consommables[index].Quantite > 0 {
-			Nom = p.Inv.Liste_consommables[index].Nom
+	for index := 0; index < len(p.Inv.Liste_Consommables); index++ {
+		if p.Inv.Liste_Consommables[index].Quantite > 0 {
+			Nom = p.Inv.Liste_Consommables[index].Nom
 			nb_objets++
 			list_objets = append(list_objets, Nom)
-			fmt.Print("│  ", nb_objets, ". ", Nom, " ("+strconv.Itoa(p.Inv.Liste_consommables[index].Quantite)+")", strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-(8+len(strconv.Itoa(p.Inv.Liste_consommables[index].Quantite)))), "│", "\n")
+			fmt.Print("│  ", nb_objets, ". ", Nom, " ("+strconv.Itoa(p.Inv.Liste_Consommables[index].Quantite)+")", strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-(8+len(strconv.Itoa(p.Inv.Liste_Consommables[index].Quantite)))), "│", "\n")
 		}
 	}
 	//affichage des armures de tête débloquées
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Casques débloquées :", strings.Repeat(" ", longueur-20), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	for index := 0; index < len(p.Inv.Liste_armures_tete); index++ {
-		if p.Inv.Liste_armures_tete[index].IsUnlocked {
-			Nom = p.Inv.Liste_armures_tete[index].Nom
+	for index := 0; index < len(p.Inv.Liste_Armures_Tete); index++ {
+		if p.Inv.Liste_Armures_Tete[index].EstDebloque {
+			Nom = p.Inv.Liste_Armures_Tete[index].Nom
 			nb_objets++
 			list_objets = append(list_objets, Nom)
 			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
@@ -121,9 +121,9 @@ func (p *Personnage) Affichage_Inventaire() {
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Plastrons débloquées :", strings.Repeat(" ", longueur-22), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	for index := 0; index < len(p.Inv.Liste_armures_torse); index++ {
-		if p.Inv.Liste_armures_torse[index].IsUnlocked {
-			Nom = p.Inv.Liste_armures_torse[index].Nom
+	for index := 0; index < len(p.Inv.Liste_Armures_Torse); index++ {
+		if p.Inv.Liste_Armures_Torse[index].EstDebloque {
+			Nom = p.Inv.Liste_Armures_Torse[index].Nom
 			nb_objets++
 			list_objets = append(list_objets, Nom)
 			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
@@ -133,9 +133,9 @@ func (p *Personnage) Affichage_Inventaire() {
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Jambières débloquées :", strings.Repeat(" ", longueur-22), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	for index := 0; index < len(p.Inv.Liste_armures_jambes); index++ {
-		if p.Inv.Liste_armures_jambes[index].IsUnlocked {
-			Nom = p.Inv.Liste_armures_jambes[index].Nom
+	for index := 0; index < len(p.Inv.Liste_Armures_Jambes); index++ {
+		if p.Inv.Liste_Armures_Jambes[index].EstDebloque {
+			Nom = p.Inv.Liste_Armures_Jambes[index].Nom
 			nb_objets++
 			list_objets = append(list_objets, Nom)
 			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
@@ -145,9 +145,9 @@ func (p *Personnage) Affichage_Inventaire() {
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Brassards débloquées :", strings.Repeat(" ", longueur-22), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	for index := 0; index < len(p.Inv.Liste_armures_bras); index++ {
-		if p.Inv.Liste_armures_bras[index].IsUnlocked {
-			Nom = p.Inv.Liste_armures_bras[index].Nom
+	for index := 0; index < len(p.Inv.Liste_Armures_Bras); index++ {
+		if p.Inv.Liste_Armures_Bras[index].EstDebloque {
+			Nom = p.Inv.Liste_Armures_Bras[index].Nom
 			nb_objets++
 			list_objets = append(list_objets, Nom)
 			fmt.Print("│  ", nb_objets, ". ", Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(Nom)-5), "│", "\n")
@@ -157,20 +157,20 @@ func (p *Personnage) Affichage_Inventaire() {
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Sorts débloqués :", strings.Repeat(" ", longueur-17), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	for index := 0; index < len(p.Inv.Liste_sort); index++ {
-		if p.Inv.Liste_sort[index].IsUnlocked {
+	for index := 0; index < len(p.Inv.Liste_Sorts); index++ {
+		if p.Inv.Liste_Sorts[index].EstDebloque {
 			nb_objets++
-			fmt.Print("│  ●  ", p.Inv.Liste_sort[index].Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.Inv.Liste_sort[index].Nom)-5), "│", "\n")
+			fmt.Print("│  ●  ", p.Inv.Liste_Sorts[index].Nom, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(p.Inv.Liste_Sorts[index].Nom)-5), "│", "\n")
 		}
 	}
 	//affichage des items débloqués
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
 	fmt.Print("│", "Items débloqués :", strings.Repeat(" ", longueur-17), "│", "\n")
 	fmt.Print("├", strings.Repeat("─", longueur), "┤", "\n")
-	for i := range p.Inv.Liste_items {
-		if p.Inv.Liste_items[i] > 0 {
+	for i := range p.Inv.Liste_Items {
+		if p.Inv.Liste_Items[i] > 0 {
 			nb_objets++
-			fmt.Print("│  ", p.Inv.Liste_items[i], "x ", i, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(i)-(4+len(strconv.Itoa(p.Inv.Liste_items[i])))), "│", "\n")
+			fmt.Print("│  ", p.Inv.Liste_Items[i], "x ", i, strings.Repeat(" ", longueur-uniseg.GraphemeClusterCount(i)-(4+len(strconv.Itoa(p.Inv.Liste_Items[i])))), "│", "\n")
 		}
 	}
 	//affichage du bas de la boite
@@ -181,7 +181,7 @@ func (p *Personnage) Affichage_Inventaire() {
 	var choix = Choix(0, len(list_objets))
 	if choix != 0 {
 		//affichage de l'objet choisi en utilisant la fonction Affichage
-		item := p.Inv.Get_Item(list_objets[choix-1])
+		item := p.Inv.Recuperer_Item(list_objets[choix-1])
 		switch item := item.(type) {
 		case Consommable:
 			Affichage("Inventaire", []string{"Vous avez choisi l'objet : " + item.Nom, "Que voulez vous faire avec cet objet ? ", "1. Le consommer", "2. Afficher ces statistiques", "3. Retourner au menu précédent"}, false, false)
@@ -219,7 +219,7 @@ func (p *Personnage) Affichage_Inventaire() {
 	}
 }
 
-func (p *Personnage) Affichage_inventaire_equipe() {
+func (p *Personnage) Affichage_Inventaire_Equipe() {
 	longueur := 50
 	fmt.Print("\n\n\n\n\n\n\n\n\n\n")
 	fmt.Print("\n\n\n\n\n\n\n\n\n\n")
@@ -262,23 +262,23 @@ func (p *Personnage) Affichage_inventaire_equipe() {
 }
 
 func (a *Armes) Affichage() {
-	Affichage("Arme", []string{"Nom : " + a.Nom, "Niveau : " + strconv.Itoa(a.Lvl), "Stat Min Force : " + strconv.Itoa(a.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.LvlMinInt), "Dégâts : " + strconv.Itoa(a.Deg), "Poids : " + strconv.Itoa(a.Poids), "Équipé : " + strconv.FormatBool(a.IsEquiped)}, true, true)
+	Affichage("Arme", []string{"Nom : " + a.Nom, "Niveau : " + strconv.Itoa(a.Niv), "Stat Min Force : " + strconv.Itoa(a.NivMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.NivMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.NivMinInt), "Dégâts : " + strconv.Itoa(a.Degats), "Poids : " + strconv.Itoa(a.Poids), "Équipé : " + strconv.FormatBool(a.IsEquiped)}, true, true)
 }
 
 func (b *Boucliers) Affichage() {
-	Affichage("Bouclier", []string{"Nom : " + b.Nom, "Niveau : " + strconv.Itoa(b.Lvl), "Stat Min Force : " + strconv.Itoa(b.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(b.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(b.LvlMinInt), "PV Bonus : " + strconv.Itoa(b.Pvbonus), "Poids : " + strconv.Itoa(b.Poids), "Équipé : " + strconv.FormatBool(b.IsEquiped)}, true, true)
+	Affichage("Bouclier", []string{"Nom : " + b.Nom, "Niveau : " + strconv.Itoa(b.Niv), "Stat Min Force : " + strconv.Itoa(b.NivMinFor), "Stat Min Dextérité : " + strconv.Itoa(b.NivMinDex), "Stat Min Intelligence : " + strconv.Itoa(b.NivMinInt), "PV Bonus : " + strconv.Itoa(b.VieBonus), "Poids : " + strconv.Itoa(b.Poids), "Équipé : " + strconv.FormatBool(b.IsEquiped)}, true, true)
 }
 
 func (c *Consommable) Affichage() {
-	Affichage("Consommable", []string{"Nom : " + c.Nom, "Prix : " + strconv.Itoa(c.Prix), "Quantité : " + strconv.Itoa(c.Quantite), "PV Bonus : " + strconv.Itoa(c.PvBonus), "Poids Bonus : " + strconv.Itoa(c.PoidsBonus), "Dégats bonus : " + strconv.Itoa(c.DegBonus), "Mana bonus : ", strconv.Itoa(c.ManaBonus)}, true, true)
+	Affichage("Consommable", []string{"Nom : " + c.Nom, "Prix : " + strconv.Itoa(c.Prix), "Quantité : " + strconv.Itoa(c.Quantite), "PV Bonus : " + strconv.Itoa(c.VieBonus), "Poids Bonus : " + strconv.Itoa(c.PoidsBonus), "Dégats bonus : " + strconv.Itoa(c.DegatsBonus), "ManaAct bonus : ", strconv.Itoa(c.ManaBonus)}, true, true)
 }
 
 func (a *Armures) Affichage() {
-	Affichage("Armure", []string{"Nom : " + a.Nom, "Niveau : " + strconv.Itoa(a.Lvl), "Stat Min Force : " + strconv.Itoa(a.LvlMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.LvlMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.LvlMinInt), "PV Bonus : " + strconv.Itoa(a.Pvbonus), "Poids : " + strconv.Itoa(a.Poids), "Débloqué : " + strconv.FormatBool(a.IsUnlocked)}, true, true)
+	Affichage("Armure", []string{"Nom : " + a.Nom, "Niveau : " + strconv.Itoa(a.Niv), "Stat Min Force : " + strconv.Itoa(a.NivMinFor), "Stat Min Dextérité : " + strconv.Itoa(a.NivMinDex), "Stat Min Intelligence : " + strconv.Itoa(a.NivMinInt), "PV Bonus : " + strconv.Itoa(a.VieBonus), "Poids : " + strconv.Itoa(a.Poids), "Débloqué : " + strconv.FormatBool(a.EstDebloque)}, true, true)
 }
 
 func (s *Sort) Affichage() {
-	Affichage("Sort", []string{"Nom : " + s.Nom, "Prix : " + strconv.Itoa(s.Prix), "Cout Mana : " + strconv.Itoa(s.CoutMana), "Dégâts : " + strconv.Itoa(s.Degats), "Boost PV : " + strconv.Itoa(s.BoostPv), "Type : " + strconv.Itoa(s.Type), "Débloqué : " + strconv.FormatBool(s.IsUnlocked)}, true, true)
+	Affichage("Sort", []string{"Nom : " + s.Nom, "Prix : " + strconv.Itoa(s.Prix), "Cout ManaAct : " + strconv.Itoa(s.ManaCout), "Dégâts : " + strconv.Itoa(s.Degats), "Boost PV : " + strconv.Itoa(s.BoostVie), "Type : " + strconv.Itoa(s.Type), "Débloqué : " + strconv.FormatBool(s.EstDebloque)}, true, true)
 }
 
 func Attendre() {

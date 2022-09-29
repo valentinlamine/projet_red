@@ -1,96 +1,95 @@
 package database
 
 type Inventaire struct {
-	Liste_armes          []Armes
-	Liste_armures_tete   []Armures
-	Liste_armures_torse  []Armures
-	Liste_armures_bras   []Armures
-	Liste_armures_jambes []Armures
-	Liste_boucliers      []Boucliers
-	Liste_consommables   []Consommable
-	Liste_sort           []Sort
-	Liste_items          map[string]int
+	Liste_Armes          []Armes
+	Liste_Armures_Tete   []Armures
+	Liste_Armures_Torse  []Armures
+	Liste_Armures_Bras   []Armures
+	Liste_Armures_Jambes []Armures
+	Liste_Boucliers      []Boucliers
+	Liste_Consommables   []Consommable
+	Liste_Sorts          []Sort
+	Liste_Items          map[string]int
 }
 
-func (i *Inventaire) Init() {
+func (i *Inventaire) Initialisation() {
 	//Initialisation des armes
 	for j := 1; j < 7; j++ {
 		var a Armes
-		a.Init_Armes(j)
-		i.Liste_armes = append(i.Liste_armes, a)
+		a.Initialisation_Armes(j)
+		i.Liste_Armes = append(i.Liste_Armes, a)
 	}
 	//Initialisation des boucliers
 	for j := 1; j < 7; j++ {
 		var b Boucliers
-		b.Init_Bouclier(j)
-		i.Liste_boucliers = append(i.Liste_boucliers, b)
+		b.Initialisation_Bouclier(j)
+		i.Liste_Boucliers = append(i.Liste_Boucliers, b)
 	}
 	//Initialisation des consommables
 	for j := 1; j < 7; j++ {
 		var c Consommable
-		c.Init_Consommable(j)
-		i.Liste_consommables = append(i.Liste_consommables, c)
+		c.Initialisation_Consommable(j)
+		i.Liste_Consommables = append(i.Liste_Consommables, c)
 	}
 	//Initialisation des armures
 	for j := 1; j < 25; j++ {
 		var a Armures
-		a.Init_Armures(j)
+		a.Initialisation_Armures(j)
 		if j < 7 {
-			i.Liste_armures_tete = append(i.Liste_armures_tete, a)
+			i.Liste_Armures_Tete = append(i.Liste_Armures_Tete, a)
 		} else if j < 13 {
-			i.Liste_armures_torse = append(i.Liste_armures_torse, a)
+			i.Liste_Armures_Torse = append(i.Liste_Armures_Torse, a)
 		} else if j < 19 {
-			i.Liste_armures_bras = append(i.Liste_armures_bras, a)
+			i.Liste_Armures_Bras = append(i.Liste_Armures_Bras, a)
 		} else {
-			i.Liste_armures_jambes = append(i.Liste_armures_jambes, a)
+			i.Liste_Armures_Jambes = append(i.Liste_Armures_Jambes, a)
 		}
 	}
 	//initialisation des sorts
 	for j := 1; j < 7; j++ {
 		var s Sort
-		s.InitSort(j)
-		i.Liste_sort = append(i.Liste_sort, s)
+		s.Initialisation_Sort(j)
+		i.Liste_Sorts = append(i.Liste_Sorts, s)
 	}
 	//initialisation des item
-	i.Liste_items = make(map[string]int)
-	i.Liste_items["éclat de titanite"] = 0
-	i.Liste_items["grand éclat de titanite"] = 0
-	i.Liste_items["tablette de titanite"] = 0
+	i.Liste_Items = make(map[string]int)
+	i.Liste_Items["éclat de titanite"] = 0
+	i.Liste_Items["grand éclat de titanite"] = 0
+	i.Liste_Items["tablette de titanite"] = 0
 }
 
 func (p *Personnage) Equiper(item interface{}, annonce bool) {
-	//TODO : vérifier si l'item est déjà équipé
 	a, b := "", []string{""}
-	isconso := false
+	EstConsommable := false
 	switch item := item.(type) {
 	case Armes:
-		if p.PoidsMax < p.PoidsEquip+item.Poids {
+		if p.PoidsMax < p.PoidsAct+item.Poids {
 			a, b[0] = "Erreur", "Vous ne pouvez pas porter autant de poids"
-		} else if p.Force < item.LvlMinFor && p.Dexterite < item.LvlMinDex && p.Intelligence < item.LvlMinInt {
+		} else if p.Force < item.NivMinFor && p.Dexterite < item.NivMinDex && p.Intelligence < item.NivMinInt {
 			a, b[0] = "Erreur", "Vous n'avez pas le niveau requis pour équiper cet objet"
 		} else if p.EquipementArmes == item {
 			a, b[0] = "Erreur", "Vous avez déjà équipé cet objet"
 		} else {
-			p.PoidsEquip -= p.EquipementArmes.Poids
-			p.Degats -= p.EquipementArmes.Deg
+			p.PoidsAct -= p.EquipementArmes.Poids
+			p.Degats -= p.EquipementArmes.Degats
 			p.EquipementArmes = item
-			p.PoidsEquip += item.Poids
-			p.Degats += item.Deg
+			p.PoidsAct += item.Poids
+			p.Degats += item.Degats
 			a, b[0] = "Succès", "Vous avez équipé "+item.Nom
 		}
 	case Boucliers:
-		if p.PoidsMax < p.PoidsEquip+item.Poids {
+		if p.PoidsMax < p.PoidsAct+item.Poids {
 			a, b[0] = "Erreur", "Vous ne pouvez pas porter autant de poids"
-		} else if p.Force < item.LvlMinFor && p.Dexterite < item.LvlMinDex && p.Intelligence < item.LvlMinInt {
+		} else if p.Force < item.NivMinFor && p.Dexterite < item.NivMinDex && p.Intelligence < item.NivMinInt {
 			a, b[0] = "Erreur", "Vous n'avez pas le niveau requis pour équiper cet objet"
 		} else if p.EquipementBoucliers == item {
 			a, b[0] = "Erreur", "Vous avez déjà équipé cet objet"
 		} else {
-			p.PoidsEquip -= p.EquipementBoucliers.Poids
-			p.Pvmax -= p.EquipementBoucliers.Pvbonus
+			p.PoidsAct -= p.EquipementBoucliers.Poids
+			p.VieMax -= p.EquipementBoucliers.VieBonus
 			p.EquipementBoucliers = item
-			p.PoidsEquip += item.Poids
-			p.Pvmax += item.Pvbonus
+			p.PoidsAct += item.Poids
+			p.VieMax += item.VieBonus
 			a, b[0] = "Succès", "Vous avez équipé "+item.Nom
 		}
 	case Armures:
@@ -100,59 +99,59 @@ func (p *Personnage) Equiper(item interface{}, annonce bool) {
 				return
 			}
 		}
-		if p.PoidsMax < p.PoidsEquip+item.Poids {
+		if p.PoidsMax < p.PoidsAct+item.Poids {
 			a, b[0] = "Erreur", "Vous ne pouvez pas porter autant de poids"
-		} else if p.Force < item.LvlMinFor && p.Dexterite < item.LvlMinDex && p.Intelligence < item.LvlMinInt {
+		} else if p.Force < item.NivMinFor && p.Dexterite < item.NivMinDex && p.Intelligence < item.NivMinInt {
 			a, b[0] = "Erreur", "Vous n'avez pas le niveau requis pour équiper cet objet"
 		} else {
 			switch item.Class {
 			case "casque":
-				p.PoidsEquip -= p.EquipementArmures["tete"].Poids
-				p.Pvmax -= p.EquipementArmures["tete"].Pvbonus
+				p.PoidsAct -= p.EquipementArmures["tete"].Poids
+				p.VieMax -= p.EquipementArmures["tete"].VieBonus
 				p.EquipementArmures["tete"] = item
 			case "plastron":
-				p.PoidsEquip -= p.EquipementArmures["torse"].Poids
-				p.Pvmax -= p.EquipementArmures["torse"].Pvbonus
+				p.PoidsAct -= p.EquipementArmures["torse"].Poids
+				p.VieMax -= p.EquipementArmures["torse"].VieBonus
 				p.EquipementArmures["torse"] = item
 			case "gantelet":
-				p.PoidsEquip -= p.EquipementArmures["bras"].Poids
-				p.Pvmax -= p.EquipementArmures["bras"].Pvbonus
+				p.PoidsAct -= p.EquipementArmures["bras"].Poids
+				p.VieMax -= p.EquipementArmures["bras"].VieBonus
 				p.EquipementArmures["bras"] = item
 			case "jambieres":
-				p.PoidsEquip -= p.EquipementArmures["jambes"].Poids
-				p.Pvmax -= p.EquipementArmures["jambes"].Pvbonus
+				p.PoidsAct -= p.EquipementArmures["jambes"].Poids
+				p.VieMax -= p.EquipementArmures["jambes"].VieBonus
 				p.EquipementArmures["jambes"] = item
 			default:
 				a, b[0] = "Erreur", "Erreur lors de l'équipement"
 			}
-			p.PoidsEquip += item.Poids
-			p.Pvmax += item.Pvbonus
+			p.PoidsAct += item.Poids
+			p.VieMax += item.VieBonus
 			a, b[0] = "Succès", "Vous avez équipé "+item.Nom
 		}
 	case Consommable:
-		p.PrendrePot(item)
-		isconso = true
+		p.Prendre_Potion(item)
+		EstConsommable = true
 	}
-	if annonce && !isconso {
+	if annonce && !EstConsommable {
 		Affichage(a, b, true, true)
 	}
 }
 
-func (p *Personnage) Remplacer_item(item interface{}) {
+func (p *Personnage) Remplacer_Item(item interface{}) {
 	switch item := item.(type) {
 	case Armes:
-		for i, v := range p.Inv.Liste_armes {
+		for i, v := range p.Inv.Liste_Armes {
 			if v.Nom == item.Nom {
-				p.Inv.Liste_armes[i] = item
+				p.Inv.Liste_Armes[i] = item
 				if p.EquipementArmes.Nom == item.Nom {
 					p.Equiper(item, false)
 				}
 			}
 		}
 	case Boucliers:
-		for i, v := range p.Inv.Liste_boucliers {
+		for i, v := range p.Inv.Liste_Boucliers {
 			if v.Nom == item.Nom {
-				p.Inv.Liste_boucliers[i] = item
+				p.Inv.Liste_Boucliers[i] = item
 				if p.EquipementBoucliers.Nom == item.Nom {
 					p.Equiper(item, false)
 				}
@@ -161,36 +160,36 @@ func (p *Personnage) Remplacer_item(item interface{}) {
 	case Armures:
 		switch item.Class {
 		case "casque":
-			for i, v := range p.Inv.Liste_armures_tete {
+			for i, v := range p.Inv.Liste_Armures_Tete {
 				if v.Nom == item.Nom {
-					p.Inv.Liste_armures_tete[i] = item
+					p.Inv.Liste_Armures_Tete[i] = item
 					if p.EquipementArmures["tete"].Nom == item.Nom {
 						p.Equiper(item, false)
 					}
 				}
 			}
 		case "plastron":
-			for i, v := range p.Inv.Liste_armures_torse {
+			for i, v := range p.Inv.Liste_Armures_Torse {
 				if v.Nom == item.Nom {
-					p.Inv.Liste_armures_torse[i] = item
+					p.Inv.Liste_Armures_Torse[i] = item
 					if p.EquipementArmures["torse"].Nom == item.Nom {
 						p.Equiper(item, false)
 					}
 				}
 			}
 		case "gantelet":
-			for i, v := range p.Inv.Liste_armures_bras {
+			for i, v := range p.Inv.Liste_Armures_Bras {
 				if v.Nom == item.Nom {
-					p.Inv.Liste_armures_bras[i] = item
+					p.Inv.Liste_Armures_Bras[i] = item
 					if p.EquipementArmures["bras"].Nom == item.Nom {
 						p.Equiper(item, false)
 					}
 				}
 			}
 		case "jambieres":
-			for i, v := range p.Inv.Liste_armures_jambes {
+			for i, v := range p.Inv.Liste_Armures_Jambes {
 				if v.Nom == item.Nom {
-					p.Inv.Liste_armures_jambes[i] = item
+					p.Inv.Liste_Armures_Jambes[i] = item
 					if p.EquipementArmures["jambes"].Nom == item.Nom {
 						p.Equiper(item, false)
 					}

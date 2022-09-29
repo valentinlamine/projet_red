@@ -7,24 +7,24 @@ import (
 
 var inventaire Inventaire
 var carte Arbre
-var player Personnage
+var joueur Personnage
 var m1 Marchand
 var m2 Marchand
 var m3 Marchand
 var m4 Marchand
 
-func Init() {
-	carte.Init()
-	inventaire.Init()
-	Setup_Personnage()
+func Initialisation() {
+	carte.Initialisation()
+	inventaire.Initialisation()
+	Initialisation_Personnage()
 	//Initialisation des marchands
-	m1.InitMarchand(1)
-	m2.InitMarchand(2)
-	m3.InitMarchand(3)
-	m4.InitMarchand(4)
+	m1.Initialisation_Marchand(1)
+	m2.Initialisation_Marchand(2)
+	m3.Initialisation_Marchand(3)
+	m4.Initialisation_Marchand(4)
 }
 
-func Setup_Personnage() {
+func Initialisation_Personnage() {
 	Affichage("Création du personnage", []string{"Bienvenue dans le jeu de rôle !", "Pour commencer, vous devez créer votre personnage", "Choisissez un nom"}, true, false)
 	var nom string
 	fmt.Scan(&nom)
@@ -44,17 +44,17 @@ func Setup_Personnage() {
 		}
 	}
 	Affichage("Création du personnage", []string{"Bonjour " + nom, "Quelle est la classe de ton personnage ?", "il y a 4 classes : Guerrier, Chevalier, Pyromancien, Mendiant", "Pour choisir guerrier, tapez 1", "Pour choisir chevalier, tapez 2", "Pour choisir pyromancien, tapez 3", "Pour choisir mendiant, tapez 4"}, true, false)
-	player.Inv = inventaire
+	joueur.Inv = inventaire
 	var classe = Choix(1, 4)
 	switch classe {
 	case 1:
-		player.Init(nom, "Guerrier")
+		joueur.Initialisation(nom, "Guerrier")
 	case 2:
-		player.Init(nom, "Chevalier")
+		joueur.Initialisation(nom, "Chevalier")
 	case 3:
-		player.Init(nom, "Pyromancien")
+		joueur.Initialisation(nom, "Pyromancien")
 	case 4:
-		player.Init(nom, "Mendiant")
+		joueur.Initialisation(nom, "Mendiant")
 	}
-	player.Position = carte
+	joueur.Position = carte
 }

@@ -7,15 +7,15 @@ type Armes struct {
 	Nom  string
 	Prix int
 	// Stat Min
-	LvlMinFor int
-	LvlMinDex int
-	LvlMinInt int
-	Lvl       int
+	NivMinFor int
+	NivMinDex int
+	NivMinInt int
+	Niv       int
 	// Stat Damage
-	Deg        int
-	Poids      int
-	IsUnlocked bool
-	IsEquiped  bool
+	Degats      int
+	Poids       int
+	EstDebloque bool
+	IsEquiped   bool
 }
 
 type Boucliers struct {
@@ -23,128 +23,120 @@ type Boucliers struct {
 	Nom  string
 	Prix int
 	// Stat Min
-	LvlMinFor int
-	LvlMinDex int
-	LvlMinInt int
-	Lvl       int
+	NivMinFor int
+	NivMinDex int
+	NivMinInt int
+	Niv       int
 	// Stat Damage
-	Pvbonus    int
-	Poids      int
-	IsUnlocked bool
-	IsEquiped  bool
+	VieBonus    int
+	Poids       int
+	EstDebloque bool
+	IsEquiped   bool
 }
 
-func (a *Armes) InitIntern_Armes(nom string, Prix, lvlMinFor, lvlMinDex, lvlMinInt, deg, poids int) {
+func (a *Armes) Initialisation_Interne_Armes(nom string, Prix, NivMinFor, NivMinDex, NivMinInt, Degats, poids int) {
 	a.Nom = nom
 	a.Prix = Prix
-	a.LvlMinFor = lvlMinFor
-	a.LvlMinDex = lvlMinDex
-	a.LvlMinInt = lvlMinInt
-	a.Deg = deg
+	a.NivMinFor = NivMinFor
+	a.NivMinDex = NivMinDex
+	a.NivMinInt = NivMinInt
+	a.Degats = Degats
 	a.Poids = poids
-	a.IsUnlocked = false
+	a.EstDebloque = false
 	a.IsEquiped = false
-	a.Lvl = 1
+	a.Niv = 1
 
 }
 
-func (a *Armes) Init_Armes(number int) {
-	switch number {
+func (a *Armes) Initialisation_Armes(nombre int) {
+	switch nombre {
 	case 1:
-		a.InitIntern_Armes("Dague", 100, 9, 11, 8, 20, 3)
+		a.Initialisation_Interne_Armes("Dague", 100, 9, 11, 8, 20, 3)
 	case 2:
-		a.InitIntern_Armes("Claymore", 2000, 11, 9, 8, 50, 8)
+		a.Initialisation_Interne_Armes("Claymore", 2000, 11, 9, 8, 50, 8)
 	case 3:
-		a.InitIntern_Armes("Rapière", 500, 9, 12, 9, 35, 5)
+		a.Initialisation_Interne_Armes("Rapière", 500, 9, 12, 9, 35, 5)
 	case 4:
-		a.InitIntern_Armes("Uchigatana", 1000, 10, 14, 10, 40, 6)
+		a.Initialisation_Interne_Armes("Uchigatana", 1000, 10, 14, 10, 40, 6)
 	case 5:
-		a.InitIntern_Armes("Bâton", 100, 7, 7, 7, 15, 3)
+		a.Initialisation_Interne_Armes("Bâton", 100, 7, 7, 7, 15, 3)
 	case 6:
-		a.InitIntern_Armes("Hache queue de gargouille", 5000, 14, 10, 8, 60, 12)
+		a.Initialisation_Interne_Armes("Hache queue de gargouille", 5000, 14, 10, 8, 60, 12)
 	}
 }
 
-func (b *Boucliers) InitIntern_Bouclier(nom string, Prix, lvlMinFor, lvlMinDex, lvlMinInt, pvbonus, poids int) {
+func (b *Boucliers) Initialisation_Interne_Bouclier(nom string, Prix, NivMinFor, NivMinDex, NivMinInt, VieBonus, poids int) {
 	b.Nom = nom
 	b.Prix = Prix
-	b.LvlMinFor = lvlMinFor
-	b.LvlMinDex = lvlMinDex
-	b.LvlMinInt = lvlMinInt
-	b.Pvbonus = pvbonus
+	b.NivMinFor = NivMinFor
+	b.NivMinDex = NivMinDex
+	b.NivMinInt = NivMinInt
+	b.VieBonus = VieBonus
 	b.Poids = poids
-	b.IsUnlocked = false
+	b.EstDebloque = false
 	b.IsEquiped = false
-	b.Lvl = 1
+	b.Niv = 1
 
 }
 
-func (b *Boucliers) Init_Bouclier(number int) {
-	switch number {
+func (b *Boucliers) Initialisation_Bouclier(nombre int) {
+	switch nombre {
 	case 1:
-		b.InitIntern_Bouclier("Bouclier en bois", 50, 9, 8, 8, 20, 3)
+		b.Initialisation_Interne_Bouclier("Bouclier en bois", 50, 9, 8, 8, 20, 3)
 	case 2:
-		b.InitIntern_Bouclier("Bouclier en bois de cerf", 100, 10, 8, 8, 40, 5)
+		b.Initialisation_Interne_Bouclier("Bouclier en bois de cerf", 100, 10, 8, 8, 40, 5)
 	case 3:
-		b.InitIntern_Bouclier("Bouclier en fer", 700, 12, 8, 8, 75, 9)
+		b.Initialisation_Interne_Bouclier("Bouclier en fer", 700, 12, 8, 8, 75, 9)
 	case 4:
-		b.InitIntern_Bouclier("Bouclier en acier", 500, 10, 12, 9, 65, 5)
+		b.Initialisation_Interne_Bouclier("Bouclier en acier", 500, 10, 12, 9, 65, 5)
 	case 5:
-		b.InitIntern_Bouclier("Bouclier en mithril", 1200, 12, 16, 10, 120, 6)
+		b.Initialisation_Interne_Bouclier("Bouclier en mithril", 1200, 12, 16, 10, 120, 6)
 	case 6:
-		b.InitIntern_Bouclier("Bouclier d'Havel", 5000, 20, 10, 10, 175, 20)
+		b.Initialisation_Interne_Bouclier("Bouclier d'Havel", 5000, 20, 10, 10, 175, 20)
 	}
 }
 
-func (a *Armes) ReturnIsEquiped() bool {
-	return a.IsEquiped
-}
-
-func (b *Boucliers) ReturnIsEquiped() bool {
-	return b.IsEquiped
-}
-
-func (a *Armes) Ameliorer_arme(p *Personnage) {
+func (a *Armes) Ameliorer_Arme(p *Personnage) {
 	if a.Nom == "Bâton" {
-		a.Lvl++
-		a.Deg *= 3
+		a.Niv++
+		a.Degats *= 3
 	} else {
-		a.Lvl++
-		a.Deg = a.Deg + a.Deg/5
+		a.Niv++
+		a.Degats = a.Degats + a.Degats/5
 	}
-	switch a.Lvl {
+	switch a.Niv {
 	case 2:
 		p.Ames -= 100
-		p.Inv.Liste_items["éclat de titanite"] -= 6
+		p.Inv.Liste_Items["éclat de titanite"] -= 6
 	case 3:
 		p.Ames -= 500
-		p.Inv.Liste_items["éclat de titanite"] -= 3
-		p.Inv.Liste_items["grand éclat de titanite"] -= 3
+		p.Inv.Liste_Items["éclat de titanite"] -= 3
+		p.Inv.Liste_Items["grand éclat de titanite"] -= 3
 	case 4:
 		p.Ames -= 2000
-		p.Inv.Liste_items["éclat de titanite"] -= 2
-		p.Inv.Liste_items["grand éclat de titanite"] -= 2
-		p.Inv.Liste_items["tablette de titanite"] -= 2
+		p.Inv.Liste_Items["éclat de titanite"] -= 2
+		p.Inv.Liste_Items["grand éclat de titanite"] -= 2
+		p.Inv.Liste_Items["tablette de titanite"] -= 2
 	}
-	Affichage("Amélioration", []string{"Félécitation, vous venez d'améliorer votre arme !", "Désormais votre " + a.Nom + " est au niveau " + strconv.Itoa(a.Lvl), "Désormais votre " + a.Nom + " fait " + strconv.Itoa(a.Deg) + " dégats !"}, true, true)
+	Affichage("Amélioration", []string{"Félécitation, vous venez d'améliorer votre arme !", "Désormais votre " + a.Nom + " est au niveau " + strconv.Itoa(a.Niv), "Désormais votre " + a.Nom + " fait " + strconv.Itoa(a.Degats) + " dégats !"}, true, true)
 }
 
-func (b *Boucliers) Ameliorer_bouclier(p *Personnage) {
-	b.Lvl++
-	b.Pvbonus = b.Pvbonus + b.Pvbonus/5
-	switch b.Lvl {
+func (b *Boucliers) Ameliorer_Bouclier(p *Personnage) {
+	b.Niv++
+	b.VieBonus = b.VieBonus + b.VieBonus/5
+	switch b.Niv {
 	case 2:
 		p.Ames -= 100
-		p.Inv.Liste_items["éclat de titanite"] -= 6
+		p.Inv.Liste_Items["éclat de titanite"] -= 6
 	case 3:
 		p.Ames -= 500
-		p.Inv.Liste_items["éclat de titanite"] -= 3
-		p.Inv.Liste_items["grand éclat de titanite"] -= 3
+		p.Inv.Liste_Items["éclat de titanite"] -= 3
+		p.Inv.Liste_Items["grand éclat de titanite"] -= 3
 	case 4:
 		p.Ames -= 2000
-		p.Inv.Liste_items["éclat de titanite"] -= 2
-		p.Inv.Liste_items["grand éclat de titanite"] -= 2
-		p.Inv.Liste_items["tablette de titanite"] -= 2
+		p.Inv.Liste_Items["éclat de titanite"] -= 2
+		p.Inv.Liste_Items["grand éclat de titanite"] -= 2
+		p.Inv.Liste_Items["tablette de titanite"] -= 2
 	}
-	Affichage("Amélioration", []string{"Félécitation, vous venez d'améliorer votre bouclier !", "Désormais votre " + b.Nom + " est au niveau " + strconv.Itoa(b.Lvl), "Désormais votre " + b.Nom + " donne " + strconv.Itoa(b.Pvbonus) + " points de vie bonus !"}, true, true)
+	Affichage("Amélioration", []string{"Félécitation, vous venez d'améliorer votre bouclier !", "Désormais votre " + b.Nom + " est au niveau " + strconv.Itoa(b.Niv), "Désormais votre " + b.Nom + " donne " + strconv.Itoa(b.VieBonus) + " points de vie bonus !"}, true, true)
 }

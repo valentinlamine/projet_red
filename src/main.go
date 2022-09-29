@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	database.Init()
+	database.Initialisation()
 	for {
 		database.Menu()
 	}

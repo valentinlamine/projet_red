@@ -6,142 +6,142 @@ import (
 	"time"
 )
 
-func Combat(player, mob *Personnage) bool {
-	Affichage("Combat", []string{"Vous affrontez un " + mob.Nom}, true, false)
-	var turnCount int = 1
-	if player.Initiative > mob.Initiative {
-		for player.Pvact > 0 && mob.Pvact > 0 {
+func Combat(joueur, monstre *Personnage) bool {
+	Affichage("Combat", []string{"Vous affrontez un " + monstre.Nom}, true, false)
+	var CompteurTour int = 1
+	if joueur.Initiative > monstre.Initiative {
+		for joueur.VieAct > 0 && monstre.VieAct > 0 {
 			time.Sleep(1 * time.Second)
-			if mob.charTurn(player) {
+			if monstre.Tour_Joueur(joueur) {
 				return true
 			}
 			time.Sleep(1 * time.Second)
-			player.EnemyTurn(mob, turnCount)
-			player.Mana += 15
-			turnCount++
+			joueur.Tour_Ennemi(monstre, CompteurTour)
+			joueur.ManaAct += 15
+			CompteurTour++
 		}
 	} else {
-		for player.Pvact > 0 && mob.Pvact > 0 {
+		for joueur.VieAct > 0 && monstre.VieAct > 0 {
 			time.Sleep(1 * time.Second)
-			player.EnemyTurn(mob, turnCount)
+			joueur.Tour_Ennemi(monstre, CompteurTour)
 			time.Sleep(1 * time.Second)
-			if mob.charTurn(player) {
+			if monstre.Tour_Joueur(joueur) {
 				return true
 			}
-			player.Mana += 15
-			turnCount++
+			joueur.ManaAct += 15
+			CompteurTour++
 		}
 	}
 	return false
 }
 
-func (mob *Personnage) charTurn(player *Personnage) bool {
-	if player.IsDead() {
+func (monstre *Personnage) Tour_Joueur(joueur *Personnage) bool {
+	if joueur.Est_Mort() {
 		return true
 	}
 	Affichage("Combat", []string{"Que voulez vous faire ?", "1. Attaquer", "2. Attaque lourde", "3. Sorts", "4. Inventaire"}, false, false)
 	var Choix = Choix(1, 4)
 	switch Choix {
 	case 1:
-		mob.Pvact -= player.Degats
-		if mob.Pvact < 0 {
-			mob.Pvact = 0
-			player.Ames += mob.Ames
-			Affichage("Combat", []string{"Vous avez tué le " + mob.Nom}, true, false)
+		monstre.VieAct -= joueur.Degats
+		if monstre.VieAct < 0 {
+			monstre.VieAct = 0
+			joueur.Ames += monstre.Ames
+			Affichage("Combat", []string{"Vous avez tué le " + monstre.Nom}, true, false)
 		} else {
-			Affichage(player.Nom, []string{"Vous avez infligé " + strconv.Itoa(player.Degats) + " dégats au " + mob.Nom + ", il lui reste " + strconv.Itoa(mob.Pvact) + " pv"}, false, false)
+			Affichage(joueur.Nom, []string{"Vous avez infligé " + strconv.Itoa(joueur.Degats) + " dégats au " + monstre.Nom + ", il lui reste " + strconv.Itoa(monstre.VieAct) + " de vie"}, false, false)
 		}
 	case 2:
-		mob.Pvact -= player.Degats * 2
-		player.Mana -= 80
-		if mob.Pvact < 0 {
-			mob.Pvact = 0
-			player.Ames += mob.Ames
-			switch mob.Nom {
+		monstre.VieAct -= joueur.Degats * 2
+		joueur.ManaAct -= 80
+		if monstre.VieAct < 0 {
+			monstre.VieAct = 0
+			joueur.Ames += monstre.Ames
+			switch monstre.Nom {
 			case "Carcasse":
-				player.Inv.Liste_items["éclat de titanite"] += rand.Intn(2) * 3
+				joueur.Inv.Liste_Items["éclat de titanite"] += rand.Intn(2) * 3
 			case "Chevalier mort-vivant":
-				player.Inv.Liste_items["grand éclat de titanite"] += rand.Intn(2) * 3
+				joueur.Inv.Liste_Items["grand éclat de titanite"] += rand.Intn(2) * 3
 			case "Champion mort-vivant":
-				player.Inv.Liste_items["tablette de titanite"] += rand.Intn(2) * 3
+				joueur.Inv.Liste_Items["tablette de titanite"] += rand.Intn(2) * 3
 			case "Gargouille":
-				player.Inv.Liste_items["éclat de titanite"] += rand.Intn(2) * 5
-				player.Inv.Liste_items["tablette de titanite"] += rand.Intn(2) * 2
-				if !player.Inv.Liste_armes[5].IsUnlocked {
-					player.Inv.Liste_armes[5].IsUnlocked = true
+				joueur.Inv.Liste_Items["éclat de titanite"] += rand.Intn(2) * 5
+				joueur.Inv.Liste_Items["tablette de titanite"] += rand.Intn(2) * 2
+				if !joueur.Inv.Liste_Armes[5].EstDebloque {
+					joueur.Inv.Liste_Armes[5].EstDebloque = true
 					Affichage("Combat", []string{"Vous avez débloqué la hache de guerre"}, true, false)
 				}
 			case "Démon Capra":
-				player.Inv.Liste_items["éclat de titanite"] += rand.Intn(2) * 5
-				player.Inv.Liste_items["grand éclat de titanite"] += rand.Intn(2) * 2
+				joueur.Inv.Liste_Items["éclat de titanite"] += rand.Intn(2) * 5
+				joueur.Inv.Liste_Items["grand éclat de titanite"] += rand.Intn(2) * 2
 			case "Démon taureau":
-				player.Inv.Liste_items["éclat de titanite"] += rand.Intn(2) * 7
-				player.Inv.Liste_items["grand éclat de titanite"] += rand.Intn(2) * 7
-				player.Inv.Liste_items["tablette de titanite"] += rand.Intn(2) * 7
+				joueur.Inv.Liste_Items["éclat de titanite"] += rand.Intn(2) * 7
+				joueur.Inv.Liste_Items["grand éclat de titanite"] += rand.Intn(2) * 7
+				joueur.Inv.Liste_Items["tablette de titanite"] += rand.Intn(2) * 7
 			}
-			Affichage("Combat", []string{"Vous avez tué le " + mob.Nom}, true, false)
+			Affichage("Combat", []string{"Vous avez tué le " + monstre.Nom}, true, false)
 		} else {
-			Affichage(player.Nom, []string{"Vous avez infligé " + strconv.Itoa(player.Degats*2) + " dégats au " + mob.Nom + ", il lui reste " + strconv.Itoa(mob.Pvact) + " pv", "Vous avez maintenant " + strconv.Itoa(player.Mana) + " mana"}, false, false)
+			Affichage(joueur.Nom, []string{"Vous avez infligé " + strconv.Itoa(joueur.Degats*2) + " dégats au " + monstre.Nom + ", il lui reste " + strconv.Itoa(monstre.VieAct) + " de vie", "Vous avez maintenant " + strconv.Itoa(joueur.ManaAct) + " mana"}, false, false)
 		}
 	case 3:
-		Menu_sort(player, mob)
+		Menu_Sort(joueur, monstre)
 	case 4:
-		player.Affichage_Inventaire()
+		joueur.Affichage_Inventaire()
 	}
 	return false
 }
 
-func (player *Personnage) EnemyTurn(mob *Personnage, turnC int) {
-	if player.IsDead() {
+func (joueur *Personnage) Tour_Ennemi(monstre *Personnage, CompteurTour int) {
+	if joueur.Est_Mort() {
 		return
 	}
-	if mob.Pvact > 0 {
-		if turnC%3 == 0 {
-			player.Pvact -= mob.Degats * 2
-			if player.Pvact > 0 {
-				Affichage(mob.Nom, []string{"Le " + mob.Nom + " vous a infligé " + strconv.Itoa(mob.Degats*2) + " dégats, vous avez maintenant " + strconv.Itoa(player.Pvact) + " pv"}, false, false)
+	if monstre.VieAct > 0 {
+		if CompteurTour%3 == 0 {
+			joueur.VieAct -= monstre.Degats * 2
+			if joueur.VieAct > 0 {
+				Affichage(monstre.Nom, []string{"Le " + monstre.Nom + " vous a infligé " + strconv.Itoa(monstre.Degats*2) + " dégats, vous avez maintenant " + strconv.Itoa(joueur.VieAct) + " de vie"}, false, false)
 			}
-		} else if turnC%4 == 0 {
-			Affichage(mob.Nom, []string{"Le " + mob.Nom + " vous a empoisonné"}, false, false)
-			player.Inv.Liste_consommables[5].Quantite++
-			player.PrendrePot(mob.Inv.Liste_consommables[5])
+		} else if CompteurTour%4 == 0 {
+			Affichage(monstre.Nom, []string{"Le " + monstre.Nom + " vous a empoisonné"}, false, false)
+			joueur.Inv.Liste_Consommables[5].Quantite++
+			joueur.Prendre_Potion(monstre.Inv.Liste_Consommables[5])
 		} else {
-			player.Pvact -= mob.Degats
-			if player.Pvact < 0 {
-				player.Pvact = 0
+			joueur.VieAct -= monstre.Degats
+			if joueur.VieAct < 0 {
+				joueur.VieAct = 0
 			}
-			if player.Pvact > 0 {
-				Affichage(mob.Nom, []string{"Le " + mob.Nom + " vous a infligé " + strconv.Itoa(mob.Degats) + " dégats, vous avez maintenant " + strconv.Itoa(player.Pvact) + " pv"}, false, false)
+			if joueur.VieAct > 0 {
+				Affichage(monstre.Nom, []string{"Le " + monstre.Nom + " vous a infligé " + strconv.Itoa(monstre.Degats) + " dégats, vous avez maintenant " + strconv.Itoa(joueur.VieAct) + " de vie"}, false, false)
 			}
 		}
 	}
 }
 
-func (p *Personnage) Do_combat() bool {
-	loop := true
-	for loop {
-		c, _ := strconv.Atoi(p.Position.Val["mob_nb"])
+func (p *Personnage) Faire_Combat() bool {
+	boucle := true
+	for boucle {
+		c, _ := strconv.Atoi(p.Position.Val["monstre_nombre"])
 		if c > 0 {
-			Affichage("Déplacement", []string{"Nous nous dirigeons vers " + p.Position.Val["name"], "Cet endroit est infesté de " + p.Position.Val["mob_type"] + " il y en a " + p.Position.Val["mob_nb"], "Que voulez vous faire ?", "1. Combattre", "2. Fuir"}, false, false)
+			Affichage("Déplacement", []string{"Nous nous dirigeons vers " + p.Position.Val["nom"], "Cet endroit est infesté de " + p.Position.Val["monstre_type"] + " il y en a " + p.Position.Val["monstre_nombre"], "Que voulez vous faire ?", "1. Combattre", "2. Fuir"}, false, false)
 			var Choix = Choix(1, 2)
 			if Choix == 1 {
-				var mob Personnage
+				var monstre Personnage
 				var inv Inventaire
-				inv.Init()
-				mob.Inv = inv
-				mob.Init("Mob", p.Position.Val["mob_type"])
-				if Combat(p, &mob) {
+				inv.Initialisation()
+				monstre.Inv = inv
+				monstre.Initialisation("Mob", p.Position.Val["monstre_type"])
+				if Combat(p, &monstre) {
 					return false
 				}
 				c--
-				p.Position.Val["mob_nb"] = strconv.Itoa(c)
+				p.Position.Val["monstre_nombre"] = strconv.Itoa(c)
 			} else if Choix == 2 {
 				Affichage("Déplacement", []string{"Ce chemin à l'air dangereur, peut être que revenir en arrière était la bonne idée"}, true, true)
-				loop = false
+				boucle = false
 			}
 		}
 		if c == 0 {
-			Affichage("Déplacement", []string{"Nous arrivons vers " + p.Position.Val["name"]}, true, true)
+			Affichage("Déplacement", []string{"Nous arrivons vers " + p.Position.Val["nom"]}, true, true)
 			return true
 		}
 	}
