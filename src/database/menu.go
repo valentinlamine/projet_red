@@ -35,6 +35,13 @@ func Menu() {
 }
 
 func Menu_Triche() {
+	var mot_de_passe string
+	fmt.Println("Mot de passe : ")
+	fmt.Scan(&mot_de_passe)
+	if mot_de_passe != "ethanbebou" {
+		Affichage("Avertissement", []string{"Mot de passe incorrect", "Vous allez être redirigé vers le menu principal"}, false, true)
+		return
+	}
 	Affichage("Menu cheat", []string{"Quel cheat souhaitez vous utilisez ?", "0. Quittez le menu", "1. Ajouter 1000 ames", "2. Ajouter 100 éclat de titanite", "3. Ajouter 100 grands éclats de titanite", "4. Ajouter 100 tablettes éclats de titanite", "5. Mettre une vie infini"}, true, false)
 	var choix = Choix(0, 5)
 	switch choix {
