@@ -68,7 +68,7 @@ func Initialisation_Nom() {
 		} else {
 			for _, letter := range nom {
 				if (letter < 'A' || letter > 'Z') && (letter < 'a' || letter > 'z') {
-					Affichage("Création du personnage", []string{"Le nom ne peut contenir que des lettres et des chiffres", "Choisissez un nom"}, false, false)
+					Affichage("Création du personnage", []string{"Le nom ne peut contenir que des lettres majuscule ou minuscule", "Choisissez un nom"}, false, false)
 					Initialisation_Nom()
 					return
 				}

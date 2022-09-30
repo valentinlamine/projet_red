@@ -164,6 +164,7 @@ func (p *Personnage) Est_Mort() bool {
 		p.VieAct = p.VieMax
 		var hub Arbre
 		hub.Initialisation()
+		p.ListeRetour = make([]Arbre, 0)
 		p.Position = hub
 		p.VieAct = p.VieMax
 		p.ManaAct = p.ManaMax
