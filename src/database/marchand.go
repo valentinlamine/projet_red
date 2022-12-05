@@ -219,7 +219,7 @@ func (m *Marchand) Echange(joueur *Personnage) {
 					if Est_Echangeable(joueur, "Consommables", i) {
 						joueur.Inv.Liste_Consommables[i].Quantite++
 						joueur.Ames -= m.Inv.Liste_Consommables[i].Prix
-						if i > 0 && i < 5 {
+						if i > 0 && i < 5 && joueur.Ames >= m.Inv.Liste_Consommables[i].Prix {
 							m.Inv.Liste_Consommables[1].Prix += (joueur.Niveau * joueur.Niveau) / 2
 							m.Inv.Liste_Consommables[2].Prix += (joueur.Niveau * joueur.Niveau) / 2
 							m.Inv.Liste_Consommables[3].Prix += (joueur.Niveau * joueur.Niveau) / 2
@@ -228,6 +228,8 @@ func (m *Marchand) Echange(joueur *Personnage) {
 							joueur.Inv.Liste_Consommables[i].Quantite--
 							m.Echange(joueur)
 							return
+						} else if joueur.Ames < m.Inv.Liste_Consommables[i].Prix {
+							Affichage("Echec", []string{"Vous n'avez pas assez d'âmes pour acheter ce consommable"}, true, true)
 						} else {
 							Affichage("Succès", []string{"Vous avez acheté le consommable " + m.Inv.Liste_Consommables[i].Nom}, true, true)
 							m.Echange(joueur)
